@@ -1,4 +1,5 @@
 import Grammar from "../lib/siwe-grammar.js";
+import { cb } from "./callbacks";
 import apgLib from "apg-js/src/apg-lib/node-exports";
 import * as fs from "node:fs";
 // import * as utils from "apg-js/src/apg-lib/utilities";
@@ -8,41 +9,6 @@ const id = apgLib.ids;
 const doTrace = false;
 const dir = "./siwe-main/packages/siwe-parser/output";
 
-const signInWithEtherium = function (result, chars, phraseIndex, data) {
-  switch (result.state) {
-    case id.ACTIVE:
-      if (typeof data !== "object" || data === null) {
-        throw new Error("data must be an object");
-      }
-      // default data values
-      data.domain = undefined;
-      data.address = undefined;
-      data.statement = undefined;
-      data.uri = undefined;
-      data.version = undefined;
-      data["chain-id"] = undefined;
-      data.nonce = undefined;
-      data["issued-at"] = undefined;
-      data["expiration-time"] = undefined;
-      data["not-before"] = undefined;
-      data["request-id"] = undefined;
-      data.resources = undefined;
-      break;
-    case id.EMPTY:
-      break;
-    case id.MATCH:
-      // do various validations
-      if (result.state === id.MATCH) {
-        console.log("success");
-      }
-      break;
-    case id.NOMATCH:
-      throw new Error("invalid message");
-      break;
-    default:
-      throw new Error("unrecognized state");
-  }
-};
 export class ParsedMessage {
   domain: string;
   address: string;
@@ -65,7 +31,8 @@ export class ParsedMessage {
     }
 
     const elements = {};
-    parser.callbacks["sign-in-with-ethereum"] = signInWithEtherium;
+    parser.callbacks["sign-in-with-ethereum"] = cb.signInWithEtherium;
+    parser.callbacks["domain"] = cb.domain;
     const result = parser.parse(grammarObj, 0, msg, elements);
     if (doTrace) {
       const html = parser.trace.toHtmlPage("ascii", "siwe, default trace");
