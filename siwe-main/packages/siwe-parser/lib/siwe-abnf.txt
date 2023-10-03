@@ -118,9 +118,8 @@ fragment      = *(pchar / %d47 / %d36)
 
 pct-encoded   = "%" HEXDIG HEXDIG
 
-unreserved    = ALPHA / DIGIT / "-" / "." / "_" / "~"
+;unreserved    = ALPHA / DIGIT / "-" / "." / "_" / "~"
 ;reserved      = gen-delims / sub-delims
-reserved      = (%d33 / %d35-36 / %d38-44 / %d47 / %d58-59 / %d61 / %d63-64 / %d91 / %d93)
 ;gen-delims    = ":" / "/" / "?" / "#" / "[" / "]" / "@"
 ;sub-delims    = "!" / "$" / "&" / "'" / "(" / ")"
 ;              / "*" / "+" / "," / ";" / "="
