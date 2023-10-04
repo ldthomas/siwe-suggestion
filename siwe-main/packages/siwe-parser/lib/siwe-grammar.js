@@ -7,15 +7,15 @@ module.exports = function grammar(){
   // SUMMARY
   //      rules = 55
   //       udts = 0
-  //    opcodes = 407
+  //    opcodes = 408
   //        ---   ABNF original opcodes
   //        ALT = 19
-  //        CAT = 65
+  //        CAT = 64
   //        REP = 57
   //        RNM = 133
   //        TLS = 56
   //        TBS = 43
-  //        TRG = 34
+  //        TRG = 36
   //        ---   SABNF superset opcodes
   //        UDT = 0
   //        AND = 0
@@ -155,7 +155,7 @@ module.exports = function grammar(){
   /* statement */
   this.rules[3].opcodes = [];
   this.rules[3].opcodes[0] = {type: 3, min: 1, max: Infinity};// REP
-  this.rules[3].opcodes[1] = {type: 1, children: [2,3,4,5,6,7,8,9,10,11,12]};// ALT
+  this.rules[3].opcodes[1] = {type: 1, children: [2,3,4,5,6,7,8,9,10,11,12,13]};// ALT
   this.rules[3].opcodes[2] = {type: 5, min: 97, max: 122};// TRG
   this.rules[3].opcodes[3] = {type: 5, min: 65, max: 90};// TRG
   this.rules[3].opcodes[4] = {type: 5, min: 48, max: 57};// TRG
@@ -167,6 +167,7 @@ module.exports = function grammar(){
   this.rules[3].opcodes[10] = {type: 6, string: [91]};// TBS
   this.rules[3].opcodes[11] = {type: 6, string: [93]};// TBS
   this.rules[3].opcodes[12] = {type: 6, string: [95]};// TBS
+  this.rules[3].opcodes[13] = {type: 6, string: [126]};// TBS
 
   /* version */
   this.rules[4].opcodes = [];
@@ -275,7 +276,7 @@ module.exports = function grammar(){
   this.rules[17].opcodes[6] = {type: 6, string: [33]};// TBS
   this.rules[17].opcodes[7] = {type: 6, string: [36]};// TBS
   this.rules[17].opcodes[8] = {type: 5, min: 38, max: 46};// TRG
-  this.rules[17].opcodes[9] = {type: 6, string: [58]};// TBS
+  this.rules[17].opcodes[9] = {type: 5, min: 58, max: 59};// TRG
   this.rules[17].opcodes[10] = {type: 6, string: [61]};// TBS
   this.rules[17].opcodes[11] = {type: 6, string: [95]};// TBS
   this.rules[17].opcodes[12] = {type: 6, string: [126]};// TBS
@@ -316,7 +317,7 @@ module.exports = function grammar(){
   this.rules[21].opcodes[10] = {type: 6, string: [33]};// TBS
   this.rules[21].opcodes[11] = {type: 6, string: [36]};// TBS
   this.rules[21].opcodes[12] = {type: 5, min: 38, max: 46};// TRG
-  this.rules[21].opcodes[13] = {type: 6, string: [58]};// TBS
+  this.rules[21].opcodes[13] = {type: 5, min: 58, max: 59};// TRG
   this.rules[21].opcodes[14] = {type: 6, string: [61]};// TBS
   this.rules[21].opcodes[15] = {type: 6, string: [95]};// TBS
   this.rules[21].opcodes[16] = {type: 6, string: [126]};// TBS
@@ -463,7 +464,7 @@ module.exports = function grammar(){
   /* reg-name */
   this.rules[27].opcodes = [];
   this.rules[27].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[27].opcodes[1] = {type: 1, children: [2,3,4,5,6,7,8,9,10,11]};// ALT
+  this.rules[27].opcodes[1] = {type: 1, children: [2,3,4,5,6,7,8,9,10,11,12]};// ALT
   this.rules[27].opcodes[2] = {type: 5, min: 97, max: 122};// TRG
   this.rules[27].opcodes[3] = {type: 5, min: 65, max: 90};// TRG
   this.rules[27].opcodes[4] = {type: 5, min: 48, max: 57};// TRG
@@ -472,8 +473,9 @@ module.exports = function grammar(){
   this.rules[27].opcodes[7] = {type: 6, string: [36]};// TBS
   this.rules[27].opcodes[8] = {type: 5, min: 38, max: 46};// TRG
   this.rules[27].opcodes[9] = {type: 6, string: [59]};// TBS
-  this.rules[27].opcodes[10] = {type: 6, string: [95]};// TBS
-  this.rules[27].opcodes[11] = {type: 6, string: [126]};// TBS
+  this.rules[27].opcodes[10] = {type: 6, string: [61]};// TBS
+  this.rules[27].opcodes[11] = {type: 6, string: [95]};// TBS
+  this.rules[27].opcodes[12] = {type: 6, string: [126]};// TBS
 
   /* path-abempty */
   this.rules[28].opcodes = [];
@@ -519,7 +521,7 @@ module.exports = function grammar(){
 
   /* pchar */
   this.rules[34].opcodes = [];
-  this.rules[34].opcodes[0] = {type: 1, children: [1,2,3,4,5,6,7,8,9,10,11]};// ALT
+  this.rules[34].opcodes[0] = {type: 1, children: [1,2,3,4,5,6,7,8,9,10,11,12]};// ALT
   this.rules[34].opcodes[1] = {type: 5, min: 97, max: 122};// TRG
   this.rules[34].opcodes[2] = {type: 5, min: 65, max: 90};// TRG
   this.rules[34].opcodes[3] = {type: 5, min: 48, max: 57};// TRG
@@ -530,9 +532,8 @@ module.exports = function grammar(){
   this.rules[34].opcodes[8] = {type: 5, min: 58, max: 59};// TRG
   this.rules[34].opcodes[9] = {type: 6, string: [61]};// TBS
   this.rules[34].opcodes[10] = {type: 6, string: [64]};// TBS
-  this.rules[34].opcodes[11] = {type: 2, children: [12,13]};// CAT
-  this.rules[34].opcodes[12] = {type: 6, string: [95]};// TBS
-  this.rules[34].opcodes[13] = {type: 6, string: [126]};// TBS
+  this.rules[34].opcodes[11] = {type: 6, string: [95]};// TBS
+  this.rules[34].opcodes[12] = {type: 6, string: [126]};// TBS
 
   /* query */
   this.rules[35].opcodes = [];
@@ -540,7 +541,7 @@ module.exports = function grammar(){
   this.rules[35].opcodes[1] = {type: 1, children: [2,3,4]};// ALT
   this.rules[35].opcodes[2] = {type: 4, index: 34};// RNM(pchar)
   this.rules[35].opcodes[3] = {type: 6, string: [47]};// TBS
-  this.rules[35].opcodes[4] = {type: 6, string: [36]};// TBS
+  this.rules[35].opcodes[4] = {type: 6, string: [63]};// TBS
 
   /* fragment */
   this.rules[36].opcodes = [];
@@ -548,7 +549,7 @@ module.exports = function grammar(){
   this.rules[36].opcodes[1] = {type: 1, children: [2,3,4]};// ALT
   this.rules[36].opcodes[2] = {type: 4, index: 34};// RNM(pchar)
   this.rules[36].opcodes[3] = {type: 6, string: [47]};// TBS
-  this.rules[36].opcodes[4] = {type: 6, string: [36]};// TBS
+  this.rules[36].opcodes[4] = {type: 6, string: [63]};// TBS
 
   /* pct-encoded */
   this.rules[37].opcodes = [];
@@ -661,7 +662,7 @@ module.exports = function grammar(){
   this.rules[54].opcodes = [];
   this.rules[54].opcodes[0] = {type: 1, children: [1,2,3]};// ALT
   this.rules[54].opcodes[1] = {type: 5, min: 48, max: 57};// TRG
-  this.rules[54].opcodes[2] = {type: 5, min: 67, max: 70};// TRG
+  this.rules[54].opcodes[2] = {type: 5, min: 65, max: 70};// TRG
   this.rules[54].opcodes[3] = {type: 5, min: 97, max: 102};// TRG
 
   // The `toString()` function will display the original grammar file(s) that produced these opcodes.
@@ -669,8 +670,8 @@ module.exports = function grammar(){
     let str = "";
     str += "; LDT 09/30/3023 \n";
     str += "; modified in two significant ways\n";
-    str += "; 1) Literal strings are rreplaced with numbers and ranges (%d32 & %d32-126, etc.) when possible.\n";
-    str += ";    TRB and especially TRG operators are much more efficient that many alternatives of TLS operators.\n";
+    str += "; 1) Literal strings are replaced with numbers and ranges (%d32 & %d32-126, etc.) when possible.\n";
+    str += ";    TRB and especially TRG operators are much more efficient than TLS operators.\n";
     str += "; 2) Several rules are used multiple times in different contexts. These rules will be reproduced and renamed\n";
     str += ";    in order to a) recognize the context and b) remove unneccary callback functions for certain contexts.\n";
     str += ";    This will simiplify recognizing contexts AND remove unneccesary callbacks.\n";
@@ -701,8 +702,9 @@ module.exports = function grammar(){
     str += "    ; where applicable (EOAs).\n";
     str += "\n";
     str += ";statement = 1*( reserved / unreserved / \" \" )\n";
-    str += "statement = 1*( %d97-122 / %d65-90/ %d48-57 / %d32-33 / %d35-36 / %d38-59 / %d61 / %d63-64 / %d91 / %d93 / %d95)\n";
+    str += "statement = 1*( %d97-122 / %d65-90 / %d48-57 / %d32-33 / %d35-36 / %d38-59 / %d61 / %d63-64 / %d91 / %d93 / %d95 / %d126)\n";
     str += "    ; The purpose is to exclude LF (line breaks).\n";
+    str += "    ; LDT 10/04/2023: Do you mean %d32-126? All printing characters\n";
     str += "\n";
     str += "version = \"1\"\n";
     str += "\n";
@@ -736,13 +738,14 @@ module.exports = function grammar(){
     str += "\n";
     str += "authority     = [ userinfo \"@\" ] host [ \":\" port ]\n";
     str += ";userinfo      = *( unreserved / pct-encoded / sub-delims / \":\" )\n";
-    str += "userinfo      = *( %d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 /%d38-46 / %d58 /%d61 /%d95 / %d126  )\n";
+    str += "userinfo      = *(%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 / %d58-59 / %d61 / %d95 / %d126)\n";
     str += "host          = IP-literal / IPv4address / reg-name\n";
     str += "port          = *DIGIT\n";
     str += "\n";
     str += "IP-literal    = \"[\" ( IPv6address / IPvFuture  ) \"]\"\n";
     str += "\n";
-    str += "IPvFuture     = \"v\" 1*HEXDIG \".\" 1*( %d97-122 / %d65-90 / %d48-57 / %d33 / %d36 /%d38-46 / %d58 /%d61 /%d95 / %d126 )\n";
+    str += ";IPvFuture     = \"v\" 1*HEXDIG \".\" 1*( unreserved / sub-delims / \":\" )\n";
+    str += "IPvFuture     = \"v\" 1*HEXDIG \".\" 1*( %d97-122 / %d65-90 / %d48-57 / %d33 / %d36 /%d38-46 / %d58-59 /%d61 /%d95 / %d126 )\n";
     str += "\n";
     str += "IPv6address   =                            6( h16 \":\" ) ls32\n";
     str += "              /                       \"::\" 5( h16 \":\" ) ls32\n";
@@ -764,26 +767,25 @@ module.exports = function grammar(){
     str += "                 / \"25\" %x30-35          ; 250-255\n";
     str += "\n";
     str += ";reg-name      = *( unreserved / pct-encoded / sub-delims )\n";
-    str += "reg-name      = *(%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 / %d59 /%d95 / %d126)\n";
+    str += "reg-name      = *(%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 / %d59 / %d61 /%d95 / %d126)\n";
     str += "\n";
     str += "path-abempty  = *( \"/\" segment )\n";
     str += "path-absolute = \"/\" [ segment-nz *( \"/\" segment ) ]\n";
     str += "path-rootless = segment-nz *( \"/\" segment )\n";
-    str += ";path-empty    = 0pchar\n";
-    str += "               ; deprecated - \"\" is more efficient \n";
+    str += ";path-empty    = 0pchar; deprecated - empty literal string, \"\", is more efficient \n";
     str += "path-empty    = \"\"\n";
     str += "\n";
     str += "segment       = *pchar\n";
     str += "segment-nz    = 1*pchar\n";
     str += "\n";
-    str += "pchar         = (%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 /%d58-59 / %d61 / %d64 / %d95 %d126)\n";
+    str += "pchar         = (%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 /%d58-59 / %d61 / %d64 / %d95 / %d126)\n";
     str += ";pchar         = unreserved / pct-encoded / sub-delims / \":\" / \"@\"\n";
     str += "\n";
     str += ";query         = *( pchar / \"/\" / \"?\" )\n";
-    str += "query         = *(pchar / %d47 / %d36)\n";
+    str += "query         = *(pchar / %d47 / %d63)\n";
     str += "\n";
     str += ";fragment      = *( pchar / \"/\" / \"?\" )\n";
-    str += "fragment      = *(pchar / %d47 / %d36)\n";
+    str += "fragment      = *(pchar / %d47 / %d63)\n";
     str += "\n";
     str += "pct-encoded   = \"%\" HEXDIG HEXDIG\n";
     str += "\n";
@@ -824,7 +826,7 @@ module.exports = function grammar(){
     str += "DIGIT          =  %x30-39\n";
     str += "                  ; 0-9\n";
     str += ";HEXDIG         =  DIGIT / \"A\" / \"B\" / \"C\" / \"D\" / \"E\" / \"F\"\n";
-    str += "HEXDIG         = %d48-57 /%d67-70 / %d97-102\n";
+    str += "HEXDIG         = %d48-57 / %d65-70 / %d97-102\n";
     str += "\n";
     return str;
   }
