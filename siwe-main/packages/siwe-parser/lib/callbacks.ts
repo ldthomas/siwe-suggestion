@@ -26,7 +26,7 @@ export const cb = {
       case id.MATCH:
         // do various validations
         if (result.state === id.MATCH) {
-          console.log("success");
+          console.log("signInWithEtherium: success");
         }
         break;
       case id.NOMATCH:

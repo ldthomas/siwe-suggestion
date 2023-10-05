@@ -6,8 +6,9 @@ import * as fs from "node:fs";
 import { isEIP55Address, parseIntegerNumber } from "./utils";
 
 const id = apgLib.ids;
-const doTrace = false;
-const dir = "./siwe-main/packages/siwe-parser/output";
+const doTrace = true;
+const dir =
+  "/home/ldt/Projects/siwe-suggestion/siwe-main/packages/siwe-parser/output";
 
 export class ParsedMessage {
   domain: string;
@@ -34,6 +35,7 @@ export class ParsedMessage {
     parser.callbacks["sign-in-with-ethereum"] = cb.signInWithEtherium;
     parser.callbacks["domain"] = cb.domain;
     const result = parser.parse(grammarObj, 0, msg, elements);
+    console.dir(result);
     if (doTrace) {
       const html = parser.trace.toHtmlPage("ascii", "siwe, default trace");
       const name = `${dir}/siwe-trace.html`;

@@ -2,9 +2,15 @@
 ; modified in two significant ways
 ; 1) Literal strings are replaced with numbers and ranges (%d32 & %d32-126, etc.) when possible.
 ;    TRB and especially TRG operators are much more efficient than TLS operators.
-; 2) Several rules are used multiple times in different contexts. These rules will be reproduced and renamed
+; 2) Two rules, authority and URI, are used multiple times in different contexts. These rules will be reproduced and renamed
 ;    in order to a) recognize the context and b) remove unneccary callback functions for certain contexts.
-;    This will simiplify recognizing contexts AND remove unneccesary callbacks.
+;    This will simiplify recognizing contexts AND remove unneccesary callbacks
+; 2.a) domain is defined as authority-d which is identical to authority except that there will be no
+;      callback functions defined on authority-d or any of its *-d components.
+; 2.b) The resource URI is defined as URI-r and its components defined as *-r.
+;      In this way, callback functions can be defined on URI and is components while
+;      leaving URI-r to be parsed identically with no unnecessary callback functions to slow it down.
+; 
 
 
 sign-in-with-ethereum =
@@ -24,7 +30,7 @@ sign-in-with-ethereum =
     [ LF %s"Resources:"
     resources ]
 
-domain = authority
+domain = authority-d
 
 address = "0x" 40*40HEXDIG
     ; Must also conform to captilization
@@ -51,26 +57,36 @@ chain-id = 1*DIGIT
 
 resources = *( LF resource )
 
-resource = "- " URI
+resource = "- " URI-r
 
 ; ------------------------------------------------------------------------------
 ; RFC 3986
 
 URI           = scheme ":" hier-part [ "?" query ] [ "#" fragment ]
+URI-r         = scheme-r ":" hier-part-r [ "?" query-r ] [ "#" fragment-r ]
 
 hier-part     = "//" authority path-abempty
               / path-absolute
               / path-rootless
               / path-empty
+hier-part-r   = "//" authority-d path-abempty-r
+              / path-absolute-r
+              / path-rootless-r
+              / path-empty-r
 
 ;scheme        = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." )
 scheme        = ALPHA *( ALPHA / DIGIT / %d43 / %d45-46 )
+scheme-r      = ALPHA *( ALPHA / DIGIT / %d43 / %d45-46 )
 
 authority     = [ userinfo "@" ] host [ ":" port ]
+authority-d   = [ userinfo-d "@" ] host-d [ ":" port-d ]
 ;userinfo      = *( unreserved / pct-encoded / sub-delims / ":" )
 userinfo      = *(%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 / %d58-59 / %d61 / %d95 / %d126)
 host          = IP-literal / IPv4address / reg-name
 port          = *DIGIT
+userinfo-d    = *(%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 / %d58-59 / %d61 / %d95 / %d126)
+host-d        = IP-literal / IPv4address / reg-name
+port-d        = *DIGIT
 
 IP-literal    = "[" ( IPv6address / IPvFuture  ) "]"
 
@@ -104,6 +120,10 @@ path-absolute = "/" [ segment-nz *( "/" segment ) ]
 path-rootless = segment-nz *( "/" segment )
 ;path-empty    = 0pchar; deprecated - empty literal string, "", is more efficient 
 path-empty    = ""
+path-abempty-r  = *( "/" segment )
+path-absolute-r = "/" [ segment-nz *( "/" segment ) ]
+path-rootless-r = segment-nz *( "/" segment )
+path-empty-r    = ""
 
 segment       = *pchar
 segment-nz    = 1*pchar
@@ -113,9 +133,11 @@ pchar         = (%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38
 
 ;query         = *( pchar / "/" / "?" )
 query         = *(pchar / %d47 / %d63)
+query-r       = *(pchar / %d47 / %d63)
 
 ;fragment      = *( pchar / "/" / "?" )
 fragment      = *(pchar / %d47 / %d63)
+fragment-r    = *(pchar / %d47 / %d63)
 
 pct-encoded   = "%" HEXDIG HEXDIG
 

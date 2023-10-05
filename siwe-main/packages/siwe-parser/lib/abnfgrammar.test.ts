@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
-// import { cwd } from "node:process";
-// console.log(`Current directory: ${cwd()}`);
+import { cwd } from "node:process";
+console.log(`Current directory: ${cwd()}`);
 import Grammar from "../lib/siwe-grammar.js";
 import apgLib from "apg-js/src/apg-lib/node-exports";
 const id = apgLib.ids;
@@ -21,7 +21,6 @@ const userinfo = unreserved + subDelims + ":" + pctEncoded;
 const IPvFuture = "v123." + unreserved + subDelims + ":";
 const regName = unreserved + subDelims + pctEncoded;
 const fragment = pchar + "/?";
-// const doTrace = true;
 const dir = "./output";
 const doParse = function doParse(rule, input, doTrace) {
   const parser = new apgLib.parser();
@@ -46,6 +45,15 @@ const doParse = function doParse(rule, input, doTrace) {
   }
   return result;
 };
+
+// test getting siwe messages
+const parsingPositive: Object = require("../../../test/parsing_positive.json");
+Object.keys(parsingPositive).forEach((e) => {
+  console.log(`key=${e} `);
+  console.log(parsingPositive[e].message);
+});
+// test getting siwe messages
+
 describe("test strings with explicit special character definitions", () => {
   test("test pchar", () => {
     const rule = "segment-nz";
