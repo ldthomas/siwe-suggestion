@@ -5,14 +5,14 @@
 module.exports = function grammar(){
   // ```
   // SUMMARY
-  //      rules = 68
+  //      rules = 72
   //       udts = 0
-  //    opcodes = 495
+  //    opcodes = 499
   //        ---   ABNF original opcodes
   //        ALT = 25
   //        CAT = 78
   //        REP = 70
-  //        RNM = 160
+  //        RNM = 164
   //        TLS = 67
   //        TBS = 53
   //        TRG = 42
@@ -33,73 +33,77 @@ module.exports = function grammar(){
   /* RULES */
   this.rules = [];
   this.rules[0] = {name: 'sign-in-with-ethereum', lower: 'sign-in-with-ethereum', index: 0, isBkr: false};
-  this.rules[1] = {name: 'domain', lower: 'domain', index: 1, isBkr: false};
-  this.rules[2] = {name: 'address', lower: 'address', index: 2, isBkr: false};
-  this.rules[3] = {name: 'statement', lower: 'statement', index: 3, isBkr: false};
-  this.rules[4] = {name: 'version', lower: 'version', index: 4, isBkr: false};
-  this.rules[5] = {name: 'nonce', lower: 'nonce', index: 5, isBkr: false};
-  this.rules[6] = {name: 'issued-at', lower: 'issued-at', index: 6, isBkr: false};
-  this.rules[7] = {name: 'expiration-time', lower: 'expiration-time', index: 7, isBkr: false};
-  this.rules[8] = {name: 'not-before', lower: 'not-before', index: 8, isBkr: false};
-  this.rules[9] = {name: 'request-id', lower: 'request-id', index: 9, isBkr: false};
-  this.rules[10] = {name: 'chain-id', lower: 'chain-id', index: 10, isBkr: false};
-  this.rules[11] = {name: 'resources', lower: 'resources', index: 11, isBkr: false};
-  this.rules[12] = {name: 'resource', lower: 'resource', index: 12, isBkr: false};
-  this.rules[13] = {name: 'URI', lower: 'uri', index: 13, isBkr: false};
-  this.rules[14] = {name: 'URI-r', lower: 'uri-r', index: 14, isBkr: false};
-  this.rules[15] = {name: 'hier-part', lower: 'hier-part', index: 15, isBkr: false};
-  this.rules[16] = {name: 'hier-part-r', lower: 'hier-part-r', index: 16, isBkr: false};
-  this.rules[17] = {name: 'scheme', lower: 'scheme', index: 17, isBkr: false};
-  this.rules[18] = {name: 'scheme-r', lower: 'scheme-r', index: 18, isBkr: false};
-  this.rules[19] = {name: 'authority', lower: 'authority', index: 19, isBkr: false};
-  this.rules[20] = {name: 'authority-d', lower: 'authority-d', index: 20, isBkr: false};
-  this.rules[21] = {name: 'userinfo', lower: 'userinfo', index: 21, isBkr: false};
-  this.rules[22] = {name: 'host', lower: 'host', index: 22, isBkr: false};
-  this.rules[23] = {name: 'port', lower: 'port', index: 23, isBkr: false};
-  this.rules[24] = {name: 'userinfo-d', lower: 'userinfo-d', index: 24, isBkr: false};
-  this.rules[25] = {name: 'host-d', lower: 'host-d', index: 25, isBkr: false};
-  this.rules[26] = {name: 'port-d', lower: 'port-d', index: 26, isBkr: false};
-  this.rules[27] = {name: 'IP-literal', lower: 'ip-literal', index: 27, isBkr: false};
-  this.rules[28] = {name: 'IPvFuture', lower: 'ipvfuture', index: 28, isBkr: false};
-  this.rules[29] = {name: 'IPv6address', lower: 'ipv6address', index: 29, isBkr: false};
-  this.rules[30] = {name: 'h16', lower: 'h16', index: 30, isBkr: false};
-  this.rules[31] = {name: 'ls32', lower: 'ls32', index: 31, isBkr: false};
-  this.rules[32] = {name: 'IPv4address', lower: 'ipv4address', index: 32, isBkr: false};
-  this.rules[33] = {name: 'dec-octet', lower: 'dec-octet', index: 33, isBkr: false};
-  this.rules[34] = {name: 'reg-name', lower: 'reg-name', index: 34, isBkr: false};
-  this.rules[35] = {name: 'path-abempty', lower: 'path-abempty', index: 35, isBkr: false};
-  this.rules[36] = {name: 'path-absolute', lower: 'path-absolute', index: 36, isBkr: false};
-  this.rules[37] = {name: 'path-rootless', lower: 'path-rootless', index: 37, isBkr: false};
-  this.rules[38] = {name: 'path-empty', lower: 'path-empty', index: 38, isBkr: false};
-  this.rules[39] = {name: 'path-abempty-r', lower: 'path-abempty-r', index: 39, isBkr: false};
-  this.rules[40] = {name: 'path-absolute-r', lower: 'path-absolute-r', index: 40, isBkr: false};
-  this.rules[41] = {name: 'path-rootless-r', lower: 'path-rootless-r', index: 41, isBkr: false};
-  this.rules[42] = {name: 'path-empty-r', lower: 'path-empty-r', index: 42, isBkr: false};
-  this.rules[43] = {name: 'segment', lower: 'segment', index: 43, isBkr: false};
-  this.rules[44] = {name: 'segment-nz', lower: 'segment-nz', index: 44, isBkr: false};
-  this.rules[45] = {name: 'pchar', lower: 'pchar', index: 45, isBkr: false};
-  this.rules[46] = {name: 'query', lower: 'query', index: 46, isBkr: false};
-  this.rules[47] = {name: 'query-r', lower: 'query-r', index: 47, isBkr: false};
-  this.rules[48] = {name: 'fragment', lower: 'fragment', index: 48, isBkr: false};
-  this.rules[49] = {name: 'fragment-r', lower: 'fragment-r', index: 49, isBkr: false};
-  this.rules[50] = {name: 'pct-encoded', lower: 'pct-encoded', index: 50, isBkr: false};
-  this.rules[51] = {name: 'date-fullyear', lower: 'date-fullyear', index: 51, isBkr: false};
-  this.rules[52] = {name: 'date-month', lower: 'date-month', index: 52, isBkr: false};
-  this.rules[53] = {name: 'date-mday', lower: 'date-mday', index: 53, isBkr: false};
-  this.rules[54] = {name: 'time-hour', lower: 'time-hour', index: 54, isBkr: false};
-  this.rules[55] = {name: 'time-minute', lower: 'time-minute', index: 55, isBkr: false};
-  this.rules[56] = {name: 'time-second', lower: 'time-second', index: 56, isBkr: false};
-  this.rules[57] = {name: 'time-secfrac', lower: 'time-secfrac', index: 57, isBkr: false};
-  this.rules[58] = {name: 'time-numoffset', lower: 'time-numoffset', index: 58, isBkr: false};
-  this.rules[59] = {name: 'time-offset', lower: 'time-offset', index: 59, isBkr: false};
-  this.rules[60] = {name: 'partial-time', lower: 'partial-time', index: 60, isBkr: false};
-  this.rules[61] = {name: 'full-date', lower: 'full-date', index: 61, isBkr: false};
-  this.rules[62] = {name: 'full-time', lower: 'full-time', index: 62, isBkr: false};
-  this.rules[63] = {name: 'date-time', lower: 'date-time', index: 63, isBkr: false};
-  this.rules[64] = {name: 'ALPHA', lower: 'alpha', index: 64, isBkr: false};
-  this.rules[65] = {name: 'LF', lower: 'lf', index: 65, isBkr: false};
-  this.rules[66] = {name: 'DIGIT', lower: 'digit', index: 66, isBkr: false};
-  this.rules[67] = {name: 'HEXDIG', lower: 'hexdig', index: 67, isBkr: false};
+  this.rules[1] = {name: 'ex-title', lower: 'ex-title', index: 1, isBkr: false};
+  this.rules[2] = {name: 'nb-title', lower: 'nb-title', index: 2, isBkr: false};
+  this.rules[3] = {name: 'ri-title', lower: 'ri-title', index: 3, isBkr: false};
+  this.rules[4] = {name: 're-title', lower: 're-title', index: 4, isBkr: false};
+  this.rules[5] = {name: 'domain', lower: 'domain', index: 5, isBkr: false};
+  this.rules[6] = {name: 'address', lower: 'address', index: 6, isBkr: false};
+  this.rules[7] = {name: 'statement', lower: 'statement', index: 7, isBkr: false};
+  this.rules[8] = {name: 'version', lower: 'version', index: 8, isBkr: false};
+  this.rules[9] = {name: 'nonce', lower: 'nonce', index: 9, isBkr: false};
+  this.rules[10] = {name: 'issued-at', lower: 'issued-at', index: 10, isBkr: false};
+  this.rules[11] = {name: 'expiration-time', lower: 'expiration-time', index: 11, isBkr: false};
+  this.rules[12] = {name: 'not-before', lower: 'not-before', index: 12, isBkr: false};
+  this.rules[13] = {name: 'request-id', lower: 'request-id', index: 13, isBkr: false};
+  this.rules[14] = {name: 'chain-id', lower: 'chain-id', index: 14, isBkr: false};
+  this.rules[15] = {name: 'resources', lower: 'resources', index: 15, isBkr: false};
+  this.rules[16] = {name: 'resource', lower: 'resource', index: 16, isBkr: false};
+  this.rules[17] = {name: 'URI', lower: 'uri', index: 17, isBkr: false};
+  this.rules[18] = {name: 'URI-r', lower: 'uri-r', index: 18, isBkr: false};
+  this.rules[19] = {name: 'hier-part', lower: 'hier-part', index: 19, isBkr: false};
+  this.rules[20] = {name: 'hier-part-r', lower: 'hier-part-r', index: 20, isBkr: false};
+  this.rules[21] = {name: 'scheme', lower: 'scheme', index: 21, isBkr: false};
+  this.rules[22] = {name: 'scheme-r', lower: 'scheme-r', index: 22, isBkr: false};
+  this.rules[23] = {name: 'authority', lower: 'authority', index: 23, isBkr: false};
+  this.rules[24] = {name: 'authority-d', lower: 'authority-d', index: 24, isBkr: false};
+  this.rules[25] = {name: 'userinfo', lower: 'userinfo', index: 25, isBkr: false};
+  this.rules[26] = {name: 'host', lower: 'host', index: 26, isBkr: false};
+  this.rules[27] = {name: 'port', lower: 'port', index: 27, isBkr: false};
+  this.rules[28] = {name: 'userinfo-d', lower: 'userinfo-d', index: 28, isBkr: false};
+  this.rules[29] = {name: 'host-d', lower: 'host-d', index: 29, isBkr: false};
+  this.rules[30] = {name: 'port-d', lower: 'port-d', index: 30, isBkr: false};
+  this.rules[31] = {name: 'IP-literal', lower: 'ip-literal', index: 31, isBkr: false};
+  this.rules[32] = {name: 'IPvFuture', lower: 'ipvfuture', index: 32, isBkr: false};
+  this.rules[33] = {name: 'IPv6address', lower: 'ipv6address', index: 33, isBkr: false};
+  this.rules[34] = {name: 'h16', lower: 'h16', index: 34, isBkr: false};
+  this.rules[35] = {name: 'ls32', lower: 'ls32', index: 35, isBkr: false};
+  this.rules[36] = {name: 'IPv4address', lower: 'ipv4address', index: 36, isBkr: false};
+  this.rules[37] = {name: 'dec-octet', lower: 'dec-octet', index: 37, isBkr: false};
+  this.rules[38] = {name: 'reg-name', lower: 'reg-name', index: 38, isBkr: false};
+  this.rules[39] = {name: 'path-abempty', lower: 'path-abempty', index: 39, isBkr: false};
+  this.rules[40] = {name: 'path-absolute', lower: 'path-absolute', index: 40, isBkr: false};
+  this.rules[41] = {name: 'path-rootless', lower: 'path-rootless', index: 41, isBkr: false};
+  this.rules[42] = {name: 'path-empty', lower: 'path-empty', index: 42, isBkr: false};
+  this.rules[43] = {name: 'path-abempty-r', lower: 'path-abempty-r', index: 43, isBkr: false};
+  this.rules[44] = {name: 'path-absolute-r', lower: 'path-absolute-r', index: 44, isBkr: false};
+  this.rules[45] = {name: 'path-rootless-r', lower: 'path-rootless-r', index: 45, isBkr: false};
+  this.rules[46] = {name: 'path-empty-r', lower: 'path-empty-r', index: 46, isBkr: false};
+  this.rules[47] = {name: 'segment', lower: 'segment', index: 47, isBkr: false};
+  this.rules[48] = {name: 'segment-nz', lower: 'segment-nz', index: 48, isBkr: false};
+  this.rules[49] = {name: 'pchar', lower: 'pchar', index: 49, isBkr: false};
+  this.rules[50] = {name: 'query', lower: 'query', index: 50, isBkr: false};
+  this.rules[51] = {name: 'query-r', lower: 'query-r', index: 51, isBkr: false};
+  this.rules[52] = {name: 'fragment', lower: 'fragment', index: 52, isBkr: false};
+  this.rules[53] = {name: 'fragment-r', lower: 'fragment-r', index: 53, isBkr: false};
+  this.rules[54] = {name: 'pct-encoded', lower: 'pct-encoded', index: 54, isBkr: false};
+  this.rules[55] = {name: 'date-fullyear', lower: 'date-fullyear', index: 55, isBkr: false};
+  this.rules[56] = {name: 'date-month', lower: 'date-month', index: 56, isBkr: false};
+  this.rules[57] = {name: 'date-mday', lower: 'date-mday', index: 57, isBkr: false};
+  this.rules[58] = {name: 'time-hour', lower: 'time-hour', index: 58, isBkr: false};
+  this.rules[59] = {name: 'time-minute', lower: 'time-minute', index: 59, isBkr: false};
+  this.rules[60] = {name: 'time-second', lower: 'time-second', index: 60, isBkr: false};
+  this.rules[61] = {name: 'time-secfrac', lower: 'time-secfrac', index: 61, isBkr: false};
+  this.rules[62] = {name: 'time-numoffset', lower: 'time-numoffset', index: 62, isBkr: false};
+  this.rules[63] = {name: 'time-offset', lower: 'time-offset', index: 63, isBkr: false};
+  this.rules[64] = {name: 'partial-time', lower: 'partial-time', index: 64, isBkr: false};
+  this.rules[65] = {name: 'full-date', lower: 'full-date', index: 65, isBkr: false};
+  this.rules[66] = {name: 'full-time', lower: 'full-time', index: 66, isBkr: false};
+  this.rules[67] = {name: 'date-time', lower: 'date-time', index: 67, isBkr: false};
+  this.rules[68] = {name: 'ALPHA', lower: 'alpha', index: 68, isBkr: false};
+  this.rules[69] = {name: 'LF', lower: 'lf', index: 69, isBkr: false};
+  this.rules[70] = {name: 'DIGIT', lower: 'digit', index: 70, isBkr: false};
+  this.rules[71] = {name: 'HEXDIG', lower: 'hexdig', index: 71, isBkr: false};
 
   /* UDTS */
   this.udts = [];
@@ -108,701 +112,717 @@ module.exports = function grammar(){
   /* sign-in-with-ethereum */
   this.rules[0].opcodes = [];
   this.rules[0].opcodes[0] = {type: 2, children: [1,2,3,4,5,6,7,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,31,36,41]};// CAT
-  this.rules[0].opcodes[1] = {type: 4, index: 1};// RNM(domain)
+  this.rules[0].opcodes[1] = {type: 4, index: 5};// RNM(domain)
   this.rules[0].opcodes[2] = {type: 6, string: [32,119,97,110,116,115,32,121,111,117,32,116,111,32,115,105,103,110,32,105,110,32,119,105,116,104,32,121,111,117,114,32,69,116,104,101,114,101,117,109,32,97,99,99,111,117,110,116,58]};// TBS
-  this.rules[0].opcodes[3] = {type: 4, index: 65};// RNM(LF)
-  this.rules[0].opcodes[4] = {type: 4, index: 2};// RNM(address)
-  this.rules[0].opcodes[5] = {type: 4, index: 65};// RNM(LF)
-  this.rules[0].opcodes[6] = {type: 4, index: 65};// RNM(LF)
+  this.rules[0].opcodes[3] = {type: 4, index: 69};// RNM(LF)
+  this.rules[0].opcodes[4] = {type: 4, index: 6};// RNM(address)
+  this.rules[0].opcodes[5] = {type: 4, index: 69};// RNM(LF)
+  this.rules[0].opcodes[6] = {type: 4, index: 69};// RNM(LF)
   this.rules[0].opcodes[7] = {type: 3, min: 0, max: 1};// REP
   this.rules[0].opcodes[8] = {type: 2, children: [9,10]};// CAT
-  this.rules[0].opcodes[9] = {type: 4, index: 3};// RNM(statement)
-  this.rules[0].opcodes[10] = {type: 4, index: 65};// RNM(LF)
-  this.rules[0].opcodes[11] = {type: 4, index: 65};// RNM(LF)
+  this.rules[0].opcodes[9] = {type: 4, index: 7};// RNM(statement)
+  this.rules[0].opcodes[10] = {type: 4, index: 69};// RNM(LF)
+  this.rules[0].opcodes[11] = {type: 4, index: 69};// RNM(LF)
   this.rules[0].opcodes[12] = {type: 6, string: [85,82,73,58,32]};// TBS
-  this.rules[0].opcodes[13] = {type: 4, index: 13};// RNM(URI)
-  this.rules[0].opcodes[14] = {type: 4, index: 65};// RNM(LF)
+  this.rules[0].opcodes[13] = {type: 4, index: 17};// RNM(URI)
+  this.rules[0].opcodes[14] = {type: 4, index: 69};// RNM(LF)
   this.rules[0].opcodes[15] = {type: 6, string: [86,101,114,115,105,111,110,58,32]};// TBS
-  this.rules[0].opcodes[16] = {type: 4, index: 4};// RNM(version)
-  this.rules[0].opcodes[17] = {type: 4, index: 65};// RNM(LF)
+  this.rules[0].opcodes[16] = {type: 4, index: 8};// RNM(version)
+  this.rules[0].opcodes[17] = {type: 4, index: 69};// RNM(LF)
   this.rules[0].opcodes[18] = {type: 6, string: [67,104,97,105,110,32,73,68,58,32]};// TBS
-  this.rules[0].opcodes[19] = {type: 4, index: 10};// RNM(chain-id)
-  this.rules[0].opcodes[20] = {type: 4, index: 65};// RNM(LF)
+  this.rules[0].opcodes[19] = {type: 4, index: 14};// RNM(chain-id)
+  this.rules[0].opcodes[20] = {type: 4, index: 69};// RNM(LF)
   this.rules[0].opcodes[21] = {type: 6, string: [78,111,110,99,101,58,32]};// TBS
-  this.rules[0].opcodes[22] = {type: 4, index: 5};// RNM(nonce)
-  this.rules[0].opcodes[23] = {type: 4, index: 65};// RNM(LF)
+  this.rules[0].opcodes[22] = {type: 4, index: 9};// RNM(nonce)
+  this.rules[0].opcodes[23] = {type: 4, index: 69};// RNM(LF)
   this.rules[0].opcodes[24] = {type: 6, string: [73,115,115,117,101,100,32,65,116,58,32]};// TBS
-  this.rules[0].opcodes[25] = {type: 4, index: 6};// RNM(issued-at)
+  this.rules[0].opcodes[25] = {type: 4, index: 10};// RNM(issued-at)
   this.rules[0].opcodes[26] = {type: 3, min: 0, max: 1};// REP
   this.rules[0].opcodes[27] = {type: 2, children: [28,29,30]};// CAT
-  this.rules[0].opcodes[28] = {type: 4, index: 65};// RNM(LF)
-  this.rules[0].opcodes[29] = {type: 6, string: [69,120,112,105,114,97,116,105,111,110,32,84,105,109,101,58,32]};// TBS
-  this.rules[0].opcodes[30] = {type: 4, index: 7};// RNM(expiration-time)
+  this.rules[0].opcodes[28] = {type: 4, index: 69};// RNM(LF)
+  this.rules[0].opcodes[29] = {type: 4, index: 1};// RNM(ex-title)
+  this.rules[0].opcodes[30] = {type: 4, index: 11};// RNM(expiration-time)
   this.rules[0].opcodes[31] = {type: 3, min: 0, max: 1};// REP
   this.rules[0].opcodes[32] = {type: 2, children: [33,34,35]};// CAT
-  this.rules[0].opcodes[33] = {type: 4, index: 65};// RNM(LF)
-  this.rules[0].opcodes[34] = {type: 6, string: [78,111,116,32,66,101,102,111,114,101,58,32]};// TBS
-  this.rules[0].opcodes[35] = {type: 4, index: 8};// RNM(not-before)
+  this.rules[0].opcodes[33] = {type: 4, index: 69};// RNM(LF)
+  this.rules[0].opcodes[34] = {type: 4, index: 2};// RNM(nb-title)
+  this.rules[0].opcodes[35] = {type: 4, index: 12};// RNM(not-before)
   this.rules[0].opcodes[36] = {type: 3, min: 0, max: 1};// REP
   this.rules[0].opcodes[37] = {type: 2, children: [38,39,40]};// CAT
-  this.rules[0].opcodes[38] = {type: 4, index: 65};// RNM(LF)
-  this.rules[0].opcodes[39] = {type: 6, string: [82,101,113,117,101,115,116,32,73,68,58,32]};// TBS
-  this.rules[0].opcodes[40] = {type: 4, index: 9};// RNM(request-id)
+  this.rules[0].opcodes[38] = {type: 4, index: 69};// RNM(LF)
+  this.rules[0].opcodes[39] = {type: 4, index: 3};// RNM(ri-title)
+  this.rules[0].opcodes[40] = {type: 4, index: 13};// RNM(request-id)
   this.rules[0].opcodes[41] = {type: 3, min: 0, max: 1};// REP
   this.rules[0].opcodes[42] = {type: 2, children: [43,44,45]};// CAT
-  this.rules[0].opcodes[43] = {type: 4, index: 65};// RNM(LF)
-  this.rules[0].opcodes[44] = {type: 6, string: [82,101,115,111,117,114,99,101,115,58]};// TBS
-  this.rules[0].opcodes[45] = {type: 4, index: 11};// RNM(resources)
+  this.rules[0].opcodes[43] = {type: 4, index: 69};// RNM(LF)
+  this.rules[0].opcodes[44] = {type: 4, index: 4};// RNM(re-title)
+  this.rules[0].opcodes[45] = {type: 4, index: 15};// RNM(resources)
+
+  /* ex-title */
+  this.rules[1].opcodes = [];
+  this.rules[1].opcodes[0] = {type: 6, string: [69,120,112,105,114,97,116,105,111,110,32,84,105,109,101,58,32]};// TBS
+
+  /* nb-title */
+  this.rules[2].opcodes = [];
+  this.rules[2].opcodes[0] = {type: 6, string: [78,111,116,32,66,101,102,111,114,101,58,32]};// TBS
+
+  /* ri-title */
+  this.rules[3].opcodes = [];
+  this.rules[3].opcodes[0] = {type: 6, string: [82,101,113,117,101,115,116,32,73,68,58,32]};// TBS
+
+  /* re-title */
+  this.rules[4].opcodes = [];
+  this.rules[4].opcodes[0] = {type: 6, string: [82,101,115,111,117,114,99,101,115,58]};// TBS
 
   /* domain */
-  this.rules[1].opcodes = [];
-  this.rules[1].opcodes[0] = {type: 4, index: 20};// RNM(authority-d)
+  this.rules[5].opcodes = [];
+  this.rules[5].opcodes[0] = {type: 4, index: 24};// RNM(authority-d)
 
   /* address */
-  this.rules[2].opcodes = [];
-  this.rules[2].opcodes[0] = {type: 2, children: [1,2]};// CAT
-  this.rules[2].opcodes[1] = {type: 7, string: [48,120]};// TLS
-  this.rules[2].opcodes[2] = {type: 3, min: 40, max: 40};// REP
-  this.rules[2].opcodes[3] = {type: 4, index: 67};// RNM(HEXDIG)
+  this.rules[6].opcodes = [];
+  this.rules[6].opcodes[0] = {type: 2, children: [1,2]};// CAT
+  this.rules[6].opcodes[1] = {type: 7, string: [48,120]};// TLS
+  this.rules[6].opcodes[2] = {type: 3, min: 40, max: 40};// REP
+  this.rules[6].opcodes[3] = {type: 4, index: 71};// RNM(HEXDIG)
 
   /* statement */
-  this.rules[3].opcodes = [];
-  this.rules[3].opcodes[0] = {type: 3, min: 1, max: Infinity};// REP
-  this.rules[3].opcodes[1] = {type: 1, children: [2,3,4,5,6,7,8,9,10,11,12,13]};// ALT
-  this.rules[3].opcodes[2] = {type: 5, min: 97, max: 122};// TRG
-  this.rules[3].opcodes[3] = {type: 5, min: 65, max: 90};// TRG
-  this.rules[3].opcodes[4] = {type: 5, min: 48, max: 57};// TRG
-  this.rules[3].opcodes[5] = {type: 5, min: 32, max: 33};// TRG
-  this.rules[3].opcodes[6] = {type: 5, min: 35, max: 36};// TRG
-  this.rules[3].opcodes[7] = {type: 5, min: 38, max: 59};// TRG
-  this.rules[3].opcodes[8] = {type: 6, string: [61]};// TBS
-  this.rules[3].opcodes[9] = {type: 5, min: 63, max: 64};// TRG
-  this.rules[3].opcodes[10] = {type: 6, string: [91]};// TBS
-  this.rules[3].opcodes[11] = {type: 6, string: [93]};// TBS
-  this.rules[3].opcodes[12] = {type: 6, string: [95]};// TBS
-  this.rules[3].opcodes[13] = {type: 6, string: [126]};// TBS
+  this.rules[7].opcodes = [];
+  this.rules[7].opcodes[0] = {type: 3, min: 1, max: Infinity};// REP
+  this.rules[7].opcodes[1] = {type: 1, children: [2,3,4,5,6,7,8,9,10,11,12,13]};// ALT
+  this.rules[7].opcodes[2] = {type: 5, min: 97, max: 122};// TRG
+  this.rules[7].opcodes[3] = {type: 5, min: 65, max: 90};// TRG
+  this.rules[7].opcodes[4] = {type: 5, min: 48, max: 57};// TRG
+  this.rules[7].opcodes[5] = {type: 5, min: 32, max: 33};// TRG
+  this.rules[7].opcodes[6] = {type: 5, min: 35, max: 36};// TRG
+  this.rules[7].opcodes[7] = {type: 5, min: 38, max: 59};// TRG
+  this.rules[7].opcodes[8] = {type: 6, string: [61]};// TBS
+  this.rules[7].opcodes[9] = {type: 5, min: 63, max: 64};// TRG
+  this.rules[7].opcodes[10] = {type: 6, string: [91]};// TBS
+  this.rules[7].opcodes[11] = {type: 6, string: [93]};// TBS
+  this.rules[7].opcodes[12] = {type: 6, string: [95]};// TBS
+  this.rules[7].opcodes[13] = {type: 6, string: [126]};// TBS
 
   /* version */
-  this.rules[4].opcodes = [];
-  this.rules[4].opcodes[0] = {type: 7, string: [49]};// TLS
+  this.rules[8].opcodes = [];
+  this.rules[8].opcodes[0] = {type: 7, string: [49]};// TLS
 
   /* nonce */
-  this.rules[5].opcodes = [];
-  this.rules[5].opcodes[0] = {type: 3, min: 8, max: Infinity};// REP
-  this.rules[5].opcodes[1] = {type: 1, children: [2,3]};// ALT
-  this.rules[5].opcodes[2] = {type: 4, index: 64};// RNM(ALPHA)
-  this.rules[5].opcodes[3] = {type: 4, index: 66};// RNM(DIGIT)
+  this.rules[9].opcodes = [];
+  this.rules[9].opcodes[0] = {type: 3, min: 8, max: Infinity};// REP
+  this.rules[9].opcodes[1] = {type: 1, children: [2,3]};// ALT
+  this.rules[9].opcodes[2] = {type: 4, index: 68};// RNM(ALPHA)
+  this.rules[9].opcodes[3] = {type: 4, index: 70};// RNM(DIGIT)
 
   /* issued-at */
-  this.rules[6].opcodes = [];
-  this.rules[6].opcodes[0] = {type: 4, index: 63};// RNM(date-time)
+  this.rules[10].opcodes = [];
+  this.rules[10].opcodes[0] = {type: 4, index: 67};// RNM(date-time)
 
   /* expiration-time */
-  this.rules[7].opcodes = [];
-  this.rules[7].opcodes[0] = {type: 4, index: 63};// RNM(date-time)
+  this.rules[11].opcodes = [];
+  this.rules[11].opcodes[0] = {type: 4, index: 67};// RNM(date-time)
 
   /* not-before */
-  this.rules[8].opcodes = [];
-  this.rules[8].opcodes[0] = {type: 4, index: 63};// RNM(date-time)
+  this.rules[12].opcodes = [];
+  this.rules[12].opcodes[0] = {type: 4, index: 67};// RNM(date-time)
 
   /* request-id */
-  this.rules[9].opcodes = [];
-  this.rules[9].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[9].opcodes[1] = {type: 4, index: 45};// RNM(pchar)
+  this.rules[13].opcodes = [];
+  this.rules[13].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[13].opcodes[1] = {type: 4, index: 49};// RNM(pchar)
 
   /* chain-id */
-  this.rules[10].opcodes = [];
-  this.rules[10].opcodes[0] = {type: 3, min: 1, max: Infinity};// REP
-  this.rules[10].opcodes[1] = {type: 4, index: 66};// RNM(DIGIT)
+  this.rules[14].opcodes = [];
+  this.rules[14].opcodes[0] = {type: 3, min: 1, max: Infinity};// REP
+  this.rules[14].opcodes[1] = {type: 4, index: 70};// RNM(DIGIT)
 
   /* resources */
-  this.rules[11].opcodes = [];
-  this.rules[11].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[11].opcodes[1] = {type: 2, children: [2,3]};// CAT
-  this.rules[11].opcodes[2] = {type: 4, index: 65};// RNM(LF)
-  this.rules[11].opcodes[3] = {type: 4, index: 12};// RNM(resource)
+  this.rules[15].opcodes = [];
+  this.rules[15].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[15].opcodes[1] = {type: 2, children: [2,3]};// CAT
+  this.rules[15].opcodes[2] = {type: 4, index: 69};// RNM(LF)
+  this.rules[15].opcodes[3] = {type: 4, index: 16};// RNM(resource)
 
   /* resource */
-  this.rules[12].opcodes = [];
-  this.rules[12].opcodes[0] = {type: 2, children: [1,2]};// CAT
-  this.rules[12].opcodes[1] = {type: 7, string: [45,32]};// TLS
-  this.rules[12].opcodes[2] = {type: 4, index: 14};// RNM(URI-r)
+  this.rules[16].opcodes = [];
+  this.rules[16].opcodes[0] = {type: 2, children: [1,2]};// CAT
+  this.rules[16].opcodes[1] = {type: 7, string: [45,32]};// TLS
+  this.rules[16].opcodes[2] = {type: 4, index: 18};// RNM(URI-r)
 
   /* URI */
-  this.rules[13].opcodes = [];
-  this.rules[13].opcodes[0] = {type: 2, children: [1,2,3,4,8]};// CAT
-  this.rules[13].opcodes[1] = {type: 4, index: 17};// RNM(scheme)
-  this.rules[13].opcodes[2] = {type: 7, string: [58]};// TLS
-  this.rules[13].opcodes[3] = {type: 4, index: 15};// RNM(hier-part)
-  this.rules[13].opcodes[4] = {type: 3, min: 0, max: 1};// REP
-  this.rules[13].opcodes[5] = {type: 2, children: [6,7]};// CAT
-  this.rules[13].opcodes[6] = {type: 7, string: [63]};// TLS
-  this.rules[13].opcodes[7] = {type: 4, index: 46};// RNM(query)
-  this.rules[13].opcodes[8] = {type: 3, min: 0, max: 1};// REP
-  this.rules[13].opcodes[9] = {type: 2, children: [10,11]};// CAT
-  this.rules[13].opcodes[10] = {type: 7, string: [35]};// TLS
-  this.rules[13].opcodes[11] = {type: 4, index: 48};// RNM(fragment)
+  this.rules[17].opcodes = [];
+  this.rules[17].opcodes[0] = {type: 2, children: [1,2,3,4,8]};// CAT
+  this.rules[17].opcodes[1] = {type: 4, index: 21};// RNM(scheme)
+  this.rules[17].opcodes[2] = {type: 7, string: [58]};// TLS
+  this.rules[17].opcodes[3] = {type: 4, index: 19};// RNM(hier-part)
+  this.rules[17].opcodes[4] = {type: 3, min: 0, max: 1};// REP
+  this.rules[17].opcodes[5] = {type: 2, children: [6,7]};// CAT
+  this.rules[17].opcodes[6] = {type: 7, string: [63]};// TLS
+  this.rules[17].opcodes[7] = {type: 4, index: 50};// RNM(query)
+  this.rules[17].opcodes[8] = {type: 3, min: 0, max: 1};// REP
+  this.rules[17].opcodes[9] = {type: 2, children: [10,11]};// CAT
+  this.rules[17].opcodes[10] = {type: 7, string: [35]};// TLS
+  this.rules[17].opcodes[11] = {type: 4, index: 52};// RNM(fragment)
 
   /* URI-r */
-  this.rules[14].opcodes = [];
-  this.rules[14].opcodes[0] = {type: 2, children: [1,2,3,4,8]};// CAT
-  this.rules[14].opcodes[1] = {type: 4, index: 18};// RNM(scheme-r)
-  this.rules[14].opcodes[2] = {type: 7, string: [58]};// TLS
-  this.rules[14].opcodes[3] = {type: 4, index: 16};// RNM(hier-part-r)
-  this.rules[14].opcodes[4] = {type: 3, min: 0, max: 1};// REP
-  this.rules[14].opcodes[5] = {type: 2, children: [6,7]};// CAT
-  this.rules[14].opcodes[6] = {type: 7, string: [63]};// TLS
-  this.rules[14].opcodes[7] = {type: 4, index: 47};// RNM(query-r)
-  this.rules[14].opcodes[8] = {type: 3, min: 0, max: 1};// REP
-  this.rules[14].opcodes[9] = {type: 2, children: [10,11]};// CAT
-  this.rules[14].opcodes[10] = {type: 7, string: [35]};// TLS
-  this.rules[14].opcodes[11] = {type: 4, index: 49};// RNM(fragment-r)
+  this.rules[18].opcodes = [];
+  this.rules[18].opcodes[0] = {type: 2, children: [1,2,3,4,8]};// CAT
+  this.rules[18].opcodes[1] = {type: 4, index: 22};// RNM(scheme-r)
+  this.rules[18].opcodes[2] = {type: 7, string: [58]};// TLS
+  this.rules[18].opcodes[3] = {type: 4, index: 20};// RNM(hier-part-r)
+  this.rules[18].opcodes[4] = {type: 3, min: 0, max: 1};// REP
+  this.rules[18].opcodes[5] = {type: 2, children: [6,7]};// CAT
+  this.rules[18].opcodes[6] = {type: 7, string: [63]};// TLS
+  this.rules[18].opcodes[7] = {type: 4, index: 51};// RNM(query-r)
+  this.rules[18].opcodes[8] = {type: 3, min: 0, max: 1};// REP
+  this.rules[18].opcodes[9] = {type: 2, children: [10,11]};// CAT
+  this.rules[18].opcodes[10] = {type: 7, string: [35]};// TLS
+  this.rules[18].opcodes[11] = {type: 4, index: 53};// RNM(fragment-r)
 
   /* hier-part */
-  this.rules[15].opcodes = [];
-  this.rules[15].opcodes[0] = {type: 1, children: [1,5,6,7]};// ALT
-  this.rules[15].opcodes[1] = {type: 2, children: [2,3,4]};// CAT
-  this.rules[15].opcodes[2] = {type: 7, string: [47,47]};// TLS
-  this.rules[15].opcodes[3] = {type: 4, index: 19};// RNM(authority)
-  this.rules[15].opcodes[4] = {type: 4, index: 35};// RNM(path-abempty)
-  this.rules[15].opcodes[5] = {type: 4, index: 36};// RNM(path-absolute)
-  this.rules[15].opcodes[6] = {type: 4, index: 37};// RNM(path-rootless)
-  this.rules[15].opcodes[7] = {type: 4, index: 38};// RNM(path-empty)
+  this.rules[19].opcodes = [];
+  this.rules[19].opcodes[0] = {type: 1, children: [1,5,6,7]};// ALT
+  this.rules[19].opcodes[1] = {type: 2, children: [2,3,4]};// CAT
+  this.rules[19].opcodes[2] = {type: 7, string: [47,47]};// TLS
+  this.rules[19].opcodes[3] = {type: 4, index: 23};// RNM(authority)
+  this.rules[19].opcodes[4] = {type: 4, index: 39};// RNM(path-abempty)
+  this.rules[19].opcodes[5] = {type: 4, index: 40};// RNM(path-absolute)
+  this.rules[19].opcodes[6] = {type: 4, index: 41};// RNM(path-rootless)
+  this.rules[19].opcodes[7] = {type: 4, index: 42};// RNM(path-empty)
 
   /* hier-part-r */
-  this.rules[16].opcodes = [];
-  this.rules[16].opcodes[0] = {type: 1, children: [1,5,6,7]};// ALT
-  this.rules[16].opcodes[1] = {type: 2, children: [2,3,4]};// CAT
-  this.rules[16].opcodes[2] = {type: 7, string: [47,47]};// TLS
-  this.rules[16].opcodes[3] = {type: 4, index: 20};// RNM(authority-d)
-  this.rules[16].opcodes[4] = {type: 4, index: 39};// RNM(path-abempty-r)
-  this.rules[16].opcodes[5] = {type: 4, index: 40};// RNM(path-absolute-r)
-  this.rules[16].opcodes[6] = {type: 4, index: 41};// RNM(path-rootless-r)
-  this.rules[16].opcodes[7] = {type: 4, index: 42};// RNM(path-empty-r)
+  this.rules[20].opcodes = [];
+  this.rules[20].opcodes[0] = {type: 1, children: [1,5,6,7]};// ALT
+  this.rules[20].opcodes[1] = {type: 2, children: [2,3,4]};// CAT
+  this.rules[20].opcodes[2] = {type: 7, string: [47,47]};// TLS
+  this.rules[20].opcodes[3] = {type: 4, index: 24};// RNM(authority-d)
+  this.rules[20].opcodes[4] = {type: 4, index: 43};// RNM(path-abempty-r)
+  this.rules[20].opcodes[5] = {type: 4, index: 44};// RNM(path-absolute-r)
+  this.rules[20].opcodes[6] = {type: 4, index: 45};// RNM(path-rootless-r)
+  this.rules[20].opcodes[7] = {type: 4, index: 46};// RNM(path-empty-r)
 
   /* scheme */
-  this.rules[17].opcodes = [];
-  this.rules[17].opcodes[0] = {type: 2, children: [1,2]};// CAT
-  this.rules[17].opcodes[1] = {type: 4, index: 64};// RNM(ALPHA)
-  this.rules[17].opcodes[2] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[17].opcodes[3] = {type: 1, children: [4,5,6,7]};// ALT
-  this.rules[17].opcodes[4] = {type: 4, index: 64};// RNM(ALPHA)
-  this.rules[17].opcodes[5] = {type: 4, index: 66};// RNM(DIGIT)
-  this.rules[17].opcodes[6] = {type: 6, string: [43]};// TBS
-  this.rules[17].opcodes[7] = {type: 5, min: 45, max: 46};// TRG
+  this.rules[21].opcodes = [];
+  this.rules[21].opcodes[0] = {type: 2, children: [1,2]};// CAT
+  this.rules[21].opcodes[1] = {type: 4, index: 68};// RNM(ALPHA)
+  this.rules[21].opcodes[2] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[21].opcodes[3] = {type: 1, children: [4,5,6,7]};// ALT
+  this.rules[21].opcodes[4] = {type: 4, index: 68};// RNM(ALPHA)
+  this.rules[21].opcodes[5] = {type: 4, index: 70};// RNM(DIGIT)
+  this.rules[21].opcodes[6] = {type: 6, string: [43]};// TBS
+  this.rules[21].opcodes[7] = {type: 5, min: 45, max: 46};// TRG
 
   /* scheme-r */
-  this.rules[18].opcodes = [];
-  this.rules[18].opcodes[0] = {type: 2, children: [1,2]};// CAT
-  this.rules[18].opcodes[1] = {type: 4, index: 64};// RNM(ALPHA)
-  this.rules[18].opcodes[2] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[18].opcodes[3] = {type: 1, children: [4,5,6,7]};// ALT
-  this.rules[18].opcodes[4] = {type: 4, index: 64};// RNM(ALPHA)
-  this.rules[18].opcodes[5] = {type: 4, index: 66};// RNM(DIGIT)
-  this.rules[18].opcodes[6] = {type: 6, string: [43]};// TBS
-  this.rules[18].opcodes[7] = {type: 5, min: 45, max: 46};// TRG
+  this.rules[22].opcodes = [];
+  this.rules[22].opcodes[0] = {type: 2, children: [1,2]};// CAT
+  this.rules[22].opcodes[1] = {type: 4, index: 68};// RNM(ALPHA)
+  this.rules[22].opcodes[2] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[22].opcodes[3] = {type: 1, children: [4,5,6,7]};// ALT
+  this.rules[22].opcodes[4] = {type: 4, index: 68};// RNM(ALPHA)
+  this.rules[22].opcodes[5] = {type: 4, index: 70};// RNM(DIGIT)
+  this.rules[22].opcodes[6] = {type: 6, string: [43]};// TBS
+  this.rules[22].opcodes[7] = {type: 5, min: 45, max: 46};// TRG
 
   /* authority */
-  this.rules[19].opcodes = [];
-  this.rules[19].opcodes[0] = {type: 2, children: [1,5,6]};// CAT
-  this.rules[19].opcodes[1] = {type: 3, min: 0, max: 1};// REP
-  this.rules[19].opcodes[2] = {type: 2, children: [3,4]};// CAT
-  this.rules[19].opcodes[3] = {type: 4, index: 21};// RNM(userinfo)
-  this.rules[19].opcodes[4] = {type: 7, string: [64]};// TLS
-  this.rules[19].opcodes[5] = {type: 4, index: 22};// RNM(host)
-  this.rules[19].opcodes[6] = {type: 3, min: 0, max: 1};// REP
-  this.rules[19].opcodes[7] = {type: 2, children: [8,9]};// CAT
-  this.rules[19].opcodes[8] = {type: 7, string: [58]};// TLS
-  this.rules[19].opcodes[9] = {type: 4, index: 23};// RNM(port)
+  this.rules[23].opcodes = [];
+  this.rules[23].opcodes[0] = {type: 2, children: [1,5,6]};// CAT
+  this.rules[23].opcodes[1] = {type: 3, min: 0, max: 1};// REP
+  this.rules[23].opcodes[2] = {type: 2, children: [3,4]};// CAT
+  this.rules[23].opcodes[3] = {type: 4, index: 25};// RNM(userinfo)
+  this.rules[23].opcodes[4] = {type: 7, string: [64]};// TLS
+  this.rules[23].opcodes[5] = {type: 4, index: 26};// RNM(host)
+  this.rules[23].opcodes[6] = {type: 3, min: 0, max: 1};// REP
+  this.rules[23].opcodes[7] = {type: 2, children: [8,9]};// CAT
+  this.rules[23].opcodes[8] = {type: 7, string: [58]};// TLS
+  this.rules[23].opcodes[9] = {type: 4, index: 27};// RNM(port)
 
   /* authority-d */
-  this.rules[20].opcodes = [];
-  this.rules[20].opcodes[0] = {type: 2, children: [1,5,6]};// CAT
-  this.rules[20].opcodes[1] = {type: 3, min: 0, max: 1};// REP
-  this.rules[20].opcodes[2] = {type: 2, children: [3,4]};// CAT
-  this.rules[20].opcodes[3] = {type: 4, index: 24};// RNM(userinfo-d)
-  this.rules[20].opcodes[4] = {type: 7, string: [64]};// TLS
-  this.rules[20].opcodes[5] = {type: 4, index: 25};// RNM(host-d)
-  this.rules[20].opcodes[6] = {type: 3, min: 0, max: 1};// REP
-  this.rules[20].opcodes[7] = {type: 2, children: [8,9]};// CAT
-  this.rules[20].opcodes[8] = {type: 7, string: [58]};// TLS
-  this.rules[20].opcodes[9] = {type: 4, index: 26};// RNM(port-d)
+  this.rules[24].opcodes = [];
+  this.rules[24].opcodes[0] = {type: 2, children: [1,5,6]};// CAT
+  this.rules[24].opcodes[1] = {type: 3, min: 0, max: 1};// REP
+  this.rules[24].opcodes[2] = {type: 2, children: [3,4]};// CAT
+  this.rules[24].opcodes[3] = {type: 4, index: 28};// RNM(userinfo-d)
+  this.rules[24].opcodes[4] = {type: 7, string: [64]};// TLS
+  this.rules[24].opcodes[5] = {type: 4, index: 29};// RNM(host-d)
+  this.rules[24].opcodes[6] = {type: 3, min: 0, max: 1};// REP
+  this.rules[24].opcodes[7] = {type: 2, children: [8,9]};// CAT
+  this.rules[24].opcodes[8] = {type: 7, string: [58]};// TLS
+  this.rules[24].opcodes[9] = {type: 4, index: 30};// RNM(port-d)
 
   /* userinfo */
-  this.rules[21].opcodes = [];
-  this.rules[21].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[21].opcodes[1] = {type: 1, children: [2,3,4,5,6,7,8,9,10,11,12]};// ALT
-  this.rules[21].opcodes[2] = {type: 5, min: 97, max: 122};// TRG
-  this.rules[21].opcodes[3] = {type: 5, min: 65, max: 90};// TRG
-  this.rules[21].opcodes[4] = {type: 5, min: 48, max: 57};// TRG
-  this.rules[21].opcodes[5] = {type: 4, index: 50};// RNM(pct-encoded)
-  this.rules[21].opcodes[6] = {type: 6, string: [33]};// TBS
-  this.rules[21].opcodes[7] = {type: 6, string: [36]};// TBS
-  this.rules[21].opcodes[8] = {type: 5, min: 38, max: 46};// TRG
-  this.rules[21].opcodes[9] = {type: 5, min: 58, max: 59};// TRG
-  this.rules[21].opcodes[10] = {type: 6, string: [61]};// TBS
-  this.rules[21].opcodes[11] = {type: 6, string: [95]};// TBS
-  this.rules[21].opcodes[12] = {type: 6, string: [126]};// TBS
+  this.rules[25].opcodes = [];
+  this.rules[25].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[25].opcodes[1] = {type: 1, children: [2,3,4,5,6,7,8,9,10,11,12]};// ALT
+  this.rules[25].opcodes[2] = {type: 5, min: 97, max: 122};// TRG
+  this.rules[25].opcodes[3] = {type: 5, min: 65, max: 90};// TRG
+  this.rules[25].opcodes[4] = {type: 5, min: 48, max: 57};// TRG
+  this.rules[25].opcodes[5] = {type: 4, index: 54};// RNM(pct-encoded)
+  this.rules[25].opcodes[6] = {type: 6, string: [33]};// TBS
+  this.rules[25].opcodes[7] = {type: 6, string: [36]};// TBS
+  this.rules[25].opcodes[8] = {type: 5, min: 38, max: 46};// TRG
+  this.rules[25].opcodes[9] = {type: 5, min: 58, max: 59};// TRG
+  this.rules[25].opcodes[10] = {type: 6, string: [61]};// TBS
+  this.rules[25].opcodes[11] = {type: 6, string: [95]};// TBS
+  this.rules[25].opcodes[12] = {type: 6, string: [126]};// TBS
 
   /* host */
-  this.rules[22].opcodes = [];
-  this.rules[22].opcodes[0] = {type: 1, children: [1,2,3]};// ALT
-  this.rules[22].opcodes[1] = {type: 4, index: 27};// RNM(IP-literal)
-  this.rules[22].opcodes[2] = {type: 4, index: 32};// RNM(IPv4address)
-  this.rules[22].opcodes[3] = {type: 4, index: 34};// RNM(reg-name)
+  this.rules[26].opcodes = [];
+  this.rules[26].opcodes[0] = {type: 1, children: [1,2,3]};// ALT
+  this.rules[26].opcodes[1] = {type: 4, index: 31};// RNM(IP-literal)
+  this.rules[26].opcodes[2] = {type: 4, index: 36};// RNM(IPv4address)
+  this.rules[26].opcodes[3] = {type: 4, index: 38};// RNM(reg-name)
 
   /* port */
-  this.rules[23].opcodes = [];
-  this.rules[23].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[23].opcodes[1] = {type: 4, index: 66};// RNM(DIGIT)
+  this.rules[27].opcodes = [];
+  this.rules[27].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[27].opcodes[1] = {type: 4, index: 70};// RNM(DIGIT)
 
   /* userinfo-d */
-  this.rules[24].opcodes = [];
-  this.rules[24].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[24].opcodes[1] = {type: 1, children: [2,3,4,5,6,7,8,9,10,11,12]};// ALT
-  this.rules[24].opcodes[2] = {type: 5, min: 97, max: 122};// TRG
-  this.rules[24].opcodes[3] = {type: 5, min: 65, max: 90};// TRG
-  this.rules[24].opcodes[4] = {type: 5, min: 48, max: 57};// TRG
-  this.rules[24].opcodes[5] = {type: 4, index: 50};// RNM(pct-encoded)
-  this.rules[24].opcodes[6] = {type: 6, string: [33]};// TBS
-  this.rules[24].opcodes[7] = {type: 6, string: [36]};// TBS
-  this.rules[24].opcodes[8] = {type: 5, min: 38, max: 46};// TRG
-  this.rules[24].opcodes[9] = {type: 5, min: 58, max: 59};// TRG
-  this.rules[24].opcodes[10] = {type: 6, string: [61]};// TBS
-  this.rules[24].opcodes[11] = {type: 6, string: [95]};// TBS
-  this.rules[24].opcodes[12] = {type: 6, string: [126]};// TBS
+  this.rules[28].opcodes = [];
+  this.rules[28].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[28].opcodes[1] = {type: 1, children: [2,3,4,5,6,7,8,9,10,11,12]};// ALT
+  this.rules[28].opcodes[2] = {type: 5, min: 97, max: 122};// TRG
+  this.rules[28].opcodes[3] = {type: 5, min: 65, max: 90};// TRG
+  this.rules[28].opcodes[4] = {type: 5, min: 48, max: 57};// TRG
+  this.rules[28].opcodes[5] = {type: 4, index: 54};// RNM(pct-encoded)
+  this.rules[28].opcodes[6] = {type: 6, string: [33]};// TBS
+  this.rules[28].opcodes[7] = {type: 6, string: [36]};// TBS
+  this.rules[28].opcodes[8] = {type: 5, min: 38, max: 46};// TRG
+  this.rules[28].opcodes[9] = {type: 5, min: 58, max: 59};// TRG
+  this.rules[28].opcodes[10] = {type: 6, string: [61]};// TBS
+  this.rules[28].opcodes[11] = {type: 6, string: [95]};// TBS
+  this.rules[28].opcodes[12] = {type: 6, string: [126]};// TBS
 
   /* host-d */
-  this.rules[25].opcodes = [];
-  this.rules[25].opcodes[0] = {type: 1, children: [1,2,3]};// ALT
-  this.rules[25].opcodes[1] = {type: 4, index: 27};// RNM(IP-literal)
-  this.rules[25].opcodes[2] = {type: 4, index: 32};// RNM(IPv4address)
-  this.rules[25].opcodes[3] = {type: 4, index: 34};// RNM(reg-name)
+  this.rules[29].opcodes = [];
+  this.rules[29].opcodes[0] = {type: 1, children: [1,2,3]};// ALT
+  this.rules[29].opcodes[1] = {type: 4, index: 31};// RNM(IP-literal)
+  this.rules[29].opcodes[2] = {type: 4, index: 36};// RNM(IPv4address)
+  this.rules[29].opcodes[3] = {type: 4, index: 38};// RNM(reg-name)
 
   /* port-d */
-  this.rules[26].opcodes = [];
-  this.rules[26].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[26].opcodes[1] = {type: 4, index: 66};// RNM(DIGIT)
+  this.rules[30].opcodes = [];
+  this.rules[30].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[30].opcodes[1] = {type: 4, index: 70};// RNM(DIGIT)
 
   /* IP-literal */
-  this.rules[27].opcodes = [];
-  this.rules[27].opcodes[0] = {type: 2, children: [1,2,5]};// CAT
-  this.rules[27].opcodes[1] = {type: 7, string: [91]};// TLS
-  this.rules[27].opcodes[2] = {type: 1, children: [3,4]};// ALT
-  this.rules[27].opcodes[3] = {type: 4, index: 29};// RNM(IPv6address)
-  this.rules[27].opcodes[4] = {type: 4, index: 28};// RNM(IPvFuture)
-  this.rules[27].opcodes[5] = {type: 7, string: [93]};// TLS
+  this.rules[31].opcodes = [];
+  this.rules[31].opcodes[0] = {type: 2, children: [1,2,5]};// CAT
+  this.rules[31].opcodes[1] = {type: 7, string: [91]};// TLS
+  this.rules[31].opcodes[2] = {type: 1, children: [3,4]};// ALT
+  this.rules[31].opcodes[3] = {type: 4, index: 33};// RNM(IPv6address)
+  this.rules[31].opcodes[4] = {type: 4, index: 32};// RNM(IPvFuture)
+  this.rules[31].opcodes[5] = {type: 7, string: [93]};// TLS
 
   /* IPvFuture */
-  this.rules[28].opcodes = [];
-  this.rules[28].opcodes[0] = {type: 2, children: [1,2,4,5]};// CAT
-  this.rules[28].opcodes[1] = {type: 7, string: [118]};// TLS
-  this.rules[28].opcodes[2] = {type: 3, min: 1, max: Infinity};// REP
-  this.rules[28].opcodes[3] = {type: 4, index: 67};// RNM(HEXDIG)
-  this.rules[28].opcodes[4] = {type: 7, string: [46]};// TLS
-  this.rules[28].opcodes[5] = {type: 3, min: 1, max: Infinity};// REP
-  this.rules[28].opcodes[6] = {type: 1, children: [7,8,9,10,11,12,13,14,15,16]};// ALT
-  this.rules[28].opcodes[7] = {type: 5, min: 97, max: 122};// TRG
-  this.rules[28].opcodes[8] = {type: 5, min: 65, max: 90};// TRG
-  this.rules[28].opcodes[9] = {type: 5, min: 48, max: 57};// TRG
-  this.rules[28].opcodes[10] = {type: 6, string: [33]};// TBS
-  this.rules[28].opcodes[11] = {type: 6, string: [36]};// TBS
-  this.rules[28].opcodes[12] = {type: 5, min: 38, max: 46};// TRG
-  this.rules[28].opcodes[13] = {type: 5, min: 58, max: 59};// TRG
-  this.rules[28].opcodes[14] = {type: 6, string: [61]};// TBS
-  this.rules[28].opcodes[15] = {type: 6, string: [95]};// TBS
-  this.rules[28].opcodes[16] = {type: 6, string: [126]};// TBS
+  this.rules[32].opcodes = [];
+  this.rules[32].opcodes[0] = {type: 2, children: [1,2,4,5]};// CAT
+  this.rules[32].opcodes[1] = {type: 7, string: [118]};// TLS
+  this.rules[32].opcodes[2] = {type: 3, min: 1, max: Infinity};// REP
+  this.rules[32].opcodes[3] = {type: 4, index: 71};// RNM(HEXDIG)
+  this.rules[32].opcodes[4] = {type: 7, string: [46]};// TLS
+  this.rules[32].opcodes[5] = {type: 3, min: 1, max: Infinity};// REP
+  this.rules[32].opcodes[6] = {type: 1, children: [7,8,9,10,11,12,13,14,15,16]};// ALT
+  this.rules[32].opcodes[7] = {type: 5, min: 97, max: 122};// TRG
+  this.rules[32].opcodes[8] = {type: 5, min: 65, max: 90};// TRG
+  this.rules[32].opcodes[9] = {type: 5, min: 48, max: 57};// TRG
+  this.rules[32].opcodes[10] = {type: 6, string: [33]};// TBS
+  this.rules[32].opcodes[11] = {type: 6, string: [36]};// TBS
+  this.rules[32].opcodes[12] = {type: 5, min: 38, max: 46};// TRG
+  this.rules[32].opcodes[13] = {type: 5, min: 58, max: 59};// TRG
+  this.rules[32].opcodes[14] = {type: 6, string: [61]};// TBS
+  this.rules[32].opcodes[15] = {type: 6, string: [95]};// TBS
+  this.rules[32].opcodes[16] = {type: 6, string: [126]};// TBS
 
   /* IPv6address */
-  this.rules[29].opcodes = [];
-  this.rules[29].opcodes[0] = {type: 1, children: [1,7,14,23,37,51,63,73,83]};// ALT
-  this.rules[29].opcodes[1] = {type: 2, children: [2,6]};// CAT
-  this.rules[29].opcodes[2] = {type: 3, min: 6, max: 6};// REP
-  this.rules[29].opcodes[3] = {type: 2, children: [4,5]};// CAT
-  this.rules[29].opcodes[4] = {type: 4, index: 30};// RNM(h16)
-  this.rules[29].opcodes[5] = {type: 7, string: [58]};// TLS
-  this.rules[29].opcodes[6] = {type: 4, index: 31};// RNM(ls32)
-  this.rules[29].opcodes[7] = {type: 2, children: [8,9,13]};// CAT
-  this.rules[29].opcodes[8] = {type: 7, string: [58,58]};// TLS
-  this.rules[29].opcodes[9] = {type: 3, min: 5, max: 5};// REP
-  this.rules[29].opcodes[10] = {type: 2, children: [11,12]};// CAT
-  this.rules[29].opcodes[11] = {type: 4, index: 30};// RNM(h16)
-  this.rules[29].opcodes[12] = {type: 7, string: [58]};// TLS
-  this.rules[29].opcodes[13] = {type: 4, index: 31};// RNM(ls32)
-  this.rules[29].opcodes[14] = {type: 2, children: [15,17,18,22]};// CAT
-  this.rules[29].opcodes[15] = {type: 3, min: 0, max: 1};// REP
-  this.rules[29].opcodes[16] = {type: 4, index: 30};// RNM(h16)
-  this.rules[29].opcodes[17] = {type: 7, string: [58,58]};// TLS
-  this.rules[29].opcodes[18] = {type: 3, min: 4, max: 4};// REP
-  this.rules[29].opcodes[19] = {type: 2, children: [20,21]};// CAT
-  this.rules[29].opcodes[20] = {type: 4, index: 30};// RNM(h16)
-  this.rules[29].opcodes[21] = {type: 7, string: [58]};// TLS
-  this.rules[29].opcodes[22] = {type: 4, index: 31};// RNM(ls32)
-  this.rules[29].opcodes[23] = {type: 2, children: [24,31,32,36]};// CAT
-  this.rules[29].opcodes[24] = {type: 3, min: 0, max: 1};// REP
-  this.rules[29].opcodes[25] = {type: 2, children: [26,30]};// CAT
-  this.rules[29].opcodes[26] = {type: 3, min: 0, max: 1};// REP
-  this.rules[29].opcodes[27] = {type: 2, children: [28,29]};// CAT
-  this.rules[29].opcodes[28] = {type: 4, index: 30};// RNM(h16)
-  this.rules[29].opcodes[29] = {type: 7, string: [58]};// TLS
-  this.rules[29].opcodes[30] = {type: 4, index: 30};// RNM(h16)
-  this.rules[29].opcodes[31] = {type: 7, string: [58,58]};// TLS
-  this.rules[29].opcodes[32] = {type: 3, min: 3, max: 3};// REP
-  this.rules[29].opcodes[33] = {type: 2, children: [34,35]};// CAT
-  this.rules[29].opcodes[34] = {type: 4, index: 30};// RNM(h16)
-  this.rules[29].opcodes[35] = {type: 7, string: [58]};// TLS
-  this.rules[29].opcodes[36] = {type: 4, index: 31};// RNM(ls32)
-  this.rules[29].opcodes[37] = {type: 2, children: [38,45,46,50]};// CAT
-  this.rules[29].opcodes[38] = {type: 3, min: 0, max: 1};// REP
-  this.rules[29].opcodes[39] = {type: 2, children: [40,44]};// CAT
-  this.rules[29].opcodes[40] = {type: 3, min: 0, max: 2};// REP
-  this.rules[29].opcodes[41] = {type: 2, children: [42,43]};// CAT
-  this.rules[29].opcodes[42] = {type: 4, index: 30};// RNM(h16)
-  this.rules[29].opcodes[43] = {type: 7, string: [58]};// TLS
-  this.rules[29].opcodes[44] = {type: 4, index: 30};// RNM(h16)
-  this.rules[29].opcodes[45] = {type: 7, string: [58,58]};// TLS
-  this.rules[29].opcodes[46] = {type: 3, min: 2, max: 2};// REP
-  this.rules[29].opcodes[47] = {type: 2, children: [48,49]};// CAT
-  this.rules[29].opcodes[48] = {type: 4, index: 30};// RNM(h16)
-  this.rules[29].opcodes[49] = {type: 7, string: [58]};// TLS
-  this.rules[29].opcodes[50] = {type: 4, index: 31};// RNM(ls32)
-  this.rules[29].opcodes[51] = {type: 2, children: [52,59,60,61,62]};// CAT
-  this.rules[29].opcodes[52] = {type: 3, min: 0, max: 1};// REP
-  this.rules[29].opcodes[53] = {type: 2, children: [54,58]};// CAT
-  this.rules[29].opcodes[54] = {type: 3, min: 0, max: 3};// REP
-  this.rules[29].opcodes[55] = {type: 2, children: [56,57]};// CAT
-  this.rules[29].opcodes[56] = {type: 4, index: 30};// RNM(h16)
-  this.rules[29].opcodes[57] = {type: 7, string: [58]};// TLS
-  this.rules[29].opcodes[58] = {type: 4, index: 30};// RNM(h16)
-  this.rules[29].opcodes[59] = {type: 7, string: [58,58]};// TLS
-  this.rules[29].opcodes[60] = {type: 4, index: 30};// RNM(h16)
-  this.rules[29].opcodes[61] = {type: 7, string: [58]};// TLS
-  this.rules[29].opcodes[62] = {type: 4, index: 31};// RNM(ls32)
-  this.rules[29].opcodes[63] = {type: 2, children: [64,71,72]};// CAT
-  this.rules[29].opcodes[64] = {type: 3, min: 0, max: 1};// REP
-  this.rules[29].opcodes[65] = {type: 2, children: [66,70]};// CAT
-  this.rules[29].opcodes[66] = {type: 3, min: 0, max: 4};// REP
-  this.rules[29].opcodes[67] = {type: 2, children: [68,69]};// CAT
-  this.rules[29].opcodes[68] = {type: 4, index: 30};// RNM(h16)
-  this.rules[29].opcodes[69] = {type: 7, string: [58]};// TLS
-  this.rules[29].opcodes[70] = {type: 4, index: 30};// RNM(h16)
-  this.rules[29].opcodes[71] = {type: 7, string: [58,58]};// TLS
-  this.rules[29].opcodes[72] = {type: 4, index: 31};// RNM(ls32)
-  this.rules[29].opcodes[73] = {type: 2, children: [74,81,82]};// CAT
-  this.rules[29].opcodes[74] = {type: 3, min: 0, max: 1};// REP
-  this.rules[29].opcodes[75] = {type: 2, children: [76,80]};// CAT
-  this.rules[29].opcodes[76] = {type: 3, min: 0, max: 5};// REP
-  this.rules[29].opcodes[77] = {type: 2, children: [78,79]};// CAT
-  this.rules[29].opcodes[78] = {type: 4, index: 30};// RNM(h16)
-  this.rules[29].opcodes[79] = {type: 7, string: [58]};// TLS
-  this.rules[29].opcodes[80] = {type: 4, index: 30};// RNM(h16)
-  this.rules[29].opcodes[81] = {type: 7, string: [58,58]};// TLS
-  this.rules[29].opcodes[82] = {type: 4, index: 30};// RNM(h16)
-  this.rules[29].opcodes[83] = {type: 2, children: [84,91]};// CAT
-  this.rules[29].opcodes[84] = {type: 3, min: 0, max: 1};// REP
-  this.rules[29].opcodes[85] = {type: 2, children: [86,90]};// CAT
-  this.rules[29].opcodes[86] = {type: 3, min: 0, max: 6};// REP
-  this.rules[29].opcodes[87] = {type: 2, children: [88,89]};// CAT
-  this.rules[29].opcodes[88] = {type: 4, index: 30};// RNM(h16)
-  this.rules[29].opcodes[89] = {type: 7, string: [58]};// TLS
-  this.rules[29].opcodes[90] = {type: 4, index: 30};// RNM(h16)
-  this.rules[29].opcodes[91] = {type: 7, string: [58,58]};// TLS
+  this.rules[33].opcodes = [];
+  this.rules[33].opcodes[0] = {type: 1, children: [1,7,14,23,37,51,63,73,83]};// ALT
+  this.rules[33].opcodes[1] = {type: 2, children: [2,6]};// CAT
+  this.rules[33].opcodes[2] = {type: 3, min: 6, max: 6};// REP
+  this.rules[33].opcodes[3] = {type: 2, children: [4,5]};// CAT
+  this.rules[33].opcodes[4] = {type: 4, index: 34};// RNM(h16)
+  this.rules[33].opcodes[5] = {type: 7, string: [58]};// TLS
+  this.rules[33].opcodes[6] = {type: 4, index: 35};// RNM(ls32)
+  this.rules[33].opcodes[7] = {type: 2, children: [8,9,13]};// CAT
+  this.rules[33].opcodes[8] = {type: 7, string: [58,58]};// TLS
+  this.rules[33].opcodes[9] = {type: 3, min: 5, max: 5};// REP
+  this.rules[33].opcodes[10] = {type: 2, children: [11,12]};// CAT
+  this.rules[33].opcodes[11] = {type: 4, index: 34};// RNM(h16)
+  this.rules[33].opcodes[12] = {type: 7, string: [58]};// TLS
+  this.rules[33].opcodes[13] = {type: 4, index: 35};// RNM(ls32)
+  this.rules[33].opcodes[14] = {type: 2, children: [15,17,18,22]};// CAT
+  this.rules[33].opcodes[15] = {type: 3, min: 0, max: 1};// REP
+  this.rules[33].opcodes[16] = {type: 4, index: 34};// RNM(h16)
+  this.rules[33].opcodes[17] = {type: 7, string: [58,58]};// TLS
+  this.rules[33].opcodes[18] = {type: 3, min: 4, max: 4};// REP
+  this.rules[33].opcodes[19] = {type: 2, children: [20,21]};// CAT
+  this.rules[33].opcodes[20] = {type: 4, index: 34};// RNM(h16)
+  this.rules[33].opcodes[21] = {type: 7, string: [58]};// TLS
+  this.rules[33].opcodes[22] = {type: 4, index: 35};// RNM(ls32)
+  this.rules[33].opcodes[23] = {type: 2, children: [24,31,32,36]};// CAT
+  this.rules[33].opcodes[24] = {type: 3, min: 0, max: 1};// REP
+  this.rules[33].opcodes[25] = {type: 2, children: [26,30]};// CAT
+  this.rules[33].opcodes[26] = {type: 3, min: 0, max: 1};// REP
+  this.rules[33].opcodes[27] = {type: 2, children: [28,29]};// CAT
+  this.rules[33].opcodes[28] = {type: 4, index: 34};// RNM(h16)
+  this.rules[33].opcodes[29] = {type: 7, string: [58]};// TLS
+  this.rules[33].opcodes[30] = {type: 4, index: 34};// RNM(h16)
+  this.rules[33].opcodes[31] = {type: 7, string: [58,58]};// TLS
+  this.rules[33].opcodes[32] = {type: 3, min: 3, max: 3};// REP
+  this.rules[33].opcodes[33] = {type: 2, children: [34,35]};// CAT
+  this.rules[33].opcodes[34] = {type: 4, index: 34};// RNM(h16)
+  this.rules[33].opcodes[35] = {type: 7, string: [58]};// TLS
+  this.rules[33].opcodes[36] = {type: 4, index: 35};// RNM(ls32)
+  this.rules[33].opcodes[37] = {type: 2, children: [38,45,46,50]};// CAT
+  this.rules[33].opcodes[38] = {type: 3, min: 0, max: 1};// REP
+  this.rules[33].opcodes[39] = {type: 2, children: [40,44]};// CAT
+  this.rules[33].opcodes[40] = {type: 3, min: 0, max: 2};// REP
+  this.rules[33].opcodes[41] = {type: 2, children: [42,43]};// CAT
+  this.rules[33].opcodes[42] = {type: 4, index: 34};// RNM(h16)
+  this.rules[33].opcodes[43] = {type: 7, string: [58]};// TLS
+  this.rules[33].opcodes[44] = {type: 4, index: 34};// RNM(h16)
+  this.rules[33].opcodes[45] = {type: 7, string: [58,58]};// TLS
+  this.rules[33].opcodes[46] = {type: 3, min: 2, max: 2};// REP
+  this.rules[33].opcodes[47] = {type: 2, children: [48,49]};// CAT
+  this.rules[33].opcodes[48] = {type: 4, index: 34};// RNM(h16)
+  this.rules[33].opcodes[49] = {type: 7, string: [58]};// TLS
+  this.rules[33].opcodes[50] = {type: 4, index: 35};// RNM(ls32)
+  this.rules[33].opcodes[51] = {type: 2, children: [52,59,60,61,62]};// CAT
+  this.rules[33].opcodes[52] = {type: 3, min: 0, max: 1};// REP
+  this.rules[33].opcodes[53] = {type: 2, children: [54,58]};// CAT
+  this.rules[33].opcodes[54] = {type: 3, min: 0, max: 3};// REP
+  this.rules[33].opcodes[55] = {type: 2, children: [56,57]};// CAT
+  this.rules[33].opcodes[56] = {type: 4, index: 34};// RNM(h16)
+  this.rules[33].opcodes[57] = {type: 7, string: [58]};// TLS
+  this.rules[33].opcodes[58] = {type: 4, index: 34};// RNM(h16)
+  this.rules[33].opcodes[59] = {type: 7, string: [58,58]};// TLS
+  this.rules[33].opcodes[60] = {type: 4, index: 34};// RNM(h16)
+  this.rules[33].opcodes[61] = {type: 7, string: [58]};// TLS
+  this.rules[33].opcodes[62] = {type: 4, index: 35};// RNM(ls32)
+  this.rules[33].opcodes[63] = {type: 2, children: [64,71,72]};// CAT
+  this.rules[33].opcodes[64] = {type: 3, min: 0, max: 1};// REP
+  this.rules[33].opcodes[65] = {type: 2, children: [66,70]};// CAT
+  this.rules[33].opcodes[66] = {type: 3, min: 0, max: 4};// REP
+  this.rules[33].opcodes[67] = {type: 2, children: [68,69]};// CAT
+  this.rules[33].opcodes[68] = {type: 4, index: 34};// RNM(h16)
+  this.rules[33].opcodes[69] = {type: 7, string: [58]};// TLS
+  this.rules[33].opcodes[70] = {type: 4, index: 34};// RNM(h16)
+  this.rules[33].opcodes[71] = {type: 7, string: [58,58]};// TLS
+  this.rules[33].opcodes[72] = {type: 4, index: 35};// RNM(ls32)
+  this.rules[33].opcodes[73] = {type: 2, children: [74,81,82]};// CAT
+  this.rules[33].opcodes[74] = {type: 3, min: 0, max: 1};// REP
+  this.rules[33].opcodes[75] = {type: 2, children: [76,80]};// CAT
+  this.rules[33].opcodes[76] = {type: 3, min: 0, max: 5};// REP
+  this.rules[33].opcodes[77] = {type: 2, children: [78,79]};// CAT
+  this.rules[33].opcodes[78] = {type: 4, index: 34};// RNM(h16)
+  this.rules[33].opcodes[79] = {type: 7, string: [58]};// TLS
+  this.rules[33].opcodes[80] = {type: 4, index: 34};// RNM(h16)
+  this.rules[33].opcodes[81] = {type: 7, string: [58,58]};// TLS
+  this.rules[33].opcodes[82] = {type: 4, index: 34};// RNM(h16)
+  this.rules[33].opcodes[83] = {type: 2, children: [84,91]};// CAT
+  this.rules[33].opcodes[84] = {type: 3, min: 0, max: 1};// REP
+  this.rules[33].opcodes[85] = {type: 2, children: [86,90]};// CAT
+  this.rules[33].opcodes[86] = {type: 3, min: 0, max: 6};// REP
+  this.rules[33].opcodes[87] = {type: 2, children: [88,89]};// CAT
+  this.rules[33].opcodes[88] = {type: 4, index: 34};// RNM(h16)
+  this.rules[33].opcodes[89] = {type: 7, string: [58]};// TLS
+  this.rules[33].opcodes[90] = {type: 4, index: 34};// RNM(h16)
+  this.rules[33].opcodes[91] = {type: 7, string: [58,58]};// TLS
 
   /* h16 */
-  this.rules[30].opcodes = [];
-  this.rules[30].opcodes[0] = {type: 3, min: 1, max: 4};// REP
-  this.rules[30].opcodes[1] = {type: 4, index: 67};// RNM(HEXDIG)
+  this.rules[34].opcodes = [];
+  this.rules[34].opcodes[0] = {type: 3, min: 1, max: 4};// REP
+  this.rules[34].opcodes[1] = {type: 4, index: 71};// RNM(HEXDIG)
 
   /* ls32 */
-  this.rules[31].opcodes = [];
-  this.rules[31].opcodes[0] = {type: 1, children: [1,5]};// ALT
-  this.rules[31].opcodes[1] = {type: 2, children: [2,3,4]};// CAT
-  this.rules[31].opcodes[2] = {type: 4, index: 30};// RNM(h16)
-  this.rules[31].opcodes[3] = {type: 7, string: [58]};// TLS
-  this.rules[31].opcodes[4] = {type: 4, index: 30};// RNM(h16)
-  this.rules[31].opcodes[5] = {type: 4, index: 32};// RNM(IPv4address)
+  this.rules[35].opcodes = [];
+  this.rules[35].opcodes[0] = {type: 1, children: [1,5]};// ALT
+  this.rules[35].opcodes[1] = {type: 2, children: [2,3,4]};// CAT
+  this.rules[35].opcodes[2] = {type: 4, index: 34};// RNM(h16)
+  this.rules[35].opcodes[3] = {type: 7, string: [58]};// TLS
+  this.rules[35].opcodes[4] = {type: 4, index: 34};// RNM(h16)
+  this.rules[35].opcodes[5] = {type: 4, index: 36};// RNM(IPv4address)
 
   /* IPv4address */
-  this.rules[32].opcodes = [];
-  this.rules[32].opcodes[0] = {type: 2, children: [1,2,3,4,5,6,7]};// CAT
-  this.rules[32].opcodes[1] = {type: 4, index: 33};// RNM(dec-octet)
-  this.rules[32].opcodes[2] = {type: 7, string: [46]};// TLS
-  this.rules[32].opcodes[3] = {type: 4, index: 33};// RNM(dec-octet)
-  this.rules[32].opcodes[4] = {type: 7, string: [46]};// TLS
-  this.rules[32].opcodes[5] = {type: 4, index: 33};// RNM(dec-octet)
-  this.rules[32].opcodes[6] = {type: 7, string: [46]};// TLS
-  this.rules[32].opcodes[7] = {type: 4, index: 33};// RNM(dec-octet)
+  this.rules[36].opcodes = [];
+  this.rules[36].opcodes[0] = {type: 2, children: [1,2,3,4,5,6,7]};// CAT
+  this.rules[36].opcodes[1] = {type: 4, index: 37};// RNM(dec-octet)
+  this.rules[36].opcodes[2] = {type: 7, string: [46]};// TLS
+  this.rules[36].opcodes[3] = {type: 4, index: 37};// RNM(dec-octet)
+  this.rules[36].opcodes[4] = {type: 7, string: [46]};// TLS
+  this.rules[36].opcodes[5] = {type: 4, index: 37};// RNM(dec-octet)
+  this.rules[36].opcodes[6] = {type: 7, string: [46]};// TLS
+  this.rules[36].opcodes[7] = {type: 4, index: 37};// RNM(dec-octet)
 
   /* dec-octet */
-  this.rules[33].opcodes = [];
-  this.rules[33].opcodes[0] = {type: 1, children: [1,2,5,9,13]};// ALT
-  this.rules[33].opcodes[1] = {type: 4, index: 66};// RNM(DIGIT)
-  this.rules[33].opcodes[2] = {type: 2, children: [3,4]};// CAT
-  this.rules[33].opcodes[3] = {type: 5, min: 49, max: 57};// TRG
-  this.rules[33].opcodes[4] = {type: 4, index: 66};// RNM(DIGIT)
-  this.rules[33].opcodes[5] = {type: 2, children: [6,7]};// CAT
-  this.rules[33].opcodes[6] = {type: 7, string: [49]};// TLS
-  this.rules[33].opcodes[7] = {type: 3, min: 2, max: 2};// REP
-  this.rules[33].opcodes[8] = {type: 4, index: 66};// RNM(DIGIT)
-  this.rules[33].opcodes[9] = {type: 2, children: [10,11,12]};// CAT
-  this.rules[33].opcodes[10] = {type: 7, string: [50]};// TLS
-  this.rules[33].opcodes[11] = {type: 5, min: 48, max: 52};// TRG
-  this.rules[33].opcodes[12] = {type: 4, index: 66};// RNM(DIGIT)
-  this.rules[33].opcodes[13] = {type: 2, children: [14,15]};// CAT
-  this.rules[33].opcodes[14] = {type: 7, string: [50,53]};// TLS
-  this.rules[33].opcodes[15] = {type: 5, min: 48, max: 53};// TRG
+  this.rules[37].opcodes = [];
+  this.rules[37].opcodes[0] = {type: 1, children: [1,2,5,9,13]};// ALT
+  this.rules[37].opcodes[1] = {type: 4, index: 70};// RNM(DIGIT)
+  this.rules[37].opcodes[2] = {type: 2, children: [3,4]};// CAT
+  this.rules[37].opcodes[3] = {type: 5, min: 49, max: 57};// TRG
+  this.rules[37].opcodes[4] = {type: 4, index: 70};// RNM(DIGIT)
+  this.rules[37].opcodes[5] = {type: 2, children: [6,7]};// CAT
+  this.rules[37].opcodes[6] = {type: 7, string: [49]};// TLS
+  this.rules[37].opcodes[7] = {type: 3, min: 2, max: 2};// REP
+  this.rules[37].opcodes[8] = {type: 4, index: 70};// RNM(DIGIT)
+  this.rules[37].opcodes[9] = {type: 2, children: [10,11,12]};// CAT
+  this.rules[37].opcodes[10] = {type: 7, string: [50]};// TLS
+  this.rules[37].opcodes[11] = {type: 5, min: 48, max: 52};// TRG
+  this.rules[37].opcodes[12] = {type: 4, index: 70};// RNM(DIGIT)
+  this.rules[37].opcodes[13] = {type: 2, children: [14,15]};// CAT
+  this.rules[37].opcodes[14] = {type: 7, string: [50,53]};// TLS
+  this.rules[37].opcodes[15] = {type: 5, min: 48, max: 53};// TRG
 
   /* reg-name */
-  this.rules[34].opcodes = [];
-  this.rules[34].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[34].opcodes[1] = {type: 1, children: [2,3,4,5,6,7,8,9,10,11,12]};// ALT
-  this.rules[34].opcodes[2] = {type: 5, min: 97, max: 122};// TRG
-  this.rules[34].opcodes[3] = {type: 5, min: 65, max: 90};// TRG
-  this.rules[34].opcodes[4] = {type: 5, min: 48, max: 57};// TRG
-  this.rules[34].opcodes[5] = {type: 4, index: 50};// RNM(pct-encoded)
-  this.rules[34].opcodes[6] = {type: 6, string: [33]};// TBS
-  this.rules[34].opcodes[7] = {type: 6, string: [36]};// TBS
-  this.rules[34].opcodes[8] = {type: 5, min: 38, max: 46};// TRG
-  this.rules[34].opcodes[9] = {type: 6, string: [59]};// TBS
-  this.rules[34].opcodes[10] = {type: 6, string: [61]};// TBS
-  this.rules[34].opcodes[11] = {type: 6, string: [95]};// TBS
-  this.rules[34].opcodes[12] = {type: 6, string: [126]};// TBS
+  this.rules[38].opcodes = [];
+  this.rules[38].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[38].opcodes[1] = {type: 1, children: [2,3,4,5,6,7,8,9,10,11,12]};// ALT
+  this.rules[38].opcodes[2] = {type: 5, min: 97, max: 122};// TRG
+  this.rules[38].opcodes[3] = {type: 5, min: 65, max: 90};// TRG
+  this.rules[38].opcodes[4] = {type: 5, min: 48, max: 57};// TRG
+  this.rules[38].opcodes[5] = {type: 4, index: 54};// RNM(pct-encoded)
+  this.rules[38].opcodes[6] = {type: 6, string: [33]};// TBS
+  this.rules[38].opcodes[7] = {type: 6, string: [36]};// TBS
+  this.rules[38].opcodes[8] = {type: 5, min: 38, max: 46};// TRG
+  this.rules[38].opcodes[9] = {type: 6, string: [59]};// TBS
+  this.rules[38].opcodes[10] = {type: 6, string: [61]};// TBS
+  this.rules[38].opcodes[11] = {type: 6, string: [95]};// TBS
+  this.rules[38].opcodes[12] = {type: 6, string: [126]};// TBS
 
   /* path-abempty */
-  this.rules[35].opcodes = [];
-  this.rules[35].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[35].opcodes[1] = {type: 2, children: [2,3]};// CAT
-  this.rules[35].opcodes[2] = {type: 7, string: [47]};// TLS
-  this.rules[35].opcodes[3] = {type: 4, index: 43};// RNM(segment)
-
-  /* path-absolute */
-  this.rules[36].opcodes = [];
-  this.rules[36].opcodes[0] = {type: 2, children: [1,2]};// CAT
-  this.rules[36].opcodes[1] = {type: 7, string: [47]};// TLS
-  this.rules[36].opcodes[2] = {type: 3, min: 0, max: 1};// REP
-  this.rules[36].opcodes[3] = {type: 2, children: [4,5]};// CAT
-  this.rules[36].opcodes[4] = {type: 4, index: 44};// RNM(segment-nz)
-  this.rules[36].opcodes[5] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[36].opcodes[6] = {type: 2, children: [7,8]};// CAT
-  this.rules[36].opcodes[7] = {type: 7, string: [47]};// TLS
-  this.rules[36].opcodes[8] = {type: 4, index: 43};// RNM(segment)
-
-  /* path-rootless */
-  this.rules[37].opcodes = [];
-  this.rules[37].opcodes[0] = {type: 2, children: [1,2]};// CAT
-  this.rules[37].opcodes[1] = {type: 4, index: 44};// RNM(segment-nz)
-  this.rules[37].opcodes[2] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[37].opcodes[3] = {type: 2, children: [4,5]};// CAT
-  this.rules[37].opcodes[4] = {type: 7, string: [47]};// TLS
-  this.rules[37].opcodes[5] = {type: 4, index: 43};// RNM(segment)
-
-  /* path-empty */
-  this.rules[38].opcodes = [];
-  this.rules[38].opcodes[0] = {type: 7, string: []};// TLS
-
-  /* path-abempty-r */
   this.rules[39].opcodes = [];
   this.rules[39].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
   this.rules[39].opcodes[1] = {type: 2, children: [2,3]};// CAT
   this.rules[39].opcodes[2] = {type: 7, string: [47]};// TLS
-  this.rules[39].opcodes[3] = {type: 4, index: 43};// RNM(segment)
+  this.rules[39].opcodes[3] = {type: 4, index: 47};// RNM(segment)
 
-  /* path-absolute-r */
+  /* path-absolute */
   this.rules[40].opcodes = [];
   this.rules[40].opcodes[0] = {type: 2, children: [1,2]};// CAT
   this.rules[40].opcodes[1] = {type: 7, string: [47]};// TLS
   this.rules[40].opcodes[2] = {type: 3, min: 0, max: 1};// REP
   this.rules[40].opcodes[3] = {type: 2, children: [4,5]};// CAT
-  this.rules[40].opcodes[4] = {type: 4, index: 44};// RNM(segment-nz)
+  this.rules[40].opcodes[4] = {type: 4, index: 48};// RNM(segment-nz)
   this.rules[40].opcodes[5] = {type: 3, min: 0, max: Infinity};// REP
   this.rules[40].opcodes[6] = {type: 2, children: [7,8]};// CAT
   this.rules[40].opcodes[7] = {type: 7, string: [47]};// TLS
-  this.rules[40].opcodes[8] = {type: 4, index: 43};// RNM(segment)
+  this.rules[40].opcodes[8] = {type: 4, index: 47};// RNM(segment)
 
-  /* path-rootless-r */
+  /* path-rootless */
   this.rules[41].opcodes = [];
   this.rules[41].opcodes[0] = {type: 2, children: [1,2]};// CAT
-  this.rules[41].opcodes[1] = {type: 4, index: 44};// RNM(segment-nz)
+  this.rules[41].opcodes[1] = {type: 4, index: 48};// RNM(segment-nz)
   this.rules[41].opcodes[2] = {type: 3, min: 0, max: Infinity};// REP
   this.rules[41].opcodes[3] = {type: 2, children: [4,5]};// CAT
   this.rules[41].opcodes[4] = {type: 7, string: [47]};// TLS
-  this.rules[41].opcodes[5] = {type: 4, index: 43};// RNM(segment)
+  this.rules[41].opcodes[5] = {type: 4, index: 47};// RNM(segment)
 
-  /* path-empty-r */
+  /* path-empty */
   this.rules[42].opcodes = [];
   this.rules[42].opcodes[0] = {type: 7, string: []};// TLS
 
-  /* segment */
+  /* path-abempty-r */
   this.rules[43].opcodes = [];
   this.rules[43].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[43].opcodes[1] = {type: 4, index: 45};// RNM(pchar)
+  this.rules[43].opcodes[1] = {type: 2, children: [2,3]};// CAT
+  this.rules[43].opcodes[2] = {type: 7, string: [47]};// TLS
+  this.rules[43].opcodes[3] = {type: 4, index: 47};// RNM(segment)
 
-  /* segment-nz */
+  /* path-absolute-r */
   this.rules[44].opcodes = [];
-  this.rules[44].opcodes[0] = {type: 3, min: 1, max: Infinity};// REP
-  this.rules[44].opcodes[1] = {type: 4, index: 45};// RNM(pchar)
+  this.rules[44].opcodes[0] = {type: 2, children: [1,2]};// CAT
+  this.rules[44].opcodes[1] = {type: 7, string: [47]};// TLS
+  this.rules[44].opcodes[2] = {type: 3, min: 0, max: 1};// REP
+  this.rules[44].opcodes[3] = {type: 2, children: [4,5]};// CAT
+  this.rules[44].opcodes[4] = {type: 4, index: 48};// RNM(segment-nz)
+  this.rules[44].opcodes[5] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[44].opcodes[6] = {type: 2, children: [7,8]};// CAT
+  this.rules[44].opcodes[7] = {type: 7, string: [47]};// TLS
+  this.rules[44].opcodes[8] = {type: 4, index: 47};// RNM(segment)
 
-  /* pchar */
+  /* path-rootless-r */
   this.rules[45].opcodes = [];
-  this.rules[45].opcodes[0] = {type: 1, children: [1,2,3,4,5,6,7,8,9,10,11,12]};// ALT
-  this.rules[45].opcodes[1] = {type: 5, min: 97, max: 122};// TRG
-  this.rules[45].opcodes[2] = {type: 5, min: 65, max: 90};// TRG
-  this.rules[45].opcodes[3] = {type: 5, min: 48, max: 57};// TRG
-  this.rules[45].opcodes[4] = {type: 4, index: 50};// RNM(pct-encoded)
-  this.rules[45].opcodes[5] = {type: 6, string: [33]};// TBS
-  this.rules[45].opcodes[6] = {type: 6, string: [36]};// TBS
-  this.rules[45].opcodes[7] = {type: 5, min: 38, max: 46};// TRG
-  this.rules[45].opcodes[8] = {type: 5, min: 58, max: 59};// TRG
-  this.rules[45].opcodes[9] = {type: 6, string: [61]};// TBS
-  this.rules[45].opcodes[10] = {type: 6, string: [64]};// TBS
-  this.rules[45].opcodes[11] = {type: 6, string: [95]};// TBS
-  this.rules[45].opcodes[12] = {type: 6, string: [126]};// TBS
+  this.rules[45].opcodes[0] = {type: 2, children: [1,2]};// CAT
+  this.rules[45].opcodes[1] = {type: 4, index: 48};// RNM(segment-nz)
+  this.rules[45].opcodes[2] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[45].opcodes[3] = {type: 2, children: [4,5]};// CAT
+  this.rules[45].opcodes[4] = {type: 7, string: [47]};// TLS
+  this.rules[45].opcodes[5] = {type: 4, index: 47};// RNM(segment)
 
-  /* query */
+  /* path-empty-r */
   this.rules[46].opcodes = [];
-  this.rules[46].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[46].opcodes[1] = {type: 1, children: [2,3,4]};// ALT
-  this.rules[46].opcodes[2] = {type: 4, index: 45};// RNM(pchar)
-  this.rules[46].opcodes[3] = {type: 6, string: [47]};// TBS
-  this.rules[46].opcodes[4] = {type: 6, string: [63]};// TBS
+  this.rules[46].opcodes[0] = {type: 7, string: []};// TLS
 
-  /* query-r */
+  /* segment */
   this.rules[47].opcodes = [];
   this.rules[47].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[47].opcodes[1] = {type: 1, children: [2,3,4]};// ALT
-  this.rules[47].opcodes[2] = {type: 4, index: 45};// RNM(pchar)
-  this.rules[47].opcodes[3] = {type: 6, string: [47]};// TBS
-  this.rules[47].opcodes[4] = {type: 6, string: [63]};// TBS
+  this.rules[47].opcodes[1] = {type: 4, index: 49};// RNM(pchar)
+
+  /* segment-nz */
+  this.rules[48].opcodes = [];
+  this.rules[48].opcodes[0] = {type: 3, min: 1, max: Infinity};// REP
+  this.rules[48].opcodes[1] = {type: 4, index: 49};// RNM(pchar)
+
+  /* pchar */
+  this.rules[49].opcodes = [];
+  this.rules[49].opcodes[0] = {type: 1, children: [1,2,3,4,5,6,7,8,9,10,11,12]};// ALT
+  this.rules[49].opcodes[1] = {type: 5, min: 97, max: 122};// TRG
+  this.rules[49].opcodes[2] = {type: 5, min: 65, max: 90};// TRG
+  this.rules[49].opcodes[3] = {type: 5, min: 48, max: 57};// TRG
+  this.rules[49].opcodes[4] = {type: 4, index: 54};// RNM(pct-encoded)
+  this.rules[49].opcodes[5] = {type: 6, string: [33]};// TBS
+  this.rules[49].opcodes[6] = {type: 6, string: [36]};// TBS
+  this.rules[49].opcodes[7] = {type: 5, min: 38, max: 46};// TRG
+  this.rules[49].opcodes[8] = {type: 5, min: 58, max: 59};// TRG
+  this.rules[49].opcodes[9] = {type: 6, string: [61]};// TBS
+  this.rules[49].opcodes[10] = {type: 6, string: [64]};// TBS
+  this.rules[49].opcodes[11] = {type: 6, string: [95]};// TBS
+  this.rules[49].opcodes[12] = {type: 6, string: [126]};// TBS
+
+  /* query */
+  this.rules[50].opcodes = [];
+  this.rules[50].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[50].opcodes[1] = {type: 1, children: [2,3,4]};// ALT
+  this.rules[50].opcodes[2] = {type: 4, index: 49};// RNM(pchar)
+  this.rules[50].opcodes[3] = {type: 6, string: [47]};// TBS
+  this.rules[50].opcodes[4] = {type: 6, string: [63]};// TBS
+
+  /* query-r */
+  this.rules[51].opcodes = [];
+  this.rules[51].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[51].opcodes[1] = {type: 1, children: [2,3,4]};// ALT
+  this.rules[51].opcodes[2] = {type: 4, index: 49};// RNM(pchar)
+  this.rules[51].opcodes[3] = {type: 6, string: [47]};// TBS
+  this.rules[51].opcodes[4] = {type: 6, string: [63]};// TBS
 
   /* fragment */
-  this.rules[48].opcodes = [];
-  this.rules[48].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[48].opcodes[1] = {type: 1, children: [2,3,4]};// ALT
-  this.rules[48].opcodes[2] = {type: 4, index: 45};// RNM(pchar)
-  this.rules[48].opcodes[3] = {type: 6, string: [47]};// TBS
-  this.rules[48].opcodes[4] = {type: 6, string: [63]};// TBS
+  this.rules[52].opcodes = [];
+  this.rules[52].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[52].opcodes[1] = {type: 1, children: [2,3,4]};// ALT
+  this.rules[52].opcodes[2] = {type: 4, index: 49};// RNM(pchar)
+  this.rules[52].opcodes[3] = {type: 6, string: [47]};// TBS
+  this.rules[52].opcodes[4] = {type: 6, string: [63]};// TBS
 
   /* fragment-r */
-  this.rules[49].opcodes = [];
-  this.rules[49].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[49].opcodes[1] = {type: 1, children: [2,3,4]};// ALT
-  this.rules[49].opcodes[2] = {type: 4, index: 45};// RNM(pchar)
-  this.rules[49].opcodes[3] = {type: 6, string: [47]};// TBS
-  this.rules[49].opcodes[4] = {type: 6, string: [63]};// TBS
+  this.rules[53].opcodes = [];
+  this.rules[53].opcodes[0] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[53].opcodes[1] = {type: 1, children: [2,3,4]};// ALT
+  this.rules[53].opcodes[2] = {type: 4, index: 49};// RNM(pchar)
+  this.rules[53].opcodes[3] = {type: 6, string: [47]};// TBS
+  this.rules[53].opcodes[4] = {type: 6, string: [63]};// TBS
 
   /* pct-encoded */
-  this.rules[50].opcodes = [];
-  this.rules[50].opcodes[0] = {type: 2, children: [1,2,3]};// CAT
-  this.rules[50].opcodes[1] = {type: 7, string: [37]};// TLS
-  this.rules[50].opcodes[2] = {type: 4, index: 67};// RNM(HEXDIG)
-  this.rules[50].opcodes[3] = {type: 4, index: 67};// RNM(HEXDIG)
+  this.rules[54].opcodes = [];
+  this.rules[54].opcodes[0] = {type: 2, children: [1,2,3]};// CAT
+  this.rules[54].opcodes[1] = {type: 7, string: [37]};// TLS
+  this.rules[54].opcodes[2] = {type: 4, index: 71};// RNM(HEXDIG)
+  this.rules[54].opcodes[3] = {type: 4, index: 71};// RNM(HEXDIG)
 
   /* date-fullyear */
-  this.rules[51].opcodes = [];
-  this.rules[51].opcodes[0] = {type: 3, min: 4, max: 4};// REP
-  this.rules[51].opcodes[1] = {type: 4, index: 66};// RNM(DIGIT)
+  this.rules[55].opcodes = [];
+  this.rules[55].opcodes[0] = {type: 3, min: 4, max: 4};// REP
+  this.rules[55].opcodes[1] = {type: 4, index: 70};// RNM(DIGIT)
 
   /* date-month */
-  this.rules[52].opcodes = [];
-  this.rules[52].opcodes[0] = {type: 3, min: 2, max: 2};// REP
-  this.rules[52].opcodes[1] = {type: 4, index: 66};// RNM(DIGIT)
-
-  /* date-mday */
-  this.rules[53].opcodes = [];
-  this.rules[53].opcodes[0] = {type: 3, min: 2, max: 2};// REP
-  this.rules[53].opcodes[1] = {type: 4, index: 66};// RNM(DIGIT)
-
-  /* time-hour */
-  this.rules[54].opcodes = [];
-  this.rules[54].opcodes[0] = {type: 3, min: 2, max: 2};// REP
-  this.rules[54].opcodes[1] = {type: 4, index: 66};// RNM(DIGIT)
-
-  /* time-minute */
-  this.rules[55].opcodes = [];
-  this.rules[55].opcodes[0] = {type: 3, min: 2, max: 2};// REP
-  this.rules[55].opcodes[1] = {type: 4, index: 66};// RNM(DIGIT)
-
-  /* time-second */
   this.rules[56].opcodes = [];
   this.rules[56].opcodes[0] = {type: 3, min: 2, max: 2};// REP
-  this.rules[56].opcodes[1] = {type: 4, index: 66};// RNM(DIGIT)
+  this.rules[56].opcodes[1] = {type: 4, index: 70};// RNM(DIGIT)
+
+  /* date-mday */
+  this.rules[57].opcodes = [];
+  this.rules[57].opcodes[0] = {type: 3, min: 2, max: 2};// REP
+  this.rules[57].opcodes[1] = {type: 4, index: 70};// RNM(DIGIT)
+
+  /* time-hour */
+  this.rules[58].opcodes = [];
+  this.rules[58].opcodes[0] = {type: 3, min: 2, max: 2};// REP
+  this.rules[58].opcodes[1] = {type: 4, index: 70};// RNM(DIGIT)
+
+  /* time-minute */
+  this.rules[59].opcodes = [];
+  this.rules[59].opcodes[0] = {type: 3, min: 2, max: 2};// REP
+  this.rules[59].opcodes[1] = {type: 4, index: 70};// RNM(DIGIT)
+
+  /* time-second */
+  this.rules[60].opcodes = [];
+  this.rules[60].opcodes[0] = {type: 3, min: 2, max: 2};// REP
+  this.rules[60].opcodes[1] = {type: 4, index: 70};// RNM(DIGIT)
 
   /* time-secfrac */
-  this.rules[57].opcodes = [];
-  this.rules[57].opcodes[0] = {type: 2, children: [1,2]};// CAT
-  this.rules[57].opcodes[1] = {type: 7, string: [46]};// TLS
-  this.rules[57].opcodes[2] = {type: 3, min: 1, max: Infinity};// REP
-  this.rules[57].opcodes[3] = {type: 4, index: 66};// RNM(DIGIT)
+  this.rules[61].opcodes = [];
+  this.rules[61].opcodes[0] = {type: 2, children: [1,2]};// CAT
+  this.rules[61].opcodes[1] = {type: 7, string: [46]};// TLS
+  this.rules[61].opcodes[2] = {type: 3, min: 1, max: Infinity};// REP
+  this.rules[61].opcodes[3] = {type: 4, index: 70};// RNM(DIGIT)
 
   /* time-numoffset */
-  this.rules[58].opcodes = [];
-  this.rules[58].opcodes[0] = {type: 2, children: [1,4,5,6]};// CAT
-  this.rules[58].opcodes[1] = {type: 1, children: [2,3]};// ALT
-  this.rules[58].opcodes[2] = {type: 7, string: [43]};// TLS
-  this.rules[58].opcodes[3] = {type: 7, string: [45]};// TLS
-  this.rules[58].opcodes[4] = {type: 4, index: 54};// RNM(time-hour)
-  this.rules[58].opcodes[5] = {type: 7, string: [58]};// TLS
-  this.rules[58].opcodes[6] = {type: 4, index: 55};// RNM(time-minute)
+  this.rules[62].opcodes = [];
+  this.rules[62].opcodes[0] = {type: 2, children: [1,4,5,6]};// CAT
+  this.rules[62].opcodes[1] = {type: 1, children: [2,3]};// ALT
+  this.rules[62].opcodes[2] = {type: 7, string: [43]};// TLS
+  this.rules[62].opcodes[3] = {type: 7, string: [45]};// TLS
+  this.rules[62].opcodes[4] = {type: 4, index: 58};// RNM(time-hour)
+  this.rules[62].opcodes[5] = {type: 7, string: [58]};// TLS
+  this.rules[62].opcodes[6] = {type: 4, index: 59};// RNM(time-minute)
 
   /* time-offset */
-  this.rules[59].opcodes = [];
-  this.rules[59].opcodes[0] = {type: 1, children: [1,2]};// ALT
-  this.rules[59].opcodes[1] = {type: 7, string: [122]};// TLS
-  this.rules[59].opcodes[2] = {type: 4, index: 58};// RNM(time-numoffset)
+  this.rules[63].opcodes = [];
+  this.rules[63].opcodes[0] = {type: 1, children: [1,2]};// ALT
+  this.rules[63].opcodes[1] = {type: 7, string: [122]};// TLS
+  this.rules[63].opcodes[2] = {type: 4, index: 62};// RNM(time-numoffset)
 
   /* partial-time */
-  this.rules[60].opcodes = [];
-  this.rules[60].opcodes[0] = {type: 2, children: [1,2,3,4,5,6]};// CAT
-  this.rules[60].opcodes[1] = {type: 4, index: 54};// RNM(time-hour)
-  this.rules[60].opcodes[2] = {type: 7, string: [58]};// TLS
-  this.rules[60].opcodes[3] = {type: 4, index: 55};// RNM(time-minute)
-  this.rules[60].opcodes[4] = {type: 7, string: [58]};// TLS
-  this.rules[60].opcodes[5] = {type: 4, index: 56};// RNM(time-second)
-  this.rules[60].opcodes[6] = {type: 3, min: 0, max: 1};// REP
-  this.rules[60].opcodes[7] = {type: 4, index: 57};// RNM(time-secfrac)
+  this.rules[64].opcodes = [];
+  this.rules[64].opcodes[0] = {type: 2, children: [1,2,3,4,5,6]};// CAT
+  this.rules[64].opcodes[1] = {type: 4, index: 58};// RNM(time-hour)
+  this.rules[64].opcodes[2] = {type: 7, string: [58]};// TLS
+  this.rules[64].opcodes[3] = {type: 4, index: 59};// RNM(time-minute)
+  this.rules[64].opcodes[4] = {type: 7, string: [58]};// TLS
+  this.rules[64].opcodes[5] = {type: 4, index: 60};// RNM(time-second)
+  this.rules[64].opcodes[6] = {type: 3, min: 0, max: 1};// REP
+  this.rules[64].opcodes[7] = {type: 4, index: 61};// RNM(time-secfrac)
 
   /* full-date */
-  this.rules[61].opcodes = [];
-  this.rules[61].opcodes[0] = {type: 2, children: [1,2,3,4,5]};// CAT
-  this.rules[61].opcodes[1] = {type: 4, index: 51};// RNM(date-fullyear)
-  this.rules[61].opcodes[2] = {type: 7, string: [45]};// TLS
-  this.rules[61].opcodes[3] = {type: 4, index: 52};// RNM(date-month)
-  this.rules[61].opcodes[4] = {type: 7, string: [45]};// TLS
-  this.rules[61].opcodes[5] = {type: 4, index: 53};// RNM(date-mday)
+  this.rules[65].opcodes = [];
+  this.rules[65].opcodes[0] = {type: 2, children: [1,2,3,4,5]};// CAT
+  this.rules[65].opcodes[1] = {type: 4, index: 55};// RNM(date-fullyear)
+  this.rules[65].opcodes[2] = {type: 7, string: [45]};// TLS
+  this.rules[65].opcodes[3] = {type: 4, index: 56};// RNM(date-month)
+  this.rules[65].opcodes[4] = {type: 7, string: [45]};// TLS
+  this.rules[65].opcodes[5] = {type: 4, index: 57};// RNM(date-mday)
 
   /* full-time */
-  this.rules[62].opcodes = [];
-  this.rules[62].opcodes[0] = {type: 2, children: [1,2]};// CAT
-  this.rules[62].opcodes[1] = {type: 4, index: 60};// RNM(partial-time)
-  this.rules[62].opcodes[2] = {type: 4, index: 59};// RNM(time-offset)
+  this.rules[66].opcodes = [];
+  this.rules[66].opcodes[0] = {type: 2, children: [1,2]};// CAT
+  this.rules[66].opcodes[1] = {type: 4, index: 64};// RNM(partial-time)
+  this.rules[66].opcodes[2] = {type: 4, index: 63};// RNM(time-offset)
 
   /* date-time */
-  this.rules[63].opcodes = [];
-  this.rules[63].opcodes[0] = {type: 2, children: [1,2,3]};// CAT
-  this.rules[63].opcodes[1] = {type: 4, index: 61};// RNM(full-date)
-  this.rules[63].opcodes[2] = {type: 7, string: [116]};// TLS
-  this.rules[63].opcodes[3] = {type: 4, index: 62};// RNM(full-time)
+  this.rules[67].opcodes = [];
+  this.rules[67].opcodes[0] = {type: 2, children: [1,2,3]};// CAT
+  this.rules[67].opcodes[1] = {type: 4, index: 65};// RNM(full-date)
+  this.rules[67].opcodes[2] = {type: 7, string: [116]};// TLS
+  this.rules[67].opcodes[3] = {type: 4, index: 66};// RNM(full-time)
 
   /* ALPHA */
-  this.rules[64].opcodes = [];
-  this.rules[64].opcodes[0] = {type: 1, children: [1,2]};// ALT
-  this.rules[64].opcodes[1] = {type: 5, min: 65, max: 90};// TRG
-  this.rules[64].opcodes[2] = {type: 5, min: 97, max: 122};// TRG
+  this.rules[68].opcodes = [];
+  this.rules[68].opcodes[0] = {type: 1, children: [1,2]};// ALT
+  this.rules[68].opcodes[1] = {type: 5, min: 65, max: 90};// TRG
+  this.rules[68].opcodes[2] = {type: 5, min: 97, max: 122};// TRG
 
   /* LF */
-  this.rules[65].opcodes = [];
-  this.rules[65].opcodes[0] = {type: 6, string: [10]};// TBS
+  this.rules[69].opcodes = [];
+  this.rules[69].opcodes[0] = {type: 6, string: [10]};// TBS
 
   /* DIGIT */
-  this.rules[66].opcodes = [];
-  this.rules[66].opcodes[0] = {type: 5, min: 48, max: 57};// TRG
+  this.rules[70].opcodes = [];
+  this.rules[70].opcodes[0] = {type: 5, min: 48, max: 57};// TRG
 
   /* HEXDIG */
-  this.rules[67].opcodes = [];
-  this.rules[67].opcodes[0] = {type: 1, children: [1,2,3]};// ALT
-  this.rules[67].opcodes[1] = {type: 5, min: 48, max: 57};// TRG
-  this.rules[67].opcodes[2] = {type: 5, min: 65, max: 70};// TRG
-  this.rules[67].opcodes[3] = {type: 5, min: 97, max: 102};// TRG
+  this.rules[71].opcodes = [];
+  this.rules[71].opcodes[0] = {type: 1, children: [1,2,3]};// ALT
+  this.rules[71].opcodes[1] = {type: 5, min: 48, max: 57};// TRG
+  this.rules[71].opcodes[2] = {type: 5, min: 65, max: 70};// TRG
+  this.rules[71].opcodes[3] = {type: 5, min: 97, max: 102};// TRG
 
   // The `toString()` function will display the original grammar file(s) that produced these opcodes.
   this.toString = function toString(){
@@ -818,7 +838,7 @@ module.exports = function grammar(){
     str += ";      callback functions defined on authority-d or any of its *-d components.\n";
     str += "; 2.b) The resource URI is defined as URI-r and its components defined as *-r.\n";
     str += ";      In this way, callback functions can be defined on URI and is components while\n";
-    str += ";      leaving URI-r to be parsed identically with no unneccary callback functions to slow it down.\n";
+    str += ";      leaving URI-r to be parsed identically with no unnecessary callback functions to slow it down.\n";
     str += "; \n";
     str += "\n";
     str += "\n";
@@ -833,11 +853,15 @@ module.exports = function grammar(){
     str += "    %s\"Chain ID: \" chain-id LF\n";
     str += "    %s\"Nonce: \" nonce LF\n";
     str += "    %s\"Issued At: \" issued-at\n";
-    str += "    [ LF %s\"Expiration Time: \" expiration-time ]\n";
-    str += "    [ LF %s\"Not Before: \" not-before ]\n";
-    str += "    [ LF %s\"Request ID: \" request-id ]\n";
-    str += "    [ LF %s\"Resources:\"\n";
+    str += "    [ LF ex-title expiration-time ]\n";
+    str += "    [ LF nb-title not-before ]\n";
+    str += "    [ LF ri-title request-id ]\n";
+    str += "    [ LF re-title\n";
     str += "    resources ]\n";
+    str += "ex-title = %s\"Expiration Time: \"\n";
+    str += "nb-title = %s\"Not Before: \"\n";
+    str += "ri-title = %s\"Request ID: \"\n";
+    str += "re-title = %s\"Resources:\"\n";
     str += "\n";
     str += "domain = authority-d\n";
     str += "\n";
@@ -927,8 +951,10 @@ module.exports = function grammar(){
     str += "path-abempty  = *( \"/\" segment )\n";
     str += "path-absolute = \"/\" [ segment-nz *( \"/\" segment ) ]\n";
     str += "path-rootless = segment-nz *( \"/\" segment )\n";
-    str += ";path-empty    = 0pchar; deprecated - empty literal string, \"\", is more efficient \n";
     str += "path-empty    = \"\"\n";
+    str += ";path-empty    = 0pchar; deprecated - empty literal string, \"\", is more efficient \n";
+    str += "\n";
+    str += "; for use with URI-r\n";
     str += "path-abempty-r  = *( \"/\" segment )\n";
     str += "path-absolute-r = \"/\" [ segment-nz *( \"/\" segment ) ]\n";
     str += "path-rootless-r = segment-nz *( \"/\" segment )\n";

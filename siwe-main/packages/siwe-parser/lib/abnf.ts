@@ -3,10 +3,10 @@ import { cb } from "./callbacks";
 import apgLib from "apg-js/src/apg-lib/node-exports";
 import * as fs from "node:fs";
 // import * as utils from "apg-js/src/apg-lib/utilities";
-import { isEIP55Address, parseIntegerNumber } from "./utils";
+// import { isEIP55Address, parseIntegerNumber } from "./utils";
 
 const id = apgLib.ids;
-const doTrace = true;
+const doTrace = false;
 const dir =
   "/home/ldt/Projects/siwe-suggestion/siwe-main/packages/siwe-parser/output";
 
@@ -34,7 +34,36 @@ export class ParsedMessage {
     const elements = {};
     parser.callbacks["sign-in-with-ethereum"] = cb.signInWithEtherium;
     parser.callbacks["domain"] = cb.domain;
+    parser.callbacks["LF"] = cb.lineno;
+    parser.callbacks["ex-title"] = cb.exTitle;
+    parser.callbacks["nb-title"] = cb.nbTitle;
+    parser.callbacks["ri-title"] = cb.riTitle;
+    parser.callbacks["re-title"] = cb.reTitle;
+    parser.callbacks["address"] = cb.address;
+    parser.callbacks["statement"] = cb.statement;
+    parser.callbacks["version"] = cb.version;
+    parser.callbacks["nonce"] = cb.nonce;
+    parser.callbacks["issued-at"] = cb.issuedAt;
+    parser.callbacks["expiration-time"] = cb.expirationTime;
+    parser.callbacks["not-before"] = cb.notBefore;
+    parser.callbacks["request-id"] = cb.requestId;
+    parser.callbacks["uri-r"] = cb.uriR;
+    parser.callbacks["resource"] = cb.resource;
+    parser.callbacks["scheme"] = cb.scheme;
+    parser.callbacks["userinfo"] = cb.userinfo;
+    parser.callbacks["host"] = cb.host;
+    parser.callbacks["port"] = cb.port;
+    parser.callbacks["path-abempty"] = cb.pathAbempty;
+    parser.callbacks["path-absolute"] = cb.pathAbsolute;
+    parser.callbacks["path-rootless"] = cb.pathRootless;
+    parser.callbacks["path-empty"] = cb.pathEmpty;
+    parser.callbacks["query"] = cb.query;
+    parser.callbacks["fragment"] = cb.fragment;
+    parser.callbacks["uri"] = cb.uri;
     const result = parser.parse(grammarObj, 0, msg, elements);
+    console.log("parsed elements");
+    console.dir(elements);
+    console.log("\nparser result");
     console.dir(result);
     if (doTrace) {
       const html = parser.trace.toHtmlPage("ascii", "siwe, default trace");
@@ -57,13 +86,15 @@ export class ParsedMessage {
       this[key] = value;
     }
 
-    if (this.domain.length === 0) {
-      throw new Error("Domain cannot be empty.");
-    }
+    // This test has already been done in the parser callback functions "domain()".
+    // if (this.domain.length === 0) {
+    //   throw new Error("Domain cannot be empty.");
+    // }
 
-    if (!isEIP55Address(this.address)) {
-      throw new Error("Address not conformant to EIP-55.");
-    }
+    // This test has already been done in the parser callback functions "address()".
+    // if (!isEIP55Address(this.address)) {
+    //   throw new Error("Address not conformant to EIP-55.");
+    // }
   }
 }
 /*
