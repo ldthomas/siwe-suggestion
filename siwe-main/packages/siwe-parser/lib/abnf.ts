@@ -2,8 +2,6 @@ import Grammar from "../lib/siwe-grammar.js";
 import { cb } from "./callbacks";
 import apgLib from "apg-js/src/apg-lib/node-exports";
 import * as fs from "node:fs";
-// import * as utils from "apg-js/src/apg-lib/utilities";
-// import { isEIP55Address, parseIntegerNumber } from "./utils";
 
 const id = apgLib.ids;
 const doTrace = false;
@@ -23,17 +21,11 @@ export class ParsedMessage {
   notBefore: string | null;
   requestId: string | null;
   resources: Array<string> | null;
+  uriElements: object;
 
   constructor(msg: string) {
     const grammarObj = new Grammar();
     const parser = new apgLib.parser();
-    if (doTrace) {
-      parser.trace = new apgLib.trace();
-      parser.trace.filter.operators.cat = true;
-      parser.trace.filter.operators.rep = true;
-    }
-
-    const elements = {};
     parser.callbacks["sign-in-with-ethereum"] = cb.signInWithEtherium;
     parser.callbacks["domain"] = cb.domain;
     parser.callbacks["LF"] = cb.lineno;
@@ -44,6 +36,7 @@ export class ParsedMessage {
     parser.callbacks["address"] = cb.address;
     parser.callbacks["statement"] = cb.statement;
     parser.callbacks["version"] = cb.version;
+    parser.callbacks["chain-id"] = cb.chainId;
     parser.callbacks["nonce"] = cb.nonce;
     parser.callbacks["issued-at"] = cb.issuedAt;
     parser.callbacks["expiration-time"] = cb.expirationTime;
@@ -63,36 +56,82 @@ export class ParsedMessage {
     parser.callbacks["query"] = cb.query;
     parser.callbacks["fragment"] = cb.fragment;
     parser.callbacks["uri"] = cb.uri;
-    try {
-      const result = parser.parse(grammarObj, 0, msg, elements);
-      console.log("parsed elements");
-      console.dir(elements);
-      console.log("\nparser result");
-      console.dir(result);
-      if (!result.success) {
-        throw new Error(`Invalid message: ${JSON.stringify(result)}`);
-      }
-    } catch (e) {
-      console.log(e);
-    } finally {
-      if (doTrace) {
-        const html = parser.trace.toHtmlPage("ascii", "siwe, default trace");
-        const name = `${dir}/siwe-trace.html`;
-        try {
-          fs.mkdirSync(dir);
-        } catch (e) {
-          if (e.code !== "EEXIST") {
-            throw new Error(`fs.mkdir failed: ${e.message}`);
-          }
-        }
-        fs.writeFileSync(name, html);
-        console.log(`view "${name}" in any browser to display parser's trace`);
-      }
+
+    if (doTrace) {
+      parser.trace = new apgLib.trace();
+      // parser.trace.filter.operators.cat = true;
+      // parser.trace.filter.operators.rep = true;
     }
 
-    for (const [key, value] of Object.entries(elements)) {
-      this[key] = value;
+    // initialize parsed elements
+    const elements = {
+      errors: [],
+      lineno: 1,
+      domain: undefined,
+      address: undefined,
+      statement: null,
+      uri: undefined,
+      version: undefined,
+      chainId: undefined,
+      nonce: undefined,
+      issuedAt: undefined,
+      expirationTime: null,
+      notBefore: null,
+      requestId: null,
+      resources: null,
+      uriElements: {
+        scheme: undefined,
+        authority: null,
+        userinfo: null,
+        host: null,
+        port: null,
+        path: null,
+        query: null,
+        fragment: null,
+      },
+    };
+    const result = parser.parse(grammarObj, 0, msg, elements);
+    if (doTrace) {
+      const html = parser.trace.toHtmlPage("ascii", "siwe, default trace");
+      const name = `${dir}/siwe-trace.html`;
+      try {
+        fs.mkdirSync(dir);
+      } catch (e) {
+        if (e.code !== "EEXIST") {
+          throw new Error(`fs.mkdir failed: ${e.message}`);
+        }
+      }
+      fs.writeFileSync(name, html);
+      console.log(`view "${name}" in any browser to display parser's trace`);
     }
+    let throwMsg = "";
+    if (elements.errors.length > 0) {
+      for (let i = 0; i < elements.errors.length; i += 1) {
+        throwMsg += elements.errors[i] + "\n";
+      }
+    }
+    if (!result.success) {
+      throwMsg += `Invalid message: ${JSON.stringify(result)}`;
+      throw new Error(throwMsg);
+      // console.log("parsed elements");
+      // console.dir(elements);
+      // console.log("\nparser result");
+      // console.dir(result);
+    }
+
+    this.domain = elements.domain;
+    this.address = elements.address;
+    this.statement = elements.statement;
+    this.uri = elements.uri;
+    this.version = elements.version;
+    this.chainId = elements.chainId;
+    this.nonce = elements.nonce;
+    this.issuedAt = elements.issuedAt;
+    this.expirationTime = elements.expirationTime;
+    this.notBefore = elements.notBefore;
+    this.requestId = elements.requestId;
+    this.resources = elements.resources;
+    this.uriElements = elements.uriElements;
 
     // This test has already been done in the parser callback functions "domain()".
     // if (this.domain.length === 0) {

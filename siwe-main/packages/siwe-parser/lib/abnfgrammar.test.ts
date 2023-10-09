@@ -1,6 +1,7 @@
 import * as fs from "node:fs";
 import { cwd } from "node:process";
 console.log(`Current directory: ${cwd()}`);
+import { ParsedMessage } from "./abnf";
 import Grammar from "../lib/siwe-grammar.js";
 import apgLib from "apg-js/src/apg-lib/node-exports";
 const id = apgLib.ids;
@@ -54,6 +55,22 @@ Object.keys(parsingPositive).forEach((e) => {
 });
 // test getting siwe messages
 
+// describe("uir-js tests", () => {
+//   const rule = "uri";
+//   test("scheme", () => {
+//     let result = doParse(rule, "uri:", false);
+//     components = URI.parse("uri:");
+//     strictEqual(components.error, undefined, "scheme errors");
+//     strictEqual(components.scheme, "uri", "scheme");
+//     //strictEqual(components.authority, undefined, "authority");
+//     strictEqual(components.userinfo, undefined, "userinfo");
+//     strictEqual(components.host, undefined, "host");
+//     strictEqual(components.port, undefined, "port");
+//     strictEqual(components.path, "", "path");
+//     strictEqual(components.query, undefined, "query");
+//     strictEqual(components.fragment, undefined, "fragment");
+//   });
+// });
 describe("test strings with explicit special character definitions", () => {
   test("test pchar", () => {
     const rule = "segment-nz";
