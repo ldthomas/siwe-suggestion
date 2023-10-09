@@ -17,10 +17,11 @@ export const cb = {
         data.uri = undefined;
         data.uriElements = {
           scheme: undefined,
+          authority: null,
           userinfo: null,
           host: null,
           port: null,
-          path: undefined,
+          path: null,
           query: null,
           fragment: null,
         };
@@ -264,19 +265,34 @@ export const cb = {
         throw new Error(`line ${data.lineno}: invalid URI scheme`);
     }
   },
-  userinfo: function userinfo(result, chars, phraseIndex, data) {
+  authority: function authority(result, chars, phraseIndex, data) {
     switch (result.state) {
       case id.MATCH:
-        data.uriElements.userinfo = utils.charsToString(
+        data.uriElements.authority = utils.charsToString(
           chars,
           phraseIndex,
           result.phraseLength
         );
         break;
       case id.EMPTY:
-        data.uriElements.userinfo = "";
+        data.uriElements.authority = "";
       case id.NOMATCH:
-        throw new Error(`line ${data.lineno}: invalid URI userinfo`);
+        throw new Error(`line ${data.lineno}: invalid URI authority`);
+    }
+  },
+  userinfo: function userinfo(result, chars, phraseIndex, data) {
+    switch (result.state) {
+      case id.MATCH:
+        data.uriElements.userinfo = utils.charsToString(
+          chars,
+          phraseIndex,
+          result.phraseLength - 1
+        );
+        break;
+      // case id.EMPTY:
+      //   data.uriElements.userinfo = "";
+      // case id.NOMATCH:
+      //   throw new Error(`line ${data.lineno}: invalid URI userinfo`);
     }
   },
   host: function host(result, chars, phraseIndex, data) {
@@ -333,10 +349,6 @@ export const cb = {
           result.phraseLength
         );
         break;
-      case id.EMPTY:
-        data.uriElements.path = "";
-      case id.NOMATCH:
-        throw new Error(`line ${data.lineno}: invalid URI path-absolute`);
     }
   },
   pathRootless: function pathRootless(result, chars, phraseIndex, data) {
@@ -348,15 +360,20 @@ export const cb = {
           result.phraseLength
         );
         break;
-      case id.EMPTY:
-        data.uriElements.path = "";
-      case id.NOMATCH:
-        throw new Error(`line ${data.lineno}: invalid URI path-rootless`);
     }
   },
   pathEmpty: function pathEmpty(result, chars, phraseIndex, data) {
+    switch (result.state) {
+      case id.MATCH:
+      case id.NOMATCH:
+        throw new Error(
+          `line ${data.lineno}: invalid URI - path-empty must be empty`
+        );
+      case id.EMPTY:
+        data.uriElements.path = "";
+        break;
+    }
     if (result.state === id.EMPTY) {
-      data.uriElements.path = "";
     }
   },
   query: function query(result, chars, phraseIndex, data) {
@@ -392,8 +409,8 @@ export const cb = {
   uri: function URI(result, chars, phraseIndex, data) {
     switch (result.state) {
       case id.MATCH:
+        //NOTE: all "valid-url" tests are satisfied if URI ABNF parsed without error.
         data.uri = utils.charsToString(chars, phraseIndex, result.phraseLength);
-        // TODO: do valid-url validation and reconstruction of URI from components
         break;
       case id.EMPTY:
       case id.NOMATCH:

@@ -29,6 +29,8 @@ export class ParsedMessage {
     const parser = new apgLib.parser();
     if (doTrace) {
       parser.trace = new apgLib.trace();
+      parser.trace.filter.operators.cat = true;
+      parser.trace.filter.operators.rep = true;
     }
 
     const elements = {};
@@ -50,7 +52,8 @@ export class ParsedMessage {
     parser.callbacks["uri-r"] = cb.uriR;
     parser.callbacks["resource"] = cb.resource;
     parser.callbacks["scheme"] = cb.scheme;
-    parser.callbacks["userinfo"] = cb.userinfo;
+    parser.callbacks["authority"] = cb.authority;
+    parser.callbacks["userinfo-at"] = cb.userinfo;
     parser.callbacks["host"] = cb.host;
     parser.callbacks["port"] = cb.port;
     parser.callbacks["path-abempty"] = cb.pathAbempty;
@@ -60,26 +63,31 @@ export class ParsedMessage {
     parser.callbacks["query"] = cb.query;
     parser.callbacks["fragment"] = cb.fragment;
     parser.callbacks["uri"] = cb.uri;
-    const result = parser.parse(grammarObj, 0, msg, elements);
-    console.log("parsed elements");
-    console.dir(elements);
-    console.log("\nparser result");
-    console.dir(result);
-    if (doTrace) {
-      const html = parser.trace.toHtmlPage("ascii", "siwe, default trace");
-      const name = `${dir}/siwe-trace.html`;
-      try {
-        fs.mkdirSync(dir);
-      } catch (e) {
-        if (e.code !== "EEXIST") {
-          throw new Error(`fs.mkdir failed: ${e.message}`);
-        }
+    try {
+      const result = parser.parse(grammarObj, 0, msg, elements);
+      console.log("parsed elements");
+      console.dir(elements);
+      console.log("\nparser result");
+      console.dir(result);
+      if (!result.success) {
+        throw new Error(`Invalid message: ${JSON.stringify(result)}`);
       }
-      fs.writeFileSync(name, html);
-      console.log(`view "${name}" in any browser to display parser's trace`);
-    }
-    if (!result.success) {
-      throw new Error(`Invalid message: ${JSON.stringify(result)}`);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      if (doTrace) {
+        const html = parser.trace.toHtmlPage("ascii", "siwe, default trace");
+        const name = `${dir}/siwe-trace.html`;
+        try {
+          fs.mkdirSync(dir);
+        } catch (e) {
+          if (e.code !== "EEXIST") {
+            throw new Error(`fs.mkdir failed: ${e.message}`);
+          }
+        }
+        fs.writeFileSync(name, html);
+        console.log(`view "${name}" in any browser to display parser's trace`);
+      }
     }
 
     for (const [key, value] of Object.entries(elements)) {
@@ -97,132 +105,3 @@ export class ParsedMessage {
     // }
   }
 }
-/*
-    const address = function (state, chars, phraseIndex, phraseLength, data) {
-      const ret = id.SEM_OK;
-      if (state === id.SEM_PRE) {
-        data.address = apgLib.utils.charsToString(
-          chars,
-          phraseIndex,
-          phraseLength
-        );
-      }
-      return ret;
-    };
-
-    const statement = function (state, chars, phraseIndex, phraseLength, data) {
-      const ret = id.SEM_OK;
-      if (state === id.SEM_PRE) {
-        data.statement = apgLib.utils.charsToString(
-          chars,
-          phraseIndex,
-          phraseLength
-        );
-      }
-      return ret;
-    };
-    const uri = function (state, chars, phraseIndex, phraseLength, data) {
-      const ret = id.SEM_OK;
-      if (state === id.SEM_PRE) {
-        if (!data.uri) {
-          data.uri = apgLib.utils.charsToString(
-            chars,
-            phraseIndex,
-            phraseLength
-          );
-        }
-      }
-      return ret;
-    };
-    const version = function (state, chars, phraseIndex, phraseLength, data) {
-      const ret = id.SEM_OK;
-      if (state === id.SEM_PRE) {
-        data.version = apgLib.utils.charsToString(
-          chars,
-          phraseIndex,
-          phraseLength
-        );
-      }
-      return ret;
-    };
-    const chainId = function (state, chars, phraseIndex, phraseLength, data) {
-      const ret = id.SEM_OK;
-      if (state === id.SEM_PRE) {
-        data.chainId = parseIntegerNumber(
-          apgLib.utils.charsToString(chars, phraseIndex, phraseLength)
-        );
-      }
-      return ret;
-    };
-    const nonce = function (state, chars, phraseIndex, phraseLength, data) {
-      const ret = id.SEM_OK;
-      if (state === id.SEM_PRE) {
-        data.nonce = apgLib.utils.charsToString(
-          chars,
-          phraseIndex,
-          phraseLength
-        );
-      }
-      return ret;
-    };
-    const issuedAt = function (state, chars, phraseIndex, phraseLength, data) {
-      const ret = id.SEM_OK;
-      if (state === id.SEM_PRE) {
-        data.issuedAt = apgLib.utils.charsToString(
-          chars,
-          phraseIndex,
-          phraseLength
-        );
-      }
-      return ret;
-    };
-    const expirationTime = function (
-      state,
-      chars,
-      phraseIndex,
-      phraseLength,
-      data
-    ) {
-      const ret = id.SEM_OK;
-      if (state === id.SEM_PRE) {
-        data.expirationTime = apgLib.utils.charsToString(
-          chars,
-          phraseIndex,
-          phraseLength
-        );
-      }
-      return ret;
-    };
-    const notBefore = function (state, chars, phraseIndex, phraseLength, data) {
-      const ret = id.SEM_OK;
-      if (state === id.SEM_PRE) {
-        data.notBefore = apgLib.utils.charsToString(
-          chars,
-          phraseIndex,
-          phraseLength
-        );
-      }
-      return ret;
-    };
-    const requestId = function (state, chars, phraseIndex, phraseLength, data) {
-      const ret = id.SEM_OK;
-      if (state === id.SEM_PRE) {
-        data.requestId = apgLib.utils.charsToString(
-          chars,
-          phraseIndex,
-          phraseLength
-        );
-      }
-      return ret;
-    };
-    const resources = function (state, chars, phraseIndex, phraseLength, data) {
-      const ret = id.SEM_OK;
-      if (state === id.SEM_PRE) {
-        data.resources = apgLib.utils
-          .charsToString(chars, phraseIndex, phraseLength)
-          .slice(3)
-          .split("\n- ");
-      }
-      return ret;
-    };
-*/

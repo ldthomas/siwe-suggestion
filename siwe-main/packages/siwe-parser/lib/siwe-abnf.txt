@@ -67,36 +67,45 @@ resource = "- " URI-r
 ; RFC 3986
 
 URI           = scheme ":" hier-part [ "?" query ] [ "#" fragment ]
-URI-r         = scheme-r ":" hier-part-r [ "?" query-r ] [ "#" fragment-r ]
-
 hier-part     = "//" authority path-abempty
               / path-absolute
               / path-rootless
               / path-empty
+scheme        = ALPHA *( ALPHA / DIGIT / %d43 / %d45-46 )
+authority     = [ userinfo-at ] host [ ":" port ]
+userinfo-at   = userinfo %d64
+                ; userinfo redefined to include the "@" so that it will fail without it
+                ; otherwise userinfo can match host and then the parser will backtrack
+                ; incorrectly keeping the captured userinfo phrase
+
+userinfo      = *(%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 / %d58-59 / %d61 / %d95 / %d126)
+host          = IP-literal / IPv4address / reg-name
+port          = *DIGIT
+query         = *(pchar / %d47 / %d63)
+fragment      = *(pchar / %d47 / %d63)
+
+; URI-r is a redefiniton of URI but without the callback functions attached to it
+; it reuses athority-d from domain 
+URI-r         = scheme-r ":" hier-part-r [ "?" query-r ] [ "#" fragment-r ]
 hier-part-r   = "//" authority-d path-abempty-r
               / path-absolute-r
               / path-rootless-r
               / path-empty-r
-
-;scheme        = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." )
-scheme        = ALPHA *( ALPHA / DIGIT / %d43 / %d45-46 )
 scheme-r      = ALPHA *( ALPHA / DIGIT / %d43 / %d45-46 )
+query-r       = *(pchar / %d47 / %d63)
+fragment-r    = *(pchar / %d47 / %d63)
 
-authority     = [ userinfo "@" ] host [ ":" port ]
-authority-d   = [ userinfo-d "@" ] host-d [ ":" port-d ]
-;userinfo      = *( unreserved / pct-encoded / sub-delims / ":" )
-userinfo      = *(%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 / %d58-59 / %d61 / %d95 / %d126)
-host          = IP-literal / IPv4address / reg-name
-port          = *DIGIT
+
+; authority-d is a redefinition of authority for capturing the domian phrase
+; but without callback functions 
+; it is reused for URI- for the same reason               
+authority-d   = [ userinfo-d %d64 ] host-d [ ":" port-d ]
 userinfo-d    = *(%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 / %d58-59 / %d61 / %d95 / %d126)
 host-d        = IP-literal / IPv4address / reg-name
 port-d        = *DIGIT
 
 IP-literal    = "[" ( IPv6address / IPvFuture  ) "]"
-
-;IPvFuture     = "v" 1*HEXDIG "." 1*( unreserved / sub-delims / ":" )
 IPvFuture     = "v" 1*HEXDIG "." 1*( %d97-122 / %d65-90 / %d48-57 / %d33 / %d36 /%d38-46 / %d58-59 /%d61 /%d95 / %d126 )
-
 IPv6address   =                            6( h16 ":" ) ls32
               /                       "::" 5( h16 ":" ) ls32
               / [               h16 ] "::" 4( h16 ":" ) ls32
@@ -106,7 +115,6 @@ IPv6address   =                            6( h16 ":" ) ls32
               / [ *4( h16 ":" ) h16 ] "::"              ls32
               / [ *5( h16 ":" ) h16 ] "::"              h16
               / [ *6( h16 ":" ) h16 ] "::"
-
 h16           = 1*4HEXDIG
 ls32          = ( h16 ":" h16 ) / IPv4address
 IPv4address   = dec-octet "." dec-octet "." dec-octet "." dec-octet
@@ -115,15 +123,11 @@ dec-octet     = DIGIT                 ; 0-9
                  / "1" 2DIGIT            ; 100-199
                  / "2" %x30-34 DIGIT     ; 200-249
                  / "25" %x30-35          ; 250-255
-
-;reg-name      = *( unreserved / pct-encoded / sub-delims )
 reg-name      = *(%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 / %d59 / %d61 /%d95 / %d126)
-
 path-abempty  = *( "/" segment )
 path-absolute = "/" [ segment-nz *( "/" segment ) ]
 path-rootless = segment-nz *( "/" segment )
 path-empty    = ""
-;path-empty    = 0pchar; deprecated - empty literal string, "", is more efficient 
 
 ; for use with URI-r
 path-abempty-r  = *( "/" segment )
@@ -133,25 +137,27 @@ path-empty-r    = ""
 
 segment       = *pchar
 segment-nz    = 1*pchar
-
 pchar         = (%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 /%d58-59 / %d61 / %d64 / %d95 / %d126)
-;pchar         = unreserved / pct-encoded / sub-delims / ":" / "@"
+pct-encoded   = %d37 HEXDIG HEXDIG
 
+; no longer needed - expanded for all usage for fewer branches in the parse there
+; and more efficient use of the TBS & TRG operators in place of TLS and rule names
+;scheme        = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." )
+;authority     = [ userinfo "@" ] host [ ":" port ]
+;userinfo      = *( unreserved / pct-encoded / sub-delims / ":" )
 ;query         = *( pchar / "/" / "?" )
-query         = *(pchar / %d47 / %d63)
-query-r       = *(pchar / %d47 / %d63)
-
 ;fragment      = *( pchar / "/" / "?" )
-fragment      = *(pchar / %d47 / %d63)
-fragment-r    = *(pchar / %d47 / %d63)
-
-pct-encoded   = "%" HEXDIG HEXDIG
-
+;IPvFuture     = "v" 1*HEXDIG "." 1*( unreserved / sub-delims / ":" )
+;reg-name      = *( unreserved / pct-encoded / sub-delims )
+;pct-encoded   = "%" HEXDIG HEXDIG
+;pchar         = unreserved / pct-encoded / sub-delims / ":" / "@"
+;path-empty    = 0pchar; deprecated - empty literal string, "", is more efficient 
 ;unreserved    = ALPHA / DIGIT / "-" / "." / "_" / "~"
 ;reserved      = gen-delims / sub-delims
 ;gen-delims    = ":" / "/" / "?" / "#" / "[" / "]" / "@"
 ;sub-delims    = "!" / "$" / "&" / "'" / "(" / ")"
 ;              / "*" / "+" / "," / ";" / "="
+;HEXDIG         =  DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
 
 ; ------------------------------------------------------------------------------
 ; RFC 3339
@@ -183,6 +189,5 @@ LF             =  %x0A
                   ; linefeed
 DIGIT          =  %x30-39
                   ; 0-9
-;HEXDIG         =  DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
 HEXDIG         = %d48-57 / %d65-70 / %d97-102
 
