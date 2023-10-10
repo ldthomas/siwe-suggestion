@@ -21,7 +21,16 @@ export class ParsedMessage {
   notBefore: string | null;
   requestId: string | null;
   resources: Array<string> | null;
-  uriElements: object;
+  uriElements: {
+    scheme: string;
+    authority: string;
+    userinfo: string;
+    host: string;
+    port: string;
+    path: string;
+    query: string;
+    fragment: string;
+  };
 
   constructor(msg: string) {
     const grammarObj = new Grammar();
@@ -81,13 +90,13 @@ export class ParsedMessage {
       resources: null,
       uriElements: {
         scheme: undefined,
-        authority: null,
-        userinfo: null,
-        host: null,
-        port: null,
-        path: null,
-        query: null,
-        fragment: null,
+        authority: undefined,
+        userinfo: undefined,
+        host: undefined,
+        port: undefined,
+        path: undefined,
+        query: undefined,
+        fragment: undefined,
       },
     };
     const result = parser.parse(grammarObj, 0, msg, elements);
@@ -105,18 +114,14 @@ export class ParsedMessage {
       console.log(`view "${name}" in any browser to display parser's trace`);
     }
     let throwMsg = "";
-    if (elements.errors.length > 0) {
-      for (let i = 0; i < elements.errors.length; i += 1) {
-        throwMsg += elements.errors[i] + "\n";
-      }
+    for (let i = 0; i < elements.errors.length; i += 1) {
+      throwMsg += elements.errors[i] + "\n";
     }
     if (!result.success) {
       throwMsg += `Invalid message: ${JSON.stringify(result)}`;
+    }
+    if (throwMsg !== "") {
       throw new Error(throwMsg);
-      // console.log("parsed elements");
-      // console.dir(elements);
-      // console.log("\nparser result");
-      // console.dir(result);
     }
 
     this.domain = elements.domain;

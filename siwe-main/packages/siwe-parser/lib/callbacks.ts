@@ -75,6 +75,7 @@ export const cb = {
         break;
       case id.EMPTY:
         data.errors.push(`line ${data.lineno}: domain cannot be empty`);
+        break;
       case id.NOMATCH:
         data.errors.push(`line ${data.lineno}: invalid domain`);
     }
@@ -95,23 +96,16 @@ export const cb = {
         break;
       case id.NOMATCH:
         data.errors.push(`line ${data.lineno}: invalid address`);
+        break;
     }
   },
   statement: function statement(result, chars, phraseIndex, data) {
-    switch (result.state) {
-      case id.MATCH:
-        data.statement = utils.charsToString(
-          chars,
-          phraseIndex,
-          result.phraseLength
-        );
-        break;
-      case id.EMPTY:
-        data.errors.push(
-          `line ${data.lineno}: statement, if present, may not be empty`
-        );
-      case id.NOMATCH:
-        data.errors.push(`line ${data.lineno}: invalid statment`);
+    if (result.state === id.MATCH) {
+      data.statement = utils.charsToString(
+        chars,
+        phraseIndex,
+        result.phraseLength
+      );
     }
   },
   version: function version(result, chars, phraseIndex, data) {
@@ -125,17 +119,7 @@ export const cb = {
         break;
       case id.NOMATCH:
         data.errors.push(`line ${data.lineno}: invalid version`);
-    }
-  },
-  chainId: function chainId(result, chars, phraseIndex, data) {
-    switch (result.state) {
-      case id.MATCH:
-        data.chainId = parseIntegerNumber(
-          utils.charsToString(chars, phraseIndex, result.phraseLength)
-        );
         break;
-      case id.NOMATCH:
-        data.errors.push(`line ${data.lineno}: invalid chain-id`);
     }
   },
   nonce: function nonce(result, chars, phraseIndex, data) {
@@ -149,6 +133,7 @@ export const cb = {
         break;
       case id.NOMATCH:
         data.errors.push(`line ${data.lineno}: invalid nonce`);
+        break;
     }
   },
   issuedAt: function issuedAt(result, chars, phraseIndex, data) {
@@ -162,6 +147,7 @@ export const cb = {
         break;
       case id.NOMATCH:
         data.errors.push(`line ${data.lineno}: invalid issued-at date time`);
+        break;
     }
   },
   expirationTime: function expirationTime(result, chars, phraseIndex, data) {
@@ -177,6 +163,7 @@ export const cb = {
         data.errors.push(
           `line ${data.lineno}: invalid expiration-time date time `
         );
+        break;
     }
   },
   notBefore: function notBefore(result, chars, phraseIndex, data) {
@@ -190,6 +177,7 @@ export const cb = {
         break;
       case id.NOMATCH:
         data.errors.push(`line ${data.lineno}: invalid not-before date time`);
+        break;
     }
   },
   requestId: function requestId(result, chars, phraseIndex, data) {
@@ -206,6 +194,19 @@ export const cb = {
         break;
       case id.NOMATCH:
         data.errors.push(`line ${data.lineno}: invalid requestID`);
+        break;
+    }
+  },
+  chainId: function chainId(result, chars, phraseIndex, data) {
+    switch (result.state) {
+      case id.MATCH:
+        data.chainId = parseIntegerNumber(
+          utils.charsToString(chars, phraseIndex, result.phraseLength)
+        );
+        break;
+      case id.NOMATCH:
+        data.errors.push(`line ${data.lineno}: invalid chain-id`);
+        break;
     }
   },
   uriR: function uriR(result, chars, phraseIndex, data) {
@@ -219,6 +220,7 @@ export const cb = {
         break;
       case id.NOMATCH:
         data.errors.push(`line ${data.lineno}: invalid resource URI`);
+        break;
     }
   },
   resource: function resource(result, chars, phraseIndex, data) {
@@ -232,6 +234,7 @@ export const cb = {
         break;
       case id.NOMATCH:
         data.errors.push(`line ${data.lineno}: invalid resource`);
+        break;
     }
   },
   // handle the URI
@@ -246,6 +249,7 @@ export const cb = {
         break;
       case id.NOMATCH:
         data.errors.push(`line ${data.lineno}: invalid URI scheme`);
+        break;
     }
   },
   authority: function authority(result, chars, phraseIndex, data) {
@@ -259,8 +263,10 @@ export const cb = {
         break;
       case id.EMPTY:
         data.uriElements.authority = "";
+        break;
       case id.NOMATCH:
         data.errors.push(`line ${data.lineno}: invalid URI authority`);
+        break;
     }
   },
   userinfo: function userinfo(result, chars, phraseIndex, data) {
@@ -285,8 +291,10 @@ export const cb = {
         break;
       case id.EMPTY:
         data.uriElements.host = "";
+        break;
       case id.NOMATCH:
         data.errors.push(`line ${data.lineno}: invalid URI host`);
+        break;
     }
   },
   port: function port(result, chars, phraseIndex, data) {
@@ -300,8 +308,10 @@ export const cb = {
         break;
       case id.EMPTY:
         data.uriElements.port = "";
+        break;
       case id.NOMATCH:
         data.errors.push(`line ${data.lineno}: invalid URI port`);
+        break;
     }
   },
   pathAbempty: function pathAbempty(result, chars, phraseIndex, data) {
@@ -315,8 +325,10 @@ export const cb = {
         break;
       case id.EMPTY:
         data.uriElements.path = "";
+        break;
       case id.NOMATCH:
         data.errors.push(`line ${data.lineno}: invalid URI path-abempty`);
+        break;
     }
   },
   pathAbsolute: function pathAbsolute(result, chars, phraseIndex, data) {
@@ -352,8 +364,6 @@ export const cb = {
         data.uriElements.path = "";
         break;
     }
-    if (result.state === id.EMPTY) {
-    }
   },
   query: function query(result, chars, phraseIndex, data) {
     switch (result.state) {
@@ -366,8 +376,10 @@ export const cb = {
         break;
       case id.EMPTY:
         data.uriElements.query = "";
+        break;
       case id.NOMATCH:
         data.errors.push(`line ${data.lineno}: invalid URI query`);
+        break;
     }
   },
   fragment: function fragment(result, chars, phraseIndex, data) {
@@ -381,8 +393,10 @@ export const cb = {
         break;
       case id.EMPTY:
         data.uriElements.fragment = "";
+        break;
       case id.NOMATCH:
         data.errors.push(`line ${data.lineno}: invalid URI fragment`);
+        break;
     }
   },
   uri: function URI(result, chars, phraseIndex, data) {
@@ -394,6 +408,7 @@ export const cb = {
       case id.EMPTY:
       case id.NOMATCH:
         data.errors.push(`line ${data.lineno}: invalid URI`);
+        break;
     }
   },
 };
