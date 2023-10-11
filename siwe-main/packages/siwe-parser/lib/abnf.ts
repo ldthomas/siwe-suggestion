@@ -4,7 +4,7 @@ import apgLib from "apg-js/src/apg-lib/node-exports";
 import * as fs from "node:fs";
 
 const id = apgLib.ids;
-const doTrace = false;
+const doTrace = true;
 const dir =
   "/home/ldt/Projects/siwe-suggestion/siwe-main/packages/siwe-parser/output";
 
@@ -74,7 +74,7 @@ export class ParsedMessage {
 
     if (doTrace) {
       parser.trace = new apgLib.trace();
-      // parser.trace.filter.operators.cat = true;
+      parser.trace.filter.operators["<ALL>"] = true;
       // parser.trace.filter.operators.rep = true;
     }
 

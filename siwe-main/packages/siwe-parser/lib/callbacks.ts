@@ -426,6 +426,7 @@ export const cb = {
       case id.ACTIVE:
         data.h16count = 0;
         data.ipv4 = false;
+        break;
       case id.MATCH:
         // semantically validate the number of 16-bit digits
         if (data.ipv4) {
@@ -451,6 +452,7 @@ export const cb = {
       case id.ACTIVE:
         data.h16count = 0;
         data.ipv4 = false;
+        break;
       case id.MATCH:
         // semantically validate the number of 16-bit digits
         if (data.ipv4) {

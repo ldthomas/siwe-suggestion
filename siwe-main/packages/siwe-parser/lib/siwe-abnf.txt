@@ -118,12 +118,12 @@ IPvFuture     = "v" 1*HEXDIG "." 1*( %d97-122 / %d65-90 / %d48-57 / %d33 / %d36 
 ;              / [ *5( h16 ":" ) h16 ] "::"              h16
 ;              / [ *6( h16 ":" ) h16 ] "::"
 h16           = 1*4HEXDIG
-h16c          = 1*4HEXDIG %d58
-IPv6address   = noc / leadc / trailc / midc
-noc           = (*h16c h16) [%d58 IPv4address]
-leadc         = %d58.58 (*h16c h16) [%d58 IPv4address]
-trailc        = (*h16c h16) %d58.58 [IPv4address]
-midc          = (*h16c h16) %d58.58 1*h16c [IPv4address]
+h16c          = %d58 1*4HEXDIG
+IPv6address   = noc / leadc / midc / trailc
+noc           = (h16 *h16c) [%d58 IPv4address]
+leadc         = %d58.58 (h16 *h16c) [%d58 IPv4address]
+midc          = (h16 *h16c) %d58.58 (h16 *h16c) [%d58 IPv4address]
+trailc        = (h16 *h16c) %d58.58 [IPv4address]
 ;ls32          = ( h16 ":" h16 ) / IPv4address
 IPv4address   = dec-octet "." dec-octet "." dec-octet "." dec-octet
 dec-octet     = DIGIT                 ; 0-9

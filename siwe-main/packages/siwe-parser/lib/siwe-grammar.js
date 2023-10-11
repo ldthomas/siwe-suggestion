@@ -7,14 +7,14 @@ module.exports = function grammar(){
   // SUMMARY
   //      rules = 77
   //       udts = 0
-  //    opcodes = 448
+  //    opcodes = 452
   //        ---   ABNF original opcodes
   //        ALT = 24
-  //        CAT = 62
+  //        CAT = 64
   //        REP = 62
-  //        RNM = 153
+  //        RNM = 154
   //        TLS = 43
-  //        TBS = 62
+  //        TBS = 63
   //        TRG = 42
   //        ---   SABNF superset opcodes
   //        UDT = 0
@@ -75,8 +75,8 @@ module.exports = function grammar(){
   this.rules[40] = {name: 'IPv6address', lower: 'ipv6address', index: 40, isBkr: false};
   this.rules[41] = {name: 'noc', lower: 'noc', index: 41, isBkr: false};
   this.rules[42] = {name: 'leadc', lower: 'leadc', index: 42, isBkr: false};
-  this.rules[43] = {name: 'trailc', lower: 'trailc', index: 43, isBkr: false};
-  this.rules[44] = {name: 'midc', lower: 'midc', index: 44, isBkr: false};
+  this.rules[43] = {name: 'midc', lower: 'midc', index: 43, isBkr: false};
+  this.rules[44] = {name: 'trailc', lower: 'trailc', index: 44, isBkr: false};
   this.rules[45] = {name: 'IPv4address', lower: 'ipv4address', index: 45, isBkr: false};
   this.rules[46] = {name: 'dec-octet', lower: 'dec-octet', index: 46, isBkr: false};
   this.rules[47] = {name: 'reg-name', lower: 'reg-name', index: 47, isBkr: false};
@@ -481,26 +481,26 @@ module.exports = function grammar(){
 
   /* h16c */
   this.rules[39].opcodes = [];
-  this.rules[39].opcodes[0] = {type: 2, children: [1,3]};// CAT
-  this.rules[39].opcodes[1] = {type: 3, min: 1, max: 4};// REP
-  this.rules[39].opcodes[2] = {type: 4, index: 76};// RNM(HEXDIG)
-  this.rules[39].opcodes[3] = {type: 6, string: [58]};// TBS
+  this.rules[39].opcodes[0] = {type: 2, children: [1,2]};// CAT
+  this.rules[39].opcodes[1] = {type: 6, string: [58]};// TBS
+  this.rules[39].opcodes[2] = {type: 3, min: 1, max: 4};// REP
+  this.rules[39].opcodes[3] = {type: 4, index: 76};// RNM(HEXDIG)
 
   /* IPv6address */
   this.rules[40].opcodes = [];
   this.rules[40].opcodes[0] = {type: 1, children: [1,2,3,4]};// ALT
   this.rules[40].opcodes[1] = {type: 4, index: 41};// RNM(noc)
   this.rules[40].opcodes[2] = {type: 4, index: 42};// RNM(leadc)
-  this.rules[40].opcodes[3] = {type: 4, index: 43};// RNM(trailc)
-  this.rules[40].opcodes[4] = {type: 4, index: 44};// RNM(midc)
+  this.rules[40].opcodes[3] = {type: 4, index: 43};// RNM(midc)
+  this.rules[40].opcodes[4] = {type: 4, index: 44};// RNM(trailc)
 
   /* noc */
   this.rules[41].opcodes = [];
   this.rules[41].opcodes[0] = {type: 2, children: [1,5]};// CAT
-  this.rules[41].opcodes[1] = {type: 2, children: [2,4]};// CAT
-  this.rules[41].opcodes[2] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[41].opcodes[3] = {type: 4, index: 39};// RNM(h16c)
-  this.rules[41].opcodes[4] = {type: 4, index: 38};// RNM(h16)
+  this.rules[41].opcodes[1] = {type: 2, children: [2,3]};// CAT
+  this.rules[41].opcodes[2] = {type: 4, index: 38};// RNM(h16)
+  this.rules[41].opcodes[3] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[41].opcodes[4] = {type: 4, index: 39};// RNM(h16c)
   this.rules[41].opcodes[5] = {type: 3, min: 0, max: 1};// REP
   this.rules[41].opcodes[6] = {type: 2, children: [7,8]};// CAT
   this.rules[41].opcodes[7] = {type: 6, string: [58]};// TBS
@@ -510,38 +510,42 @@ module.exports = function grammar(){
   this.rules[42].opcodes = [];
   this.rules[42].opcodes[0] = {type: 2, children: [1,2,6]};// CAT
   this.rules[42].opcodes[1] = {type: 6, string: [58,58]};// TBS
-  this.rules[42].opcodes[2] = {type: 2, children: [3,5]};// CAT
-  this.rules[42].opcodes[3] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[42].opcodes[4] = {type: 4, index: 39};// RNM(h16c)
-  this.rules[42].opcodes[5] = {type: 4, index: 38};// RNM(h16)
+  this.rules[42].opcodes[2] = {type: 2, children: [3,4]};// CAT
+  this.rules[42].opcodes[3] = {type: 4, index: 38};// RNM(h16)
+  this.rules[42].opcodes[4] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[42].opcodes[5] = {type: 4, index: 39};// RNM(h16c)
   this.rules[42].opcodes[6] = {type: 3, min: 0, max: 1};// REP
   this.rules[42].opcodes[7] = {type: 2, children: [8,9]};// CAT
   this.rules[42].opcodes[8] = {type: 6, string: [58]};// TBS
   this.rules[42].opcodes[9] = {type: 4, index: 45};// RNM(IPv4address)
 
-  /* trailc */
-  this.rules[43].opcodes = [];
-  this.rules[43].opcodes[0] = {type: 2, children: [1,5,6]};// CAT
-  this.rules[43].opcodes[1] = {type: 2, children: [2,4]};// CAT
-  this.rules[43].opcodes[2] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[43].opcodes[3] = {type: 4, index: 39};// RNM(h16c)
-  this.rules[43].opcodes[4] = {type: 4, index: 38};// RNM(h16)
-  this.rules[43].opcodes[5] = {type: 6, string: [58,58]};// TBS
-  this.rules[43].opcodes[6] = {type: 3, min: 0, max: 1};// REP
-  this.rules[43].opcodes[7] = {type: 4, index: 45};// RNM(IPv4address)
-
   /* midc */
+  this.rules[43].opcodes = [];
+  this.rules[43].opcodes[0] = {type: 2, children: [1,5,6,10]};// CAT
+  this.rules[43].opcodes[1] = {type: 2, children: [2,3]};// CAT
+  this.rules[43].opcodes[2] = {type: 4, index: 38};// RNM(h16)
+  this.rules[43].opcodes[3] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[43].opcodes[4] = {type: 4, index: 39};// RNM(h16c)
+  this.rules[43].opcodes[5] = {type: 6, string: [58,58]};// TBS
+  this.rules[43].opcodes[6] = {type: 2, children: [7,8]};// CAT
+  this.rules[43].opcodes[7] = {type: 4, index: 38};// RNM(h16)
+  this.rules[43].opcodes[8] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[43].opcodes[9] = {type: 4, index: 39};// RNM(h16c)
+  this.rules[43].opcodes[10] = {type: 3, min: 0, max: 1};// REP
+  this.rules[43].opcodes[11] = {type: 2, children: [12,13]};// CAT
+  this.rules[43].opcodes[12] = {type: 6, string: [58]};// TBS
+  this.rules[43].opcodes[13] = {type: 4, index: 45};// RNM(IPv4address)
+
+  /* trailc */
   this.rules[44].opcodes = [];
-  this.rules[44].opcodes[0] = {type: 2, children: [1,5,6,8]};// CAT
-  this.rules[44].opcodes[1] = {type: 2, children: [2,4]};// CAT
-  this.rules[44].opcodes[2] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[44].opcodes[3] = {type: 4, index: 39};// RNM(h16c)
-  this.rules[44].opcodes[4] = {type: 4, index: 38};// RNM(h16)
+  this.rules[44].opcodes[0] = {type: 2, children: [1,5,6]};// CAT
+  this.rules[44].opcodes[1] = {type: 2, children: [2,3]};// CAT
+  this.rules[44].opcodes[2] = {type: 4, index: 38};// RNM(h16)
+  this.rules[44].opcodes[3] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[44].opcodes[4] = {type: 4, index: 39};// RNM(h16c)
   this.rules[44].opcodes[5] = {type: 6, string: [58,58]};// TBS
-  this.rules[44].opcodes[6] = {type: 3, min: 1, max: Infinity};// REP
-  this.rules[44].opcodes[7] = {type: 4, index: 39};// RNM(h16c)
-  this.rules[44].opcodes[8] = {type: 3, min: 0, max: 1};// REP
-  this.rules[44].opcodes[9] = {type: 4, index: 45};// RNM(IPv4address)
+  this.rules[44].opcodes[6] = {type: 3, min: 0, max: 1};// REP
+  this.rules[44].opcodes[7] = {type: 4, index: 45};// RNM(IPv4address)
 
   /* IPv4address */
   this.rules[45].opcodes = [];
@@ -916,12 +920,12 @@ module.exports = function grammar(){
     str += ";              / [ *5( h16 \":\" ) h16 ] \"::\"              h16\n";
     str += ";              / [ *6( h16 \":\" ) h16 ] \"::\"\n";
     str += "h16           = 1*4HEXDIG\n";
-    str += "h16c          = 1*4HEXDIG %d58\n";
-    str += "IPv6address   = noc / leadc / trailc / midc\n";
-    str += "noc           = (*h16c h16) [%d58 IPv4address]\n";
-    str += "leadc         = %d58.58 (*h16c h16) [%d58 IPv4address]\n";
-    str += "trailc        = (*h16c h16) %d58.58 [IPv4address]\n";
-    str += "midc          = (*h16c h16) %d58.58 1*h16c [IPv4address]\n";
+    str += "h16c          = %d58 1*4HEXDIG\n";
+    str += "IPv6address   = noc / leadc / midc / trailc\n";
+    str += "noc           = (h16 *h16c) [%d58 IPv4address]\n";
+    str += "leadc         = %d58.58 (h16 *h16c) [%d58 IPv4address]\n";
+    str += "midc          = (h16 *h16c) %d58.58 (h16 *h16c) [%d58 IPv4address]\n";
+    str += "trailc        = (h16 *h16c) %d58.58 [IPv4address]\n";
     str += ";ls32          = ( h16 \":\" h16 ) / IPv4address\n";
     str += "IPv4address   = dec-octet \".\" dec-octet \".\" dec-octet \".\" dec-octet\n";
     str += "dec-octet     = DIGIT                 ; 0-9\n";
