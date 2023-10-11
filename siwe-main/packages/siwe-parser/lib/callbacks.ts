@@ -396,4 +396,64 @@ export const cb = {
         data.errors.push(`line ${data.lineno}: invalid URI`);
     }
   },
+  ipv4: function ipv4(result, chars, phraseIndex, data) {
+    if (result.state === id.MATCH) {
+      data.ipv4 = true;
+    }
+  },
+  h16: function h16(result, chars, phraseIndex, data) {
+    if (result.state === id.MATCH) {
+      data.h16count += 1;
+    }
+  },
+  noc: function noc(result, chars, phraseIndex, data) {
+    switch (result.state) {
+      case id.ACTIVE:
+        data.h16count = 0;
+        data.ipv4 = false;
+      case id.MATCH:
+        // semantically validate the number of 16-bit digits
+        if (data.ipv4) {
+          if (data.h16count === 6) {
+            result.state = id.MATCH;
+          } else {
+            result.state = id.NOMATCH;
+            result.phraseLength = 0;
+          }
+        } else {
+          if (data.h16count === 8) {
+            result.state = id.MATCH;
+          } else {
+            result.state = id.NOMATCH;
+            result.phraseLength = 0;
+          }
+        }
+        break;
+    }
+  },
+  leadc: function leadc(result, chars, phraseIndex, data) {
+    switch (result.state) {
+      case id.ACTIVE:
+        data.h16count = 0;
+        data.ipv4 = false;
+      case id.MATCH:
+        // semantically validate the number of 16-bit digits
+        if (data.ipv4) {
+          if (data.h16count < 6) {
+            result.state = id.MATCH;
+          } else {
+            result.state = id.NOMATCH;
+            result.phraseLength = 0;
+          }
+        } else {
+          if (data.h16count < 8) {
+            result.state = id.MATCH;
+          } else {
+            result.state = id.NOMATCH;
+            result.phraseLength = 0;
+          }
+        }
+        break;
+    }
+  },
 };
