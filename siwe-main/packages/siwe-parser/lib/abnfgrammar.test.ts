@@ -2,7 +2,7 @@ import * as fs from "node:fs";
 import { cwd } from "node:process";
 console.log(`Current Working Directory: ${cwd()}`);
 import { ParsedMessage } from "./abnf";
-import Grammar from "../lib/siwe-grammar.js";
+import Grammar from "./siwe-grammar.js";
 import apgLib from "apg-js/src/apg-lib/node-exports";
 // const id = apgLib.ids;
 const grammarObj = new Grammar();

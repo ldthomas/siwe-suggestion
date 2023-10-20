@@ -421,7 +421,7 @@ export const cb = {
       data.h16count += 1;
     }
   },
-  noc: function noc(result, chars, phraseIndex, data) {
+  nodcolon: function nodcolon(result, chars, phraseIndex, data) {
     switch (result.state) {
       case id.ACTIVE:
         data.h16count = 0;
@@ -447,7 +447,7 @@ export const cb = {
         break;
     }
   },
-  leadc: function leadc(result, chars, phraseIndex, data) {
+  dcolon: function dcolon(result, chars, phraseIndex, data) {
     switch (result.state) {
       case id.ACTIVE:
         data.h16count = 0;

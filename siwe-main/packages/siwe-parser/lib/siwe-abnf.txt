@@ -119,18 +119,19 @@ IPvFuture     = "v" 1*HEXDIG "." 1*( %d97-122 / %d65-90 / %d48-57 / %d33 / %d36 
 ;              / [ *6( h16 ":" ) h16 ] "::"
 h16           = 1*4HEXDIG
 h16c          = %d58 1*4HEXDIG
-IPv6address   = noc / leadc / midc / trailc
-noc           = (h16 *h16c) [%d58 IPv4address]
-leadc         = %d58.58 (h16 *h16c) [%d58 IPv4address]
-midc          = (h16 *h16c) %d58.58 (h16 *h16c) [%d58 IPv4address]
-trailc        = (h16 *h16c) %d58.58 [IPv4address]
+h16n          = 1*4HEXDIG !%d46
+h16cn         = %d58 1*4HEXDIG !%d46
+h16nc         = 1*4HEXDIG !%d46 %d58
+IPv6address   = nodcolon / dcolon
+nodcolon      = (h16n *h16cn) [IPv4address]
+dcolon        = [h16 *h16c] %d58.58 *h16nc [IPv4address]
 ;ls32          = ( h16 ":" h16 ) / IPv4address
 IPv4address   = dec-octet "." dec-octet "." dec-octet "." dec-octet
-dec-octet     = DIGIT                 ; 0-9
-                 / %x31-39 DIGIT         ; 10-99
-                 / "1" 2DIGIT            ; 100-199
+dec-octet     =  "1" 2DIGIT            ; 100-199
                  / "2" %x30-34 DIGIT     ; 200-249
                  / "25" %x30-35          ; 250-255
+                 / %x31-39 DIGIT         ; 10-99
+                 / DIGIT                 ; 0-9
 reg-name      = *(%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 / %d59 / %d61 /%d95 / %d126)
 path-abempty  = *( "/" segment )
 path-absolute = "/" [ segment-nz *( "/" segment ) ]

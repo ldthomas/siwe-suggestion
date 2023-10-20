@@ -65,12 +65,12 @@ export class ParsedMessage {
     parser.callbacks["query"] = cb.query;
     parser.callbacks["fragment"] = cb.fragment;
     parser.callbacks["IPv4address"] = cb.ipv4;
-    parser.callbacks["noc"] = cb.noc;
+    parser.callbacks["nodcolon"] = cb.nodcolon;
+    parser.callbacks["dcolon"] = cb.dcolon;
     parser.callbacks["h16"] = cb.h16;
     parser.callbacks["h16c"] = cb.h16;
-    parser.callbacks["leadc"] = cb.leadc;
-    parser.callbacks["trailc"] = cb.leadc;
-    parser.callbacks["midc"] = cb.leadc;
+    parser.callbacks["h16n"] = cb.h16;
+    parser.callbacks["h16cn"] = cb.h16;
 
     if (doTrace) {
       parser.trace = new apgLib.trace();
