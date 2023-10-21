@@ -51,6 +51,7 @@ export class ParsedMessage {
     parser.callbacks["expiration-time"] = cb.expirationTime;
     parser.callbacks["not-before"] = cb.notBefore;
     parser.callbacks["request-id"] = cb.requestId;
+    parser.callbacks["uri"] = cb.uri;
     parser.callbacks["uri-r"] = cb.uriR;
     parser.callbacks["resource"] = cb.resource;
     parser.callbacks["scheme"] = cb.scheme;
@@ -71,6 +72,8 @@ export class ParsedMessage {
     parser.callbacks["h16c"] = cb.h16;
     parser.callbacks["h16n"] = cb.h16;
     parser.callbacks["h16cn"] = cb.h16;
+    parser.callbacks["dec-octet"] = cb.decOctet;
+    parser.callbacks["dec-digit"] = cb.decDigit;
 
     if (doTrace) {
       parser.trace = new apgLib.trace();

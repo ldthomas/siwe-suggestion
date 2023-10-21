@@ -1,5 +1,5 @@
-; LDT 09/30/3023 
-; modified in two significant ways
+; LDT 10/21/3023 
+; modified in several significant ways
 ; 1) Literal strings are replaced with numbers and ranges (%d32 & %d32-126, etc.) when possible.
 ;    TRB and especially TRG operators are much more efficient than TLS operators.
 ; 2) Two rules, authority and URI, are used multiple times in different contexts. These rules will be reproduced and renamed
@@ -10,7 +10,13 @@
 ; 2.b) The resource URI is defined as URI-r and its components defined as *-r.
 ;      In this way, callback functions can be defined on URI and is components while
 ;      leaving URI-r to be parsed identically with no unnecessary callback functions to slow it down.
-; 
+; 3) IPv6address does not work because of APG's "first-success disambiguation" and "greedy" repetitions.
+;    IPv6address redefined and validations moved to callback functions (semantic vs syntactic validation)
+;    Redefinition requires negative look-ahead operators, that is SABNF instead of simple ABNF.
+; 4) IPv4address fails because of "first-success disambiguation".
+;    This could be fixed with rearrangement of the alternative terms. However, it would still not
+;    accept zero-padded (leading zeros) decimal octets.
+;    Therefore, IPv4address is also done with callback functions and semantic validation.
 
 
 sign-in-with-ethereum =
@@ -29,39 +35,29 @@ sign-in-with-ethereum =
     [ LF ri-title request-id ]
     [ LF re-title
     resources ]
-ex-title = %s"Expiration Time: "
-nb-title = %s"Not Before: "
-ri-title = %s"Request ID: "
-re-title = %s"Resources:"
-
-domain = authority-d
-
-address = "0x" 40*40HEXDIG
+ex-title        = %s"Expiration Time: "
+nb-title        = %s"Not Before: "
+ri-title        = %s"Request ID: "
+re-title        = %s"Resources:"
+domain          = authority-d
+address         = "0x" 40*40HEXDIG
     ; Must also conform to captilization
     ; checksum encoding specified in EIP-55
     ; where applicable (EOAs).
 
-;statement = 1*( reserved / unreserved / " " )
-statement = 1*( %d97-122 / %d65-90 / %d48-57 / %d32-33 / %d35-36 / %d38-59 / %d61 / %d63-64 / %d91 / %d93 / %d95 / %d126)
+statement       = 1*( %d97-122 / %d65-90 / %d48-57 / %d32-33 / %d35-36 / %d38-59 / %d61 / %d63-64 / %d91 / %d93 / %d95 / %d126)
     ; The purpose is to exclude LF (line breaks).
     ; LDT 10/04/2023: Do you mean %d32-126? All printing characters
-
-version = "1"
-
-nonce = 8*( ALPHA / DIGIT )
-
-issued-at = date-time
+version         = "1"
+nonce           = 8*( ALPHA / DIGIT )
+issued-at       = date-time
 expiration-time = date-time
-not-before = date-time
-
-request-id = *pchar
-
-chain-id = 1*DIGIT
+not-before      = date-time
+request-id      = *pchar
+chain-id        = 1*DIGIT
     ; See EIP-155 for valid CHAIN_IDs.
-
-resources = *( LF resource )
-
-resource = "- " URI-r
+resources       = *( LF resource )
+resource        = "- " URI-r
 
 ; ------------------------------------------------------------------------------
 ; RFC 3986
@@ -77,7 +73,6 @@ userinfo-at   = userinfo %d64
                 ; userinfo redefined to include the "@" so that it will fail without it
                 ; otherwise userinfo can match host and then the parser will backtrack
                 ; incorrectly keeping the captured userinfo phrase
-
 userinfo      = *(%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 / %d58-59 / %d61 / %d95 / %d126)
 host          = IP-literal / IPv4address / reg-name
 port          = *DIGIT
@@ -95,7 +90,6 @@ scheme-r      = ALPHA *( ALPHA / DIGIT / %d43 / %d45-46 )
 query-r       = *(pchar / %d47 / %d63)
 fragment-r    = *(pchar / %d47 / %d63)
 
-
 ; authority-d is a redefinition of authority for capturing the domian phrase
 ; but without callback functions 
 ; it is reused for URI- for the same reason               
@@ -103,35 +97,19 @@ authority-d   = [ userinfo-d %d64 ] host-d [ ":" port-d ]
 userinfo-d    = *(%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 / %d58-59 / %d61 / %d95 / %d126)
 host-d        = IP-literal / IPv4address / reg-name
 port-d        = *DIGIT
-
 IP-literal    = "[" ( IPv6address / IPvFuture  ) "]"
 IPvFuture     = "v" 1*HEXDIG "." 1*( %d97-122 / %d65-90 / %d48-57 / %d33 / %d36 /%d38-46 / %d58-59 /%d61 /%d95 / %d126 )
-; does not work with APG probably because of "first-success disambiguation" and greedy repetitions.
-; will replace whit semantic checking of valid number of h16s
-;IPv6address   =                            6( h16 ":" ) ls32
-;              /                       "::" 5( h16 ":" ) ls32
-;              / [               h16 ] "::" 4( h16 ":" ) ls32
-;              / [ *1( h16 ":" ) h16 ] "::" 3( h16 ":" ) ls32
-;              / [ *2( h16 ":" ) h16 ] "::" 2( h16 ":" ) ls32
-;              / [ *3( h16 ":" ) h16 ] "::"    h16 ":"   ls32
-;              / [ *4( h16 ":" ) h16 ] "::"              ls32
-;              / [ *5( h16 ":" ) h16 ] "::"              h16
-;              / [ *6( h16 ":" ) h16 ] "::"
+IPv6address   = nodcolon / dcolon
+nodcolon      = (h16n *h16cn) [%d58 IPv4address]
+dcolon        = [h16 *h16c] %d58.58 (((h16n *h16cn) [%d58 IPv4address]) / [IPv4address])
 h16           = 1*4HEXDIG
 h16c          = %d58 1*4HEXDIG
 h16n          = 1*4HEXDIG !%d46
 h16cn         = %d58 1*4HEXDIG !%d46
-h16nc         = 1*4HEXDIG !%d46 %d58
-IPv6address   = nodcolon / dcolon
-nodcolon      = (h16n *h16cn) [IPv4address]
-dcolon        = [h16 *h16c] %d58.58 *h16nc [IPv4address]
-;ls32          = ( h16 ":" h16 ) / IPv4address
 IPv4address   = dec-octet "." dec-octet "." dec-octet "." dec-octet
-dec-octet     =  "1" 2DIGIT            ; 100-199
-                 / "2" %x30-34 DIGIT     ; 200-249
-                 / "25" %x30-35          ; 250-255
-                 / %x31-39 DIGIT         ; 10-99
-                 / DIGIT                 ; 0-9
+; Here we will will use callback functions to evaluate and validate the (possibly zero-padded) dec-octet.
+dec-octet     =  *3dec-digit
+dec-digit     = %d48-57
 reg-name      = *(%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 / %d59 / %d61 /%d95 / %d126)
 path-abempty  = *( "/" segment )
 path-absolute = "/" [ segment-nz *( "/" segment ) ]
@@ -143,7 +121,6 @@ path-abempty-r  = *( "/" segment )
 path-absolute-r = "/" [ segment-nz *( "/" segment ) ]
 path-rootless-r = segment-nz *( "/" segment )
 path-empty-r    = ""
-
 segment       = *pchar
 segment-nz    = 1*pchar
 pchar         = (%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 /%d58-59 / %d61 / %d64 / %d95 / %d126)
@@ -151,6 +128,29 @@ pct-encoded   = %d37 HEXDIG HEXDIG
 
 ; no longer needed - expanded for all usage for fewer branches in the parse there
 ; and more efficient use of the TBS & TRG operators in place of TLS and rule names
+; does not work with APG probably because of "first-success disambiguation" and greedy repetitions.
+; will replace with semantic checking of valid number of h16s
+;IPv6address   =                            6( h16 ":" ) ls32
+;              /                       "::" 5( h16 ":" ) ls32
+;              / [               h16 ] "::" 4( h16 ":" ) ls32
+;              / [ *1( h16 ":" ) h16 ] "::" 3( h16 ":" ) ls32
+;              / [ *2( h16 ":" ) h16 ] "::" 2( h16 ":" ) ls32
+;              / [ *3( h16 ":" ) h16 ] "::"    h16 ":"   ls32
+;              / [ *4( h16 ":" ) h16 ] "::"              ls32
+;              / [ *5( h16 ":" ) h16 ] "::"              h16
+;              / [ *6( h16 ":" ) h16 ] "::"
+;ls32          = ( h16 ":" h16 ) / IPv4address
+; dec-octet does not work because of "first-success disambiguation".
+; Must have the longest (3-digit) numbers first.
+; Even so, this form does not accept leading zeros.
+; There does not seem to be a clear standard for this (https://en.wikipedia.org/wiki/Dot-decimal_notation)
+; however and early RFC 790 did show leading-zero padding of the three digits.
+;dec-octet     = DIGIT                 ; 0-9
+;                 / %x31-39 DIGIT         ; 10-99
+;                 / "1" 2DIGIT            ; 100-199
+;                 / "2" %x30-34 DIGIT     ; 200-249
+;                 / "25" %x30-35          ; 250-255
+;statement = 1*( reserved / unreserved / " " )
 ;scheme        = ALPHA *( ALPHA / DIGIT / "+" / "-" / "." )
 ;authority     = [ userinfo "@" ] host [ ":" port ]
 ;userinfo      = *( unreserved / pct-encoded / sub-delims / ":" )

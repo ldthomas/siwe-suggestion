@@ -10,7 +10,7 @@
   "scripts": {
     "test": "jest",
     "build": "tsc",
-    "example": "node ./dist/example"
+    "example": "tsc && node ./dist/example"
   },
   "author": "Spruce Systems Inc.",
   "keywords": [

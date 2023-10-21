@@ -7,19 +7,19 @@ module.exports = function grammar(){
   // SUMMARY
   //      rules = 78
   //       udts = 0
-  //    opcodes = 444
+  //    opcodes = 435
   //        ---   ABNF original opcodes
   //        ALT = 24
-  //        CAT = 59
+  //        CAT = 58
   //        REP = 62
-  //        RNM = 148
-  //        TLS = 43
+  //        RNM = 146
+  //        TLS = 40
   //        TBS = 63
-  //        TRG = 42
+  //        TRG = 40
   //        ---   SABNF superset opcodes
   //        UDT = 0
   //        AND = 0
-  //        NOT = 3
+  //        NOT = 2
   //        BKA = 0
   //        BKN = 0
   //        BKR = 0
@@ -70,16 +70,16 @@ module.exports = function grammar(){
   this.rules[35] = {name: 'port-d', lower: 'port-d', index: 35, isBkr: false};
   this.rules[36] = {name: 'IP-literal', lower: 'ip-literal', index: 36, isBkr: false};
   this.rules[37] = {name: 'IPvFuture', lower: 'ipvfuture', index: 37, isBkr: false};
-  this.rules[38] = {name: 'h16', lower: 'h16', index: 38, isBkr: false};
-  this.rules[39] = {name: 'h16c', lower: 'h16c', index: 39, isBkr: false};
-  this.rules[40] = {name: 'h16n', lower: 'h16n', index: 40, isBkr: false};
-  this.rules[41] = {name: 'h16cn', lower: 'h16cn', index: 41, isBkr: false};
-  this.rules[42] = {name: 'h16nc', lower: 'h16nc', index: 42, isBkr: false};
-  this.rules[43] = {name: 'IPv6address', lower: 'ipv6address', index: 43, isBkr: false};
-  this.rules[44] = {name: 'nodcolon', lower: 'nodcolon', index: 44, isBkr: false};
-  this.rules[45] = {name: 'dcolon', lower: 'dcolon', index: 45, isBkr: false};
-  this.rules[46] = {name: 'IPv4address', lower: 'ipv4address', index: 46, isBkr: false};
-  this.rules[47] = {name: 'dec-octet', lower: 'dec-octet', index: 47, isBkr: false};
+  this.rules[38] = {name: 'IPv6address', lower: 'ipv6address', index: 38, isBkr: false};
+  this.rules[39] = {name: 'nodcolon', lower: 'nodcolon', index: 39, isBkr: false};
+  this.rules[40] = {name: 'dcolon', lower: 'dcolon', index: 40, isBkr: false};
+  this.rules[41] = {name: 'h16', lower: 'h16', index: 41, isBkr: false};
+  this.rules[42] = {name: 'h16c', lower: 'h16c', index: 42, isBkr: false};
+  this.rules[43] = {name: 'h16n', lower: 'h16n', index: 43, isBkr: false};
+  this.rules[44] = {name: 'h16cn', lower: 'h16cn', index: 44, isBkr: false};
+  this.rules[45] = {name: 'IPv4address', lower: 'ipv4address', index: 45, isBkr: false};
+  this.rules[46] = {name: 'dec-octet', lower: 'dec-octet', index: 46, isBkr: false};
+  this.rules[47] = {name: 'dec-digit', lower: 'dec-digit', index: 47, isBkr: false};
   this.rules[48] = {name: 'reg-name', lower: 'reg-name', index: 48, isBkr: false};
   this.rules[49] = {name: 'path-abempty', lower: 'path-abempty', index: 49, isBkr: false};
   this.rules[50] = {name: 'path-absolute', lower: 'path-absolute', index: 50, isBkr: false};
@@ -328,7 +328,7 @@ module.exports = function grammar(){
   this.rules[23].opcodes = [];
   this.rules[23].opcodes[0] = {type: 1, children: [1,2,3]};// ALT
   this.rules[23].opcodes[1] = {type: 4, index: 36};// RNM(IP-literal)
-  this.rules[23].opcodes[2] = {type: 4, index: 46};// RNM(IPv4address)
+  this.rules[23].opcodes[2] = {type: 4, index: 45};// RNM(IPv4address)
   this.rules[23].opcodes[3] = {type: 4, index: 48};// RNM(reg-name)
 
   /* port */
@@ -438,7 +438,7 @@ module.exports = function grammar(){
   this.rules[34].opcodes = [];
   this.rules[34].opcodes[0] = {type: 1, children: [1,2,3]};// ALT
   this.rules[34].opcodes[1] = {type: 4, index: 36};// RNM(IP-literal)
-  this.rules[34].opcodes[2] = {type: 4, index: 46};// RNM(IPv4address)
+  this.rules[34].opcodes[2] = {type: 4, index: 45};// RNM(IPv4address)
   this.rules[34].opcodes[3] = {type: 4, index: 48};// RNM(reg-name)
 
   /* port-d */
@@ -451,7 +451,7 @@ module.exports = function grammar(){
   this.rules[36].opcodes[0] = {type: 2, children: [1,2,5]};// CAT
   this.rules[36].opcodes[1] = {type: 7, string: [91]};// TLS
   this.rules[36].opcodes[2] = {type: 1, children: [3,4]};// ALT
-  this.rules[36].opcodes[3] = {type: 4, index: 43};// RNM(IPv6address)
+  this.rules[36].opcodes[3] = {type: 4, index: 38};// RNM(IPv6address)
   this.rules[36].opcodes[4] = {type: 4, index: 37};// RNM(IPvFuture)
   this.rules[36].opcodes[5] = {type: 7, string: [93]};// TLS
 
@@ -475,103 +475,94 @@ module.exports = function grammar(){
   this.rules[37].opcodes[15] = {type: 6, string: [95]};// TBS
   this.rules[37].opcodes[16] = {type: 6, string: [126]};// TBS
 
-  /* h16 */
-  this.rules[38].opcodes = [];
-  this.rules[38].opcodes[0] = {type: 3, min: 1, max: 4};// REP
-  this.rules[38].opcodes[1] = {type: 4, index: 77};// RNM(HEXDIG)
-
-  /* h16c */
-  this.rules[39].opcodes = [];
-  this.rules[39].opcodes[0] = {type: 2, children: [1,2]};// CAT
-  this.rules[39].opcodes[1] = {type: 6, string: [58]};// TBS
-  this.rules[39].opcodes[2] = {type: 3, min: 1, max: 4};// REP
-  this.rules[39].opcodes[3] = {type: 4, index: 77};// RNM(HEXDIG)
-
-  /* h16n */
-  this.rules[40].opcodes = [];
-  this.rules[40].opcodes[0] = {type: 2, children: [1,3]};// CAT
-  this.rules[40].opcodes[1] = {type: 3, min: 1, max: 4};// REP
-  this.rules[40].opcodes[2] = {type: 4, index: 77};// RNM(HEXDIG)
-  this.rules[40].opcodes[3] = {type: 13};// NOT
-  this.rules[40].opcodes[4] = {type: 6, string: [46]};// TBS
-
-  /* h16cn */
-  this.rules[41].opcodes = [];
-  this.rules[41].opcodes[0] = {type: 2, children: [1,2,4]};// CAT
-  this.rules[41].opcodes[1] = {type: 6, string: [58]};// TBS
-  this.rules[41].opcodes[2] = {type: 3, min: 1, max: 4};// REP
-  this.rules[41].opcodes[3] = {type: 4, index: 77};// RNM(HEXDIG)
-  this.rules[41].opcodes[4] = {type: 13};// NOT
-  this.rules[41].opcodes[5] = {type: 6, string: [46]};// TBS
-
-  /* h16nc */
-  this.rules[42].opcodes = [];
-  this.rules[42].opcodes[0] = {type: 2, children: [1,3,5]};// CAT
-  this.rules[42].opcodes[1] = {type: 3, min: 1, max: 4};// REP
-  this.rules[42].opcodes[2] = {type: 4, index: 77};// RNM(HEXDIG)
-  this.rules[42].opcodes[3] = {type: 13};// NOT
-  this.rules[42].opcodes[4] = {type: 6, string: [46]};// TBS
-  this.rules[42].opcodes[5] = {type: 6, string: [58]};// TBS
-
   /* IPv6address */
-  this.rules[43].opcodes = [];
-  this.rules[43].opcodes[0] = {type: 1, children: [1,2]};// ALT
-  this.rules[43].opcodes[1] = {type: 4, index: 44};// RNM(nodcolon)
-  this.rules[43].opcodes[2] = {type: 4, index: 45};// RNM(dcolon)
+  this.rules[38].opcodes = [];
+  this.rules[38].opcodes[0] = {type: 1, children: [1,2]};// ALT
+  this.rules[38].opcodes[1] = {type: 4, index: 39};// RNM(nodcolon)
+  this.rules[38].opcodes[2] = {type: 4, index: 40};// RNM(dcolon)
 
   /* nodcolon */
-  this.rules[44].opcodes = [];
-  this.rules[44].opcodes[0] = {type: 2, children: [1,5]};// CAT
-  this.rules[44].opcodes[1] = {type: 2, children: [2,3]};// CAT
-  this.rules[44].opcodes[2] = {type: 4, index: 40};// RNM(h16n)
-  this.rules[44].opcodes[3] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[44].opcodes[4] = {type: 4, index: 41};// RNM(h16cn)
-  this.rules[44].opcodes[5] = {type: 3, min: 0, max: 1};// REP
-  this.rules[44].opcodes[6] = {type: 4, index: 46};// RNM(IPv4address)
+  this.rules[39].opcodes = [];
+  this.rules[39].opcodes[0] = {type: 2, children: [1,5]};// CAT
+  this.rules[39].opcodes[1] = {type: 2, children: [2,3]};// CAT
+  this.rules[39].opcodes[2] = {type: 4, index: 43};// RNM(h16n)
+  this.rules[39].opcodes[3] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[39].opcodes[4] = {type: 4, index: 44};// RNM(h16cn)
+  this.rules[39].opcodes[5] = {type: 3, min: 0, max: 1};// REP
+  this.rules[39].opcodes[6] = {type: 2, children: [7,8]};// CAT
+  this.rules[39].opcodes[7] = {type: 6, string: [58]};// TBS
+  this.rules[39].opcodes[8] = {type: 4, index: 45};// RNM(IPv4address)
 
   /* dcolon */
-  this.rules[45].opcodes = [];
-  this.rules[45].opcodes[0] = {type: 2, children: [1,6,7,9]};// CAT
-  this.rules[45].opcodes[1] = {type: 3, min: 0, max: 1};// REP
-  this.rules[45].opcodes[2] = {type: 2, children: [3,4]};// CAT
-  this.rules[45].opcodes[3] = {type: 4, index: 38};// RNM(h16)
-  this.rules[45].opcodes[4] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[45].opcodes[5] = {type: 4, index: 39};// RNM(h16c)
-  this.rules[45].opcodes[6] = {type: 6, string: [58,58]};// TBS
-  this.rules[45].opcodes[7] = {type: 3, min: 0, max: Infinity};// REP
-  this.rules[45].opcodes[8] = {type: 4, index: 42};// RNM(h16nc)
-  this.rules[45].opcodes[9] = {type: 3, min: 0, max: 1};// REP
-  this.rules[45].opcodes[10] = {type: 4, index: 46};// RNM(IPv4address)
+  this.rules[40].opcodes = [];
+  this.rules[40].opcodes[0] = {type: 2, children: [1,6,7]};// CAT
+  this.rules[40].opcodes[1] = {type: 3, min: 0, max: 1};// REP
+  this.rules[40].opcodes[2] = {type: 2, children: [3,4]};// CAT
+  this.rules[40].opcodes[3] = {type: 4, index: 41};// RNM(h16)
+  this.rules[40].opcodes[4] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[40].opcodes[5] = {type: 4, index: 42};// RNM(h16c)
+  this.rules[40].opcodes[6] = {type: 6, string: [58,58]};// TBS
+  this.rules[40].opcodes[7] = {type: 1, children: [8,17]};// ALT
+  this.rules[40].opcodes[8] = {type: 2, children: [9,13]};// CAT
+  this.rules[40].opcodes[9] = {type: 2, children: [10,11]};// CAT
+  this.rules[40].opcodes[10] = {type: 4, index: 43};// RNM(h16n)
+  this.rules[40].opcodes[11] = {type: 3, min: 0, max: Infinity};// REP
+  this.rules[40].opcodes[12] = {type: 4, index: 44};// RNM(h16cn)
+  this.rules[40].opcodes[13] = {type: 3, min: 0, max: 1};// REP
+  this.rules[40].opcodes[14] = {type: 2, children: [15,16]};// CAT
+  this.rules[40].opcodes[15] = {type: 6, string: [58]};// TBS
+  this.rules[40].opcodes[16] = {type: 4, index: 45};// RNM(IPv4address)
+  this.rules[40].opcodes[17] = {type: 3, min: 0, max: 1};// REP
+  this.rules[40].opcodes[18] = {type: 4, index: 45};// RNM(IPv4address)
+
+  /* h16 */
+  this.rules[41].opcodes = [];
+  this.rules[41].opcodes[0] = {type: 3, min: 1, max: 4};// REP
+  this.rules[41].opcodes[1] = {type: 4, index: 77};// RNM(HEXDIG)
+
+  /* h16c */
+  this.rules[42].opcodes = [];
+  this.rules[42].opcodes[0] = {type: 2, children: [1,2]};// CAT
+  this.rules[42].opcodes[1] = {type: 6, string: [58]};// TBS
+  this.rules[42].opcodes[2] = {type: 3, min: 1, max: 4};// REP
+  this.rules[42].opcodes[3] = {type: 4, index: 77};// RNM(HEXDIG)
+
+  /* h16n */
+  this.rules[43].opcodes = [];
+  this.rules[43].opcodes[0] = {type: 2, children: [1,3]};// CAT
+  this.rules[43].opcodes[1] = {type: 3, min: 1, max: 4};// REP
+  this.rules[43].opcodes[2] = {type: 4, index: 77};// RNM(HEXDIG)
+  this.rules[43].opcodes[3] = {type: 13};// NOT
+  this.rules[43].opcodes[4] = {type: 6, string: [46]};// TBS
+
+  /* h16cn */
+  this.rules[44].opcodes = [];
+  this.rules[44].opcodes[0] = {type: 2, children: [1,2,4]};// CAT
+  this.rules[44].opcodes[1] = {type: 6, string: [58]};// TBS
+  this.rules[44].opcodes[2] = {type: 3, min: 1, max: 4};// REP
+  this.rules[44].opcodes[3] = {type: 4, index: 77};// RNM(HEXDIG)
+  this.rules[44].opcodes[4] = {type: 13};// NOT
+  this.rules[44].opcodes[5] = {type: 6, string: [46]};// TBS
 
   /* IPv4address */
-  this.rules[46].opcodes = [];
-  this.rules[46].opcodes[0] = {type: 2, children: [1,2,3,4,5,6,7]};// CAT
-  this.rules[46].opcodes[1] = {type: 4, index: 47};// RNM(dec-octet)
-  this.rules[46].opcodes[2] = {type: 7, string: [46]};// TLS
-  this.rules[46].opcodes[3] = {type: 4, index: 47};// RNM(dec-octet)
-  this.rules[46].opcodes[4] = {type: 7, string: [46]};// TLS
-  this.rules[46].opcodes[5] = {type: 4, index: 47};// RNM(dec-octet)
-  this.rules[46].opcodes[6] = {type: 7, string: [46]};// TLS
-  this.rules[46].opcodes[7] = {type: 4, index: 47};// RNM(dec-octet)
+  this.rules[45].opcodes = [];
+  this.rules[45].opcodes[0] = {type: 2, children: [1,2,3,4,5,6,7]};// CAT
+  this.rules[45].opcodes[1] = {type: 4, index: 46};// RNM(dec-octet)
+  this.rules[45].opcodes[2] = {type: 7, string: [46]};// TLS
+  this.rules[45].opcodes[3] = {type: 4, index: 46};// RNM(dec-octet)
+  this.rules[45].opcodes[4] = {type: 7, string: [46]};// TLS
+  this.rules[45].opcodes[5] = {type: 4, index: 46};// RNM(dec-octet)
+  this.rules[45].opcodes[6] = {type: 7, string: [46]};// TLS
+  this.rules[45].opcodes[7] = {type: 4, index: 46};// RNM(dec-octet)
 
   /* dec-octet */
+  this.rules[46].opcodes = [];
+  this.rules[46].opcodes[0] = {type: 3, min: 0, max: 3};// REP
+  this.rules[46].opcodes[1] = {type: 4, index: 47};// RNM(dec-digit)
+
+  /* dec-digit */
   this.rules[47].opcodes = [];
-  this.rules[47].opcodes[0] = {type: 1, children: [1,5,9,12,15]};// ALT
-  this.rules[47].opcodes[1] = {type: 2, children: [2,3]};// CAT
-  this.rules[47].opcodes[2] = {type: 7, string: [49]};// TLS
-  this.rules[47].opcodes[3] = {type: 3, min: 2, max: 2};// REP
-  this.rules[47].opcodes[4] = {type: 4, index: 76};// RNM(DIGIT)
-  this.rules[47].opcodes[5] = {type: 2, children: [6,7,8]};// CAT
-  this.rules[47].opcodes[6] = {type: 7, string: [50]};// TLS
-  this.rules[47].opcodes[7] = {type: 5, min: 48, max: 52};// TRG
-  this.rules[47].opcodes[8] = {type: 4, index: 76};// RNM(DIGIT)
-  this.rules[47].opcodes[9] = {type: 2, children: [10,11]};// CAT
-  this.rules[47].opcodes[10] = {type: 7, string: [50,53]};// TLS
-  this.rules[47].opcodes[11] = {type: 5, min: 48, max: 53};// TRG
-  this.rules[47].opcodes[12] = {type: 2, children: [13,14]};// CAT
-  this.rules[47].opcodes[13] = {type: 5, min: 49, max: 57};// TRG
-  this.rules[47].opcodes[14] = {type: 4, index: 76};// RNM(DIGIT)
-  this.rules[47].opcodes[15] = {type: 4, index: 76};// RNM(DIGIT)
+  this.rules[47].opcodes[0] = {type: 5, min: 48, max: 57};// TRG
 
   /* reg-name */
   this.rules[48].opcodes = [];
@@ -796,8 +787,8 @@ module.exports = function grammar(){
   // The `toString()` function will display the original grammar file(s) that produced these opcodes.
   this.toString = function toString(){
     let str = "";
-    str += "; LDT 09/30/3023 \n";
-    str += "; modified in two significant ways\n";
+    str += "; LDT 10/21/3023 \n";
+    str += "; modified in several significant ways\n";
     str += "; 1) Literal strings are replaced with numbers and ranges (%d32 & %d32-126, etc.) when possible.\n";
     str += ";    TRB and especially TRG operators are much more efficient than TLS operators.\n";
     str += "; 2) Two rules, authority and URI, are used multiple times in different contexts. These rules will be reproduced and renamed\n";
@@ -808,7 +799,13 @@ module.exports = function grammar(){
     str += "; 2.b) The resource URI is defined as URI-r and its components defined as *-r.\n";
     str += ";      In this way, callback functions can be defined on URI and is components while\n";
     str += ";      leaving URI-r to be parsed identically with no unnecessary callback functions to slow it down.\n";
-    str += "; \n";
+    str += "; 3) IPv6address does not work because of APG's \"first-success disambiguation\" and \"greedy\" repetitions.\n";
+    str += ";    IPv6address redefined and validations moved to callback functions (semantic vs syntactic validation)\n";
+    str += ";    Redefinition requires negative look-ahead operators, that is SABNF instead of simple ABNF.\n";
+    str += "; 4) IPv4address fails because of \"first-success disambiguation\".\n";
+    str += ";    This could be fixed with rearrangement of the alternative terms. However, it would still not\n";
+    str += ";    accept zero-padded (leading zeros) decimal octets.\n";
+    str += ";    Therefore, IPv4address is also done with callback functions and semantic validation.\n";
     str += "\n";
     str += "\n";
     str += "sign-in-with-ethereum =\n";
@@ -827,39 +824,29 @@ module.exports = function grammar(){
     str += "    [ LF ri-title request-id ]\n";
     str += "    [ LF re-title\n";
     str += "    resources ]\n";
-    str += "ex-title = %s\"Expiration Time: \"\n";
-    str += "nb-title = %s\"Not Before: \"\n";
-    str += "ri-title = %s\"Request ID: \"\n";
-    str += "re-title = %s\"Resources:\"\n";
-    str += "\n";
-    str += "domain = authority-d\n";
-    str += "\n";
-    str += "address = \"0x\" 40*40HEXDIG\n";
+    str += "ex-title        = %s\"Expiration Time: \"\n";
+    str += "nb-title        = %s\"Not Before: \"\n";
+    str += "ri-title        = %s\"Request ID: \"\n";
+    str += "re-title        = %s\"Resources:\"\n";
+    str += "domain          = authority-d\n";
+    str += "address         = \"0x\" 40*40HEXDIG\n";
     str += "    ; Must also conform to captilization\n";
     str += "    ; checksum encoding specified in EIP-55\n";
     str += "    ; where applicable (EOAs).\n";
     str += "\n";
-    str += ";statement = 1*( reserved / unreserved / \" \" )\n";
-    str += "statement = 1*( %d97-122 / %d65-90 / %d48-57 / %d32-33 / %d35-36 / %d38-59 / %d61 / %d63-64 / %d91 / %d93 / %d95 / %d126)\n";
+    str += "statement       = 1*( %d97-122 / %d65-90 / %d48-57 / %d32-33 / %d35-36 / %d38-59 / %d61 / %d63-64 / %d91 / %d93 / %d95 / %d126)\n";
     str += "    ; The purpose is to exclude LF (line breaks).\n";
     str += "    ; LDT 10/04/2023: Do you mean %d32-126? All printing characters\n";
-    str += "\n";
-    str += "version = \"1\"\n";
-    str += "\n";
-    str += "nonce = 8*( ALPHA / DIGIT )\n";
-    str += "\n";
-    str += "issued-at = date-time\n";
+    str += "version         = \"1\"\n";
+    str += "nonce           = 8*( ALPHA / DIGIT )\n";
+    str += "issued-at       = date-time\n";
     str += "expiration-time = date-time\n";
-    str += "not-before = date-time\n";
-    str += "\n";
-    str += "request-id = *pchar\n";
-    str += "\n";
-    str += "chain-id = 1*DIGIT\n";
+    str += "not-before      = date-time\n";
+    str += "request-id      = *pchar\n";
+    str += "chain-id        = 1*DIGIT\n";
     str += "    ; See EIP-155 for valid CHAIN_IDs.\n";
-    str += "\n";
-    str += "resources = *( LF resource )\n";
-    str += "\n";
-    str += "resource = \"- \" URI-r\n";
+    str += "resources       = *( LF resource )\n";
+    str += "resource        = \"- \" URI-r\n";
     str += "\n";
     str += "; ------------------------------------------------------------------------------\n";
     str += "; RFC 3986\n";
@@ -875,7 +862,6 @@ module.exports = function grammar(){
     str += "                ; userinfo redefined to include the \"@\" so that it will fail without it\n";
     str += "                ; otherwise userinfo can match host and then the parser will backtrack\n";
     str += "                ; incorrectly keeping the captured userinfo phrase\n";
-    str += "\n";
     str += "userinfo      = *(%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 / %d58-59 / %d61 / %d95 / %d126)\n";
     str += "host          = IP-literal / IPv4address / reg-name\n";
     str += "port          = *DIGIT\n";
@@ -893,7 +879,6 @@ module.exports = function grammar(){
     str += "query-r       = *(pchar / %d47 / %d63)\n";
     str += "fragment-r    = *(pchar / %d47 / %d63)\n";
     str += "\n";
-    str += "\n";
     str += "; authority-d is a redefinition of authority for capturing the domian phrase\n";
     str += "; but without callback functions \n";
     str += "; it is reused for URI- for the same reason               \n";
@@ -901,35 +886,19 @@ module.exports = function grammar(){
     str += "userinfo-d    = *(%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 / %d58-59 / %d61 / %d95 / %d126)\n";
     str += "host-d        = IP-literal / IPv4address / reg-name\n";
     str += "port-d        = *DIGIT\n";
-    str += "\n";
     str += "IP-literal    = \"[\" ( IPv6address / IPvFuture  ) \"]\"\n";
     str += "IPvFuture     = \"v\" 1*HEXDIG \".\" 1*( %d97-122 / %d65-90 / %d48-57 / %d33 / %d36 /%d38-46 / %d58-59 /%d61 /%d95 / %d126 )\n";
-    str += "; does not work with APG probably because of \"first-success disambiguation\" and greedy repetitions.\n";
-    str += "; will replace whit semantic checking of valid number of h16s\n";
-    str += ";IPv6address   =                            6( h16 \":\" ) ls32\n";
-    str += ";              /                       \"::\" 5( h16 \":\" ) ls32\n";
-    str += ";              / [               h16 ] \"::\" 4( h16 \":\" ) ls32\n";
-    str += ";              / [ *1( h16 \":\" ) h16 ] \"::\" 3( h16 \":\" ) ls32\n";
-    str += ";              / [ *2( h16 \":\" ) h16 ] \"::\" 2( h16 \":\" ) ls32\n";
-    str += ";              / [ *3( h16 \":\" ) h16 ] \"::\"    h16 \":\"   ls32\n";
-    str += ";              / [ *4( h16 \":\" ) h16 ] \"::\"              ls32\n";
-    str += ";              / [ *5( h16 \":\" ) h16 ] \"::\"              h16\n";
-    str += ";              / [ *6( h16 \":\" ) h16 ] \"::\"\n";
+    str += "IPv6address   = nodcolon / dcolon\n";
+    str += "nodcolon      = (h16n *h16cn) [%d58 IPv4address]\n";
+    str += "dcolon        = [h16 *h16c] %d58.58 (((h16n *h16cn) [%d58 IPv4address]) / [IPv4address])\n";
     str += "h16           = 1*4HEXDIG\n";
     str += "h16c          = %d58 1*4HEXDIG\n";
     str += "h16n          = 1*4HEXDIG !%d46\n";
     str += "h16cn         = %d58 1*4HEXDIG !%d46\n";
-    str += "h16nc         = 1*4HEXDIG !%d46 %d58\n";
-    str += "IPv6address   = nodcolon / dcolon\n";
-    str += "nodcolon      = (h16n *h16cn) [IPv4address]\n";
-    str += "dcolon        = [h16 *h16c] %d58.58 *h16nc [IPv4address]\n";
-    str += ";ls32          = ( h16 \":\" h16 ) / IPv4address\n";
     str += "IPv4address   = dec-octet \".\" dec-octet \".\" dec-octet \".\" dec-octet\n";
-    str += "dec-octet     =  \"1\" 2DIGIT            ; 100-199\n";
-    str += "                 / \"2\" %x30-34 DIGIT     ; 200-249\n";
-    str += "                 / \"25\" %x30-35          ; 250-255\n";
-    str += "                 / %x31-39 DIGIT         ; 10-99\n";
-    str += "                 / DIGIT                 ; 0-9\n";
+    str += "; Here we will will use callback functions to evaluate and validate the (possibly zero-padded) dec-octet.\n";
+    str += "dec-octet     =  *3dec-digit\n";
+    str += "dec-digit     = %d48-57\n";
     str += "reg-name      = *(%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 / %d59 / %d61 /%d95 / %d126)\n";
     str += "path-abempty  = *( \"/\" segment )\n";
     str += "path-absolute = \"/\" [ segment-nz *( \"/\" segment ) ]\n";
@@ -941,7 +910,6 @@ module.exports = function grammar(){
     str += "path-absolute-r = \"/\" [ segment-nz *( \"/\" segment ) ]\n";
     str += "path-rootless-r = segment-nz *( \"/\" segment )\n";
     str += "path-empty-r    = \"\"\n";
-    str += "\n";
     str += "segment       = *pchar\n";
     str += "segment-nz    = 1*pchar\n";
     str += "pchar         = (%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 /%d58-59 / %d61 / %d64 / %d95 / %d126)\n";
@@ -949,6 +917,29 @@ module.exports = function grammar(){
     str += "\n";
     str += "; no longer needed - expanded for all usage for fewer branches in the parse there\n";
     str += "; and more efficient use of the TBS & TRG operators in place of TLS and rule names\n";
+    str += "; does not work with APG probably because of \"first-success disambiguation\" and greedy repetitions.\n";
+    str += "; will replace with semantic checking of valid number of h16s\n";
+    str += ";IPv6address   =                            6( h16 \":\" ) ls32\n";
+    str += ";              /                       \"::\" 5( h16 \":\" ) ls32\n";
+    str += ";              / [               h16 ] \"::\" 4( h16 \":\" ) ls32\n";
+    str += ";              / [ *1( h16 \":\" ) h16 ] \"::\" 3( h16 \":\" ) ls32\n";
+    str += ";              / [ *2( h16 \":\" ) h16 ] \"::\" 2( h16 \":\" ) ls32\n";
+    str += ";              / [ *3( h16 \":\" ) h16 ] \"::\"    h16 \":\"   ls32\n";
+    str += ";              / [ *4( h16 \":\" ) h16 ] \"::\"              ls32\n";
+    str += ";              / [ *5( h16 \":\" ) h16 ] \"::\"              h16\n";
+    str += ";              / [ *6( h16 \":\" ) h16 ] \"::\"\n";
+    str += ";ls32          = ( h16 \":\" h16 ) / IPv4address\n";
+    str += "; dec-octet does not work because of \"first-success disambiguation\".\n";
+    str += "; Must have the longest (3-digit) numbers first.\n";
+    str += "; Even so, this form does not accept leading zeros.\n";
+    str += "; There does not seem to be a clear standard for this (https://en.wikipedia.org/wiki/Dot-decimal_notation)\n";
+    str += "; however and early RFC 790 did show leading-zero padding of the three digits.\n";
+    str += ";dec-octet     = DIGIT                 ; 0-9\n";
+    str += ";                 / %x31-39 DIGIT         ; 10-99\n";
+    str += ";                 / \"1\" 2DIGIT            ; 100-199\n";
+    str += ";                 / \"2\" %x30-34 DIGIT     ; 200-249\n";
+    str += ";                 / \"25\" %x30-35          ; 250-255\n";
+    str += ";statement = 1*( reserved / unreserved / \" \" )\n";
     str += ";scheme        = ALPHA *( ALPHA / DIGIT / \"+\" / \"-\" / \".\" )\n";
     str += ";authority     = [ userinfo \"@\" ] host [ \":\" port ]\n";
     str += ";userinfo      = *( unreserved / pct-encoded / sub-delims / \":\" )\n";

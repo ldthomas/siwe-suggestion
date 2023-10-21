@@ -9,31 +9,6 @@ export const cb = {
         if (typeof data !== "object" || data === null) {
           throw new Error("data must be an object");
         }
-        // // default data values
-        // data.errors = [];
-        // data.lineno = 1;
-        // data.domain = undefined;
-        // data.address = undefined;
-        // data.statement = null;
-        // data.uri = undefined;
-        // data.uriElements = {
-        //   scheme: undefined,
-        //   authority: null,
-        //   userinfo: null,
-        //   host: null,
-        //   port: null,
-        //   path: null,
-        //   query: null,
-        //   fragment: null,
-        // };
-        // data.version = undefined;
-        // data.chainId = undefined;
-        // data.nonce = undefined;
-        // data.issuedAt = undefined;
-        // data.expirationTime = null;
-        // data.notBefore = null;
-        // data.requestId = null;
-        // data.resources = null;
         break;
       case id.NOMATCH:
         data.errors.push(`invalid message: max line number was ${data.lineno}`);
@@ -402,7 +377,7 @@ export const cb = {
   uri: function URI(result, chars, phraseIndex, data) {
     switch (result.state) {
       case id.MATCH:
-        //NOTE: all "valid-url" tests are satisfied if URI ABNF parsed without error.
+        //NOTE: all "valid-url" tests are satisfied if URI ABNF parses without error.
         data.uri = utils.charsToString(chars, phraseIndex, result.phraseLength);
         break;
       case id.EMPTY:
@@ -470,6 +445,29 @@ export const cb = {
             result.phraseLength = 0;
           }
         }
+        break;
+    }
+  },
+  decOctet: function decOctet(result, chars, phraseIndex, data) {
+    switch (result.state) {
+      case id.ACTIVE:
+        data.octet = 0;
+        break;
+      case id.MATCH:
+        // semantically validate the octet
+        if (data.octet > 255) {
+          result.state = id.NOMATCH;
+          result.phraseLength = 0;
+        } else {
+          result.state = id.MATCH;
+        }
+        break;
+    }
+  },
+  decDigit: function decDigit(result, chars, phraseIndex, data) {
+    switch (result.state) {
+      case id.MATCH:
+        data.octet = 10 * data.octet + chars[phraseIndex] - 48;
         break;
     }
   },
