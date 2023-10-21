@@ -74,7 +74,9 @@ userinfo-at   = userinfo %d64
                 ; otherwise userinfo can match host and then the parser will backtrack
                 ; incorrectly keeping the captured userinfo phrase
 userinfo      = *(%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 / %d58-59 / %d61 / %d95 / %d126)
-host          = IP-literal / IPv4address / reg-name
+host          = IP-literal / (IPv4address !reg-name-char) / reg-name
+                ; negative look-ahead required to prevent IPv4address from being recognized as first part of reg-name
+                ; same fix as https://github.com/garycourt/uri-js/issues/4
 port          = *DIGIT
 query         = *(pchar / %d47 / %d63)
 fragment      = *(pchar / %d47 / %d63)
@@ -95,7 +97,7 @@ fragment-r    = *(pchar / %d47 / %d63)
 ; it is reused for URI- for the same reason               
 authority-d   = [ userinfo-d %d64 ] host-d [ ":" port-d ]
 userinfo-d    = *(%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 / %d58-59 / %d61 / %d95 / %d126)
-host-d        = IP-literal / IPv4address / reg-name
+host-d        = IP-literal / (IPv4address !reg-name-char) / reg-name
 port-d        = *DIGIT
 IP-literal    = "[" ( IPv6address / IPvFuture  ) "]"
 IPvFuture     = "v" 1*HEXDIG "." 1*( %d97-122 / %d65-90 / %d48-57 / %d33 / %d36 /%d38-46 / %d58-59 /%d61 /%d95 / %d126 )
@@ -110,7 +112,8 @@ IPv4address   = dec-octet "." dec-octet "." dec-octet "." dec-octet
 ; Here we will will use callback functions to evaluate and validate the (possibly zero-padded) dec-octet.
 dec-octet     =  *3dec-digit
 dec-digit     = %d48-57
-reg-name      = *(%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 / %d59 / %d61 /%d95 / %d126)
+reg-name      = *reg-name-char
+reg-name-char = %d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 / %d59 / %d61 /%d95 / %d126
 path-abempty  = *( "/" segment )
 path-absolute = "/" [ segment-nz *( "/" segment ) ]
 path-rootless = segment-nz *( "/" segment )

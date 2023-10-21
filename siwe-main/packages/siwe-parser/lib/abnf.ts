@@ -4,7 +4,7 @@ import apgLib from "apg-js/src/apg-lib/node-exports";
 import * as fs from "node:fs";
 
 const id = apgLib.ids;
-const doTrace = true;
+const doTrace = false;
 const dir =
   "/home/ldt/Projects/siwe-suggestion/siwe-main/packages/siwe-parser/output";
 

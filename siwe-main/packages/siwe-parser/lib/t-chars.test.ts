@@ -1,10 +1,8 @@
 import * as fs from "node:fs";
-import { cwd } from "node:process";
-console.log(`Current Working Directory: ${cwd()}`);
-import { ParsedMessage } from "./abnf";
+// import { cwd } from "node:process";
+// console.log(`Current Working Directory: ${cwd()}`);
 import Grammar from "./siwe-grammar.js";
 import apgLib from "apg-js/src/apg-lib/node-exports";
-// const id = apgLib.ids;
 const grammarObj = new Grammar();
 const alpha = "abcdefghijklmnopqrstuvwxyz";
 const ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -46,138 +44,6 @@ const doParse = function doParse(rule, input, doTrace) {
   }
   return result;
 };
-const doUri = function doUri(uri: string) {
-  let msg14 = "";
-  msg14 += "service.org wants you to sign in with your Ethereum account:\n";
-  msg14 += "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\n";
-  msg14 += "\n";
-  msg14 += "\n";
-  msg14 += `URI: ${uri}\n`;
-  msg14 += "Version: 1\n";
-  msg14 += "Chain ID: 1\n";
-  msg14 += "Nonce: 32891757\n";
-  msg14 += "Issued At: 2021-09-30T16:25:24.000Z";
-  return new ParsedMessage(msg14);
-};
-
-// test getting siwe messages
-// const parsingPositive: Object = require("../../../test/parsing_positive.json");
-// Object.keys(parsingPositive).forEach((e) => {
-//   console.log(`key=${e} `);
-//   console.log(parsingPositive[e].message);
-// });
-// test getting siwe messages
-
-describe("uir-js tests", () => {
-  test("scheme", () => {
-    const result = doUri("uri:");
-    console.dir(result);
-    expect(result.uriElements.scheme).toBe("uri");
-    expect(result.uriElements.authority).toBeUndefined();
-    expect(result.uriElements.userinfo).toBeUndefined();
-    expect(result.uriElements.host).toBeUndefined();
-    expect(result.uriElements.port).toBeUndefined();
-    expect(result.uriElements.path).toBe("");
-    expect(result.uriElements.query).toBeUndefined();
-    expect(result.uriElements.fragment).toBeUndefined();
-  });
-  test("userinfo", () => {
-    const result = doUri("uri://@");
-    expect(result.uriElements.scheme).toBe("uri");
-    expect(result.uriElements.authority).toBe("@");
-    expect(result.uriElements.userinfo).toBe("");
-    expect(result.uriElements.host).toBe("");
-    expect(result.uriElements.port).toBeUndefined();
-    expect(result.uriElements.path).toBe("");
-    expect(result.uriElements.query).toBeUndefined();
-    expect(result.uriElements.fragment).toBeUndefined();
-  });
-  test("host", () => {
-    const result = doUri("uri://");
-    expect(result.uriElements.scheme).toBe("uri");
-    expect(result.uriElements.authority).toBe("");
-    expect(result.uriElements.userinfo).toBeUndefined();
-    expect(result.uriElements.host).toBe("");
-    expect(result.uriElements.port).toBeUndefined();
-    expect(result.uriElements.path).toBe("");
-    expect(result.uriElements.query).toBeUndefined();
-    expect(result.uriElements.fragment).toBeUndefined();
-  });
-  test("port", () => {
-    const result = doUri("uri://:");
-    // console.dir(result);
-    expect(result.uriElements.scheme).toBe("uri");
-    expect(result.uriElements.authority).toBe(":");
-    expect(result.uriElements.userinfo).toBeUndefined();
-    expect(result.uriElements.host).toBe("");
-    expect(result.uriElements.port).toBe("");
-    expect(result.uriElements.path).toBe("");
-    expect(result.uriElements.query).toBeUndefined();
-    expect(result.uriElements.fragment).toBeUndefined();
-  });
-  test("query", () => {
-    const result = doUri("uri:?");
-    // console.dir(result);
-    expect(result.uriElements.scheme).toBe("uri");
-    expect(result.uriElements.authority).toBeUndefined();
-    expect(result.uriElements.userinfo).toBeUndefined();
-    expect(result.uriElements.host).toBeUndefined();
-    expect(result.uriElements.port).toBeUndefined();
-    expect(result.uriElements.path).toBe("");
-    expect(result.uriElements.query).toBe("");
-    expect(result.uriElements.fragment).toBeUndefined();
-  });
-  test("fragment", () => {
-    const result = doUri("uri:#");
-    // console.dir(result);
-    expect(result.uriElements.scheme).toBe("uri");
-    expect(result.uriElements.authority).toBeUndefined();
-    expect(result.uriElements.userinfo).toBeUndefined();
-    expect(result.uriElements.host).toBeUndefined();
-    expect(result.uriElements.port).toBeUndefined();
-    expect(result.uriElements.path).toBe("");
-    expect(result.uriElements.query).toBeUndefined();
-    expect(result.uriElements.fragment).toBe("");
-  });
-  test("all", () => {
-    const result = doUri(
-      "uri://user:pass@example.com:123/one/two.three?q1=a1&q2=a2#body"
-    );
-    // console.dir(result);
-    expect(result.uriElements.scheme).toBe("uri");
-    expect(result.uriElements.authority).toBe("user:pass@example.com:123");
-    expect(result.uriElements.userinfo).toBe("user:pass");
-    expect(result.uriElements.host).toBe("example.com");
-    expect(result.uriElements.port).toBe("123");
-    expect(result.uriElements.path).toBe("/one/two.three");
-    expect(result.uriElements.query).toBe("q1=a1&q2=a2");
-    expect(result.uriElements.fragment).toBe("body");
-  });
-  test("IPv4address", () => {
-    const result = doUri("uri://10.10.10.10");
-    // console.dir(result);
-    expect(result.uriElements.scheme).toBe("uri");
-    expect(result.uriElements.authority).toBe("10.10.10.10");
-    expect(result.uriElements.userinfo).toBeUndefined();
-    expect(result.uriElements.host).toBe("10.10.10.10");
-    expect(result.uriElements.port).toBeUndefined();
-    expect(result.uriElements.path).toBe("");
-    expect(result.uriElements.query).toBeUndefined();
-    expect(result.uriElements.fragment).toBeUndefined();
-  });
-  test.only("IPv6address", () => {
-    const result = doUri("uri://[2001:db8::7]");
-    // console.dir(result);
-    expect(result.uriElements.scheme).toBe("uri");
-    expect(result.uriElements.authority).toBe("[2001:db8::7]");
-    expect(result.uriElements.userinfo).toBeUndefined();
-    expect(result.uriElements.host).toBe("[2001:db8::7]");
-    expect(result.uriElements.port).toBeUndefined();
-    expect(result.uriElements.path).toBe("");
-    expect(result.uriElements.query).toBeUndefined();
-    expect(result.uriElements.fragment).toBeUndefined();
-  });
-});
 describe("test strings with explicit special character definitions", () => {
   test("test pchar", () => {
     const rule = "segment-nz";

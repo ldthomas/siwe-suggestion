@@ -275,10 +275,8 @@ export const cb = {
   port: function port(result, chars, phraseIndex, data) {
     switch (result.state) {
       case id.MATCH:
-        data.uriElements.port = utils.charsToString(
-          chars,
-          phraseIndex,
-          result.phraseLength
+        data.uriElements.port = parseIntegerNumber(
+          utils.charsToString(chars, phraseIndex, result.phraseLength)
         );
         break;
       case id.EMPTY:
