@@ -58,6 +58,7 @@ export class ParsedMessage {
     parser.callbacks["authority"] = cb.authority;
     parser.callbacks["userinfo-at"] = cb.userinfo;
     parser.callbacks["host"] = cb.host;
+    parser.callbacks["IP-literal"] = cb.ipLiteral;
     parser.callbacks["port"] = cb.port;
     parser.callbacks["path-abempty"] = cb.pathAbempty;
     parser.callbacks["path-absolute"] = cb.pathAbsolute;

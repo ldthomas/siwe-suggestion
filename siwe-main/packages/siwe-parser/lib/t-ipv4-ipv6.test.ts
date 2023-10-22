@@ -21,6 +21,11 @@ const doUri = function doUri(uri: string) {
 };
 
 describe("test IPv4 addresses", () => {
+  // NOTE: The reason for using the IP-literal form for host to test the IPv4address
+  //       is that attempting to test the IPv4address form directly does not correctly
+  //       identify malformed IPv4address. If it fails, for example with 1.1.1.256, then
+  //       the host rule will simply move on to the reg-name alternative and it will succeed.
+  //       That is, host = [1.1.1.256] is valid, but because it is a reg-name not an IPv4address.
   test("bad octets", () => {
     expect(() => {
       doUri("uri://[::0.0.0.256]/p/path");
@@ -36,7 +41,7 @@ describe("test IPv4 addresses", () => {
     }).toThrow();
   });
   test("IPv4address 1", () => {
-    const result = doUri("uri://10.10.10.10");
+    const result = doUri("uri://[::10.10.10.10]");
     expect(result.uriElements.host).toBe("10.10.10.10");
   });
   test("IPv4address 2", () => {

@@ -257,12 +257,18 @@ export const cb = {
   },
   host: function host(result, chars, phraseIndex, data) {
     switch (result.state) {
+      case id.ACTIVE:
+        data.ipLiteral = false;
+        break;
       case id.MATCH:
         data.uriElements.host = utils.charsToString(
           chars,
           phraseIndex,
           result.phraseLength
         );
+        if (data.ipLiteral) {
+          data.uriElements.host = data.uriElements.host.slice(1, -1);
+        }
         break;
       case id.EMPTY:
         data.uriElements.host = "";
@@ -270,6 +276,11 @@ export const cb = {
       case id.NOMATCH:
         data.errors.push(`line ${data.lineno}: invalid URI host`);
         break;
+    }
+  },
+  ipLiteral: function ipLiteral(result, chars, phraseIndex, data) {
+    if (result.state === id.MATCH) {
+      data.ipLiteral = true;
     }
   },
   port: function port(result, chars, phraseIndex, data) {
@@ -386,7 +397,7 @@ export const cb = {
   },
   ipv4: function ipv4(result, chars, phraseIndex, data) {
     if (result.state === id.MATCH) {
-      data.ipv4 = true;
+      data.ipLiteral = true;
     }
   },
   h16: function h16(result, chars, phraseIndex, data) {
