@@ -1,11 +1,4 @@
-// import * as fs from "node:fs";
-// import { cwd } from "node:process";
-// console.log(`Current Working Directory: ${cwd()}`);
 import { ParsedMessage } from "./abnf";
-import Grammar from "./siwe-grammar.js";
-// import apgLib from "apg-js/src/apg-lib/node-exports";
-// const grammarObj = new Grammar();
-// const dir = "./output";
 const doUri = function doUri(uri: string) {
   let msg14 = "";
   msg14 += "service.org wants you to sign in with your Ethereum account:\n";
@@ -19,13 +12,14 @@ const doUri = function doUri(uri: string) {
   msg14 += "Issued At: 2021-09-30T16:25:24.000Z";
   return new ParsedMessage(msg14);
 };
+let result;
 
 describe("test IPv4 addresses", () => {
   // NOTE: The reason for using the IP-literal form for host to test the IPv4address
   //       is that attempting to test the IPv4address form directly does not correctly
   //       identify malformed IPv4address. If it fails, for example with 1.1.1.256, then
   //       the host rule will simply move on to the reg-name alternative and it will succeed.
-  //       That is, host = [1.1.1.256] is valid, but because it is a reg-name not an IPv4address.
+  //       That is, host = 1.1.1.256 is valid, but because it is a reg-name not an IPv4address.
   test("bad octets", () => {
     expect(() => {
       doUri("uri://[::0.0.0.256]/p/path");
@@ -41,15 +35,41 @@ describe("test IPv4 addresses", () => {
     }).toThrow();
   });
   test("IPv4address 1", () => {
-    const result = doUri("uri://[::10.10.10.10]");
-    expect(result.uriElements.host).toBe("10.10.10.10");
+    result = doUri("uri://[::10.10.10.10]");
+    expect(result.uriElements.host).toBe("::10.10.10.10");
   });
   test("IPv4address 2", () => {
-    const result = doUri("uri://000.000.010.001");
-    expect(result.uriElements.host).toBe("000.000.010.001");
+    result = doUri("uri://[::000.000.010.001]");
+    expect(result.uriElements.host).toBe("::000.000.010.001");
   });
   test("IPv4address 3", () => {
-    const result = doUri("uri://001.099.200.255");
-    expect(result.uriElements.host).toBe("001.099.200.255");
+    result = doUri("uri://[::001.099.200.255]");
+    expect(result.uriElements.host).toBe("::001.099.200.255");
+  });
+});
+describe("test IPv6 addresses", () => {
+  test("IPv6address no double colon", () => {
+    result = doUri("uri://[ffff:abcd:0:10:200:3000:f8a:1]");
+    expect(result.uriElements.host).toBe("ffff:abcd:0:10:200:3000:f8a:1");
+    result = doUri("uri://[ffff:abcd:0:10:200:3000:255.255.255.255]");
+    expect(result.uriElements.host).toBe(
+      "ffff:abcd:0:10:200:3000:255.255.255.255"
+    );
+    expect(() => {
+      // too many 16-bit digits
+      doUri("uri://[ffff:abcd:0:10:200:3000:f8a:1:ffff]");
+    }).toThrow();
+    expect(() => {
+      // too few 16-bit digits
+      doUri("uri://[ffff:abcd:0:10:200:3000:f8a]");
+    }).toThrow();
+    expect(() => {
+      // too many 16-bit digits
+      doUri("uri://[ffff:abcd:0:10:200:3000:ff:255.255.255.255]");
+    }).toThrow();
+    expect(() => {
+      // too few 16-bit digits
+      doUri("uri://[ffff:abcd:0:10:200:255.255.255.255]");
+    }).toThrow();
   });
 });

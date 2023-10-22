@@ -227,23 +227,6 @@ export const cb = {
         break;
     }
   },
-  authority: function authority(result, chars, phraseIndex, data) {
-    switch (result.state) {
-      case id.MATCH:
-        data.uriElements.authority = utils.charsToString(
-          chars,
-          phraseIndex,
-          result.phraseLength
-        );
-        break;
-      case id.EMPTY:
-        data.uriElements.authority = "";
-        break;
-      case id.NOMATCH:
-        data.errors.push(`line ${data.lineno}: invalid URI authority`);
-        break;
-    }
-  },
   userinfo: function userinfo(result, chars, phraseIndex, data) {
     switch (result.state) {
       case id.MATCH:
@@ -258,7 +241,7 @@ export const cb = {
   host: function host(result, chars, phraseIndex, data) {
     switch (result.state) {
       case id.ACTIVE:
-        data.ipLiteral = false;
+        data.iplit = false;
         break;
       case id.MATCH:
         data.uriElements.host = utils.charsToString(
@@ -266,7 +249,7 @@ export const cb = {
           phraseIndex,
           result.phraseLength
         );
-        if (data.ipLiteral) {
+        if (data.iplit) {
           data.uriElements.host = data.uriElements.host.slice(1, -1);
         }
         break;
@@ -280,7 +263,7 @@ export const cb = {
   },
   ipLiteral: function ipLiteral(result, chars, phraseIndex, data) {
     if (result.state === id.MATCH) {
-      data.ipLiteral = true;
+      data.iplit = true;
     }
   },
   port: function port(result, chars, phraseIndex, data) {
@@ -397,7 +380,7 @@ export const cb = {
   },
   ipv4: function ipv4(result, chars, phraseIndex, data) {
     if (result.state === id.MATCH) {
-      data.ipLiteral = true;
+      data.ipv4 = true;
     }
   },
   h16: function h16(result, chars, phraseIndex, data) {

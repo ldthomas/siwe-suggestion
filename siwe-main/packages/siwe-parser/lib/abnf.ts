@@ -23,7 +23,7 @@ export class ParsedMessage {
   resources: Array<string> | null;
   uriElements: {
     scheme: string;
-    authority: string;
+    // authority: string;
     userinfo: string;
     host: string;
     port: string;
@@ -55,7 +55,6 @@ export class ParsedMessage {
     parser.callbacks["uri-r"] = cb.uriR;
     parser.callbacks["resource"] = cb.resource;
     parser.callbacks["scheme"] = cb.scheme;
-    parser.callbacks["authority"] = cb.authority;
     parser.callbacks["userinfo-at"] = cb.userinfo;
     parser.callbacks["host"] = cb.host;
     parser.callbacks["IP-literal"] = cb.ipLiteral;
@@ -100,7 +99,7 @@ export class ParsedMessage {
       resources: null,
       uriElements: {
         scheme: undefined,
-        authority: undefined,
+        // authority: undefined,
         userinfo: undefined,
         host: undefined,
         port: undefined,
