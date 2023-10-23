@@ -27,6 +27,13 @@ Sign in with Etherium, [siwe](https://github.com/spruceid/siwe), has a package f
 
 4. Time tests show that this siwe parser runs about twice as fast as the original. Not as big a gain as I expected, but not a bad improvement.
 
+5. [valid-url](https://www.npmjs.com/package/valid-url) and [uri-js](https://www.npmjs.com/package/uri-js) dependencies have been
+   eliminated. However, I have only worked on the siwe-parser package and have not touched the siwe package except to eliminiate
+   the place where it validates the URI returned from siwe-parser. This is no longer necessary since the URI is either valid
+   or the siwe-parser will fail.
+
+6. I've been winging it with typescript. I probably could have done a better job of taking advantage of it.
+
 ### Suggestion only
 
 I should note that this is being done as a suggestion only. I am not familiar with Etherium or the Sign in with Etherium project. Therefore, I am not working with a fork with the intention of submitting a pull request. Perhaps, if the siwe developers have sufficient interest in the version I am suggesting here we can create a pull request or some other means of incorporating the suggestions here.
