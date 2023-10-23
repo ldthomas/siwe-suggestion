@@ -72,4 +72,74 @@ describe("test IPv6 addresses", () => {
       doUri("uri://[ffff:abcd:0:10:200:255.255.255.255]");
     }).toThrow();
   });
+  test("IPv6address leading double colon WITHOUT IPv4", () => {
+    result = doUri("uri://[::]");
+    expect(result.uriElements.host).toBe("::");
+    result = doUri("uri://[::ffff]");
+    expect(result.uriElements.host).toBe("::ffff");
+    result = doUri("uri://[::1:2:3:4:5:6:7]");
+    expect(result.uriElements.host).toBe("::1:2:3:4:5:6:7");
+    expect(() => {
+      // too many 16-bit digits
+      doUri("uri://[::1:2:3:4:5:6:7:8]");
+    }).toThrow();
+  });
+  test("IPv6address leading double colon WITH IPv4", () => {
+    result = doUri("uri://[::198.162.10.255]");
+    expect(result.uriElements.host).toBe("::198.162.10.255");
+    result = doUri("uri://[::ffff:198.162.10.255]");
+    expect(result.uriElements.host).toBe("::ffff:198.162.10.255");
+    result = doUri("uri://[::1:2:3:4:5:198.162.10.255]");
+    expect(result.uriElements.host).toBe("::1:2:3:4:5:198.162.10.255");
+    expect(() => {
+      // too many 16-bit digits
+      doUri("uri://[::1:2:3:4:5:6:198.162.10.255]");
+    }).toThrow();
+  });
+  test("IPv6address trailing double colon WITHOUT IPv4", () => {
+    result = doUri("uri://[1::]");
+    expect(result.uriElements.host).toBe("1::");
+    result = doUri("uri://[1:2:3:4:5:6:7::]");
+    expect(result.uriElements.host).toBe("1:2:3:4:5:6:7::");
+    expect(() => {
+      // too many 16-bit digits
+      doUri("uri://[1:2:3:4:5:6:7:8::]");
+    }).toThrow();
+  });
+  test("IPv6address trailing double colon WITH IPv4", () => {
+    result = doUri("uri://[1::198.162.10.255]");
+    expect(result.uriElements.host).toBe("1::198.162.10.255");
+    result = doUri("uri://[1:2:3:4:5::198.162.10.255]");
+    expect(result.uriElements.host).toBe("1:2:3:4:5::198.162.10.255");
+    expect(() => {
+      // too many 16-bit digits
+      doUri("uri://[1:2:3:4:5:6::198.162.10.255]");
+    }).toThrow();
+  });
+  test("IPv6address leading & trailing double colon WITHOUT IPv4", () => {
+    result = doUri("uri://[1::2]");
+    expect(result.uriElements.host).toBe("1::2");
+    result = doUri("uri://[1:2:3:4:5:6::7]");
+    expect(result.uriElements.host).toBe("1:2:3:4:5:6::7");
+    result = doUri("uri://[ffff:aaaa:bbbb::cccc:dddd:eeee:9999]");
+    expect(result.uriElements.host).toBe("ffff:aaaa:bbbb::cccc:dddd:eeee:9999");
+    expect(() => {
+      // too many 16-bit digits
+      doUri("uri://[1:2:3:4:5::6:7:8]");
+    }).toThrow();
+  });
+  test("IPv6address leading & trailing double colon WITH IPv4", () => {
+    result = doUri("uri://[1::2:198.162.10.255]");
+    expect(result.uriElements.host).toBe("1::2:198.162.10.255");
+    result = doUri("uri://[1:2:3:4::7:198.162.10.255]");
+    expect(result.uriElements.host).toBe("1:2:3:4::7:198.162.10.255");
+    result = doUri("uri://[ffff:aaaa:bbbb::cccc:dddd:198.162.10.255]");
+    expect(result.uriElements.host).toBe(
+      "ffff:aaaa:bbbb::cccc:dddd:198.162.10.255"
+    );
+    expect(() => {
+      // too many 16-bit digits
+      doUri("uri://[1:2:3:4:5::6:198.162.10.255]");
+    }).toThrow();
+  });
 });

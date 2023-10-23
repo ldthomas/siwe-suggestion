@@ -244,13 +244,19 @@ export const cb = {
         data.iplit = false;
         break;
       case id.MATCH:
-        data.uriElements.host = utils.charsToString(
-          chars,
-          phraseIndex,
-          result.phraseLength
-        );
         if (data.iplit) {
-          data.uriElements.host = data.uriElements.host.slice(1, -1);
+          // strip leading "[" and trailing "]" brackets
+          data.uriElements.host = utils.charsToString(
+            chars,
+            phraseIndex + 1,
+            result.phraseLength - 2
+          );
+        } else {
+          data.uriElements.host = utils.charsToString(
+            chars,
+            phraseIndex,
+            result.phraseLength
+          );
         }
         break;
       case id.EMPTY:

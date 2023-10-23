@@ -2,8 +2,6 @@ import Grammar from "../lib/siwe-grammar.js";
 import { cb } from "./callbacks";
 import apgLib from "apg-js/src/apg-lib/node-exports";
 import * as fs from "node:fs";
-
-const id = apgLib.ids;
 const doTrace = false;
 const dir =
   "/home/ldt/Projects/siwe-suggestion/siwe-main/packages/siwe-parser/output";
