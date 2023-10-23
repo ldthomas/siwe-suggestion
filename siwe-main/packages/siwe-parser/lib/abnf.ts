@@ -1,10 +1,9 @@
 import Grammar from "../lib/siwe-grammar.js";
 import { cb } from "./callbacks";
 import apgLib from "apg-js/src/apg-lib/node-exports";
+// only needed if doTrace = true
 import * as fs from "node:fs";
-const doTrace = false;
-const dir =
-  "/home/ldt/Projects/siwe-suggestion/siwe-main/packages/siwe-parser/output";
+import { cwd } from "node:process";
 
 export class ParsedMessage {
   domain: string;
@@ -21,7 +20,6 @@ export class ParsedMessage {
   resources: Array<string> | null;
   uriElements: {
     scheme: string;
-    // authority: string;
     userinfo: string;
     host: string;
     port: string;
@@ -30,7 +28,9 @@ export class ParsedMessage {
     fragment: string;
   };
 
-  constructor(msg: string) {
+  // For debugging: if doTrace = true apg-js will trace the parse tree
+  // and display it on an HTML page.
+  constructor(msg: string, doTrace = false) {
     const grammarObj = new Grammar();
     const parser = new apgLib.parser();
     parser.callbacks["sign-in-with-ethereum"] = cb.signInWithEtherium;
@@ -73,12 +73,6 @@ export class ParsedMessage {
     parser.callbacks["dec-octet"] = cb.decOctet;
     parser.callbacks["dec-digit"] = cb.decDigit;
 
-    if (doTrace) {
-      parser.trace = new apgLib.trace();
-      parser.trace.filter.operators["<ALL>"] = true;
-      // parser.trace.filter.operators.rep = true;
-    }
-
     // initialize parsed elements
     const elements = {
       errors: [],
@@ -97,7 +91,6 @@ export class ParsedMessage {
       resources: null,
       uriElements: {
         scheme: undefined,
-        // authority: undefined,
         userinfo: undefined,
         host: undefined,
         port: undefined,
@@ -106,9 +99,14 @@ export class ParsedMessage {
         fragment: undefined,
       },
     };
+    if (doTrace) {
+      parser.trace = new apgLib.trace();
+      parser.trace.filter.operators["<ALL>"] = true;
+    }
     const result = parser.parse(grammarObj, 0, msg, elements);
     if (doTrace) {
       const html = parser.trace.toHtmlPage("ascii", "siwe, default trace");
+      const dir = `${cwd()}/output`;
       const name = `${dir}/siwe-trace.html`;
       try {
         fs.mkdirSync(dir);

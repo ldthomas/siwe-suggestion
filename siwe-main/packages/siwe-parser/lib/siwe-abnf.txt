@@ -12,11 +12,16 @@
 ;      leaving URI-r to be parsed identically with no unnecessary callback functions to slow it down.
 ; 3) IPv6address does not work because of APG's "first-success disambiguation" and "greedy" repetitions.
 ;    IPv6address redefined and validations moved to callback functions (semantic vs syntactic validation)
-;    Redefinition requires negative look-ahead operators, that is SABNF instead of simple ABNF.
+;    Redefinition requires negative look-ahead operators, https://en.wikipedia.org/wiki/Syntactic_predicate
+;    That is SABNF instead of simple ABNF.
 ; 4) IPv4address fails because of "first-success disambiguation".
 ;    This could be fixed with rearrangement of the alternative terms. However, it would still not
 ;    accept zero-padded (leading zeros) decimal octets.
 ;    Therefore, IPv4address is also done with callback functions and semantic validation.
+; 5) The negative look-ahead operator is also needed in the definition of host to
+;    prevent failure with a reg-name that begins with an IPv4 address.
+; 6) NOTE: host = 1.1.1.256 is a valid host name even though it is an invalid IPv4address.
+;          The IPv4address alternative fails but the reg-name alternative succeeds.
 
 
 sign-in-with-ethereum =

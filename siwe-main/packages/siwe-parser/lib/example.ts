@@ -32,11 +32,6 @@ msg14 += "Issued At: 2021-09-30T16:25:24.000Z";
 console.log(`msg14:\n${msg14}\n`);
 
 let parsedMsg;
-parsedMsg = new ParsedMessage(msg14);
+parsedMsg = new ParsedMessage(msg14, false);
 console.log(parsedMsg.uriElements.scheme);
 console.dir(parsedMsg);
-for (let i = 0; i < messages.length; i += 1) {
-  // parsedMsg = new ParsedMessage(messages[i]);
-  // console.dir(parsedMsg);
-  // console.log(`messages[${i}]:\n${messages[i]}`);
-}

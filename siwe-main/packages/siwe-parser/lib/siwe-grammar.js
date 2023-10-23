@@ -812,11 +812,16 @@ module.exports = function grammar(){
     str += ";      leaving URI-r to be parsed identically with no unnecessary callback functions to slow it down.\n";
     str += "; 3) IPv6address does not work because of APG's \"first-success disambiguation\" and \"greedy\" repetitions.\n";
     str += ";    IPv6address redefined and validations moved to callback functions (semantic vs syntactic validation)\n";
-    str += ";    Redefinition requires negative look-ahead operators, that is SABNF instead of simple ABNF.\n";
+    str += ";    Redefinition requires negative look-ahead operators, https://en.wikipedia.org/wiki/Syntactic_predicate\n";
+    str += ";    That is SABNF instead of simple ABNF.\n";
     str += "; 4) IPv4address fails because of \"first-success disambiguation\".\n";
     str += ";    This could be fixed with rearrangement of the alternative terms. However, it would still not\n";
     str += ";    accept zero-padded (leading zeros) decimal octets.\n";
     str += ";    Therefore, IPv4address is also done with callback functions and semantic validation.\n";
+    str += "; 5) The negative look-ahead operator is also needed in the definition of host to\n";
+    str += ";    prevent failure with a reg-name that begins with an IPv4 address.\n";
+    str += "; 6) NOTE: host = 1.1.1.256 is a valid host name even though it is an invalid IPv4address.\n";
+    str += ";          The IPv4address alternative fails but the reg-name alternative succeeds.\n";
     str += "\n";
     str += "\n";
     str += "sign-in-with-ethereum =\n";
