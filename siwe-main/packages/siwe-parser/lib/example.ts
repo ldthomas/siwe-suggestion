@@ -14,8 +14,9 @@ msg14 += "service.org wants you to sign in with your Ethereum account:\n";
 msg14 += "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\n";
 msg14 += "\n";
 msg14 += "\n";
-msg14 += "URI: uri://10.10.10.10\n";
-// msg14 += "URI: uri://[2001:db8::ffff:001.00.000.255]\n";
+// msg14 += "URI: uri://10.10.10.10\n";
+msg14 +=
+  "URI: uri://example.com@[2001:db8::ffff:001.00.000.255]:80/my/path?my%20query#my%20fragment\n";
 // msg14 += "URI: uri://[2001:db8:db8:db8:db8:db8:db8:db8]\n";
 // msg14 += "URI: uri://[2001:db8:db8:db8:db8:db8:001.00.000.255]\n";
 // msg14 += "URI: uri://[::]\n";

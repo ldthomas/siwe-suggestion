@@ -13,7 +13,7 @@ const doUri = function doUri(uri: string) {
   return new ParsedMessage(msg14);
 };
 
-describe("reproduce uir-js tests", () => {
+describe("reproduce uri-js tests", () => {
   test("scheme", () => {
     const result = doUri("uri:");
     // console.dir(result);
