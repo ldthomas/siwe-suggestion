@@ -74,6 +74,10 @@ hier-part     = "//" authority path-abempty
               / path-empty
 scheme        = ALPHA *( ALPHA / DIGIT / %d43 / %d45-46 )
 authority     = [ userinfo-at ] host [ ":" port ]
+path-abempty  = *( "/" segment )
+path-absolute = "/" [ segment-nz *( "/" segment ) ]
+path-rootless = segment-nz *( "/" segment )
+path-empty    = ""
 userinfo-at   = userinfo %d64
                 ; userinfo redefined to include the "@" so that it will fail without it
                 ; otherwise userinfo can match host and then the parser will backtrack
@@ -82,6 +86,21 @@ userinfo      = *(%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d3
 host          = IP-literal / (IPv4address !reg-name-char) / reg-name
                 ; negative look-ahead required to prevent IPv4address from being recognized as first part of reg-name
                 ; same fix as https://github.com/garycourt/uri-js/issues/4
+IP-literal    = "[" ( IPv6address / IPvFuture  ) "]"
+IPvFuture     = "v" 1*HEXDIG "." 1*( %d97-122 / %d65-90 / %d48-57 / %d33 / %d36 /%d38-46 / %d58-59 /%d61 /%d95 / %d126 )
+IPv6address   = nodcolon / dcolon
+nodcolon      = (h16n *h16cn) [%d58 IPv4address]
+dcolon        = [h16 *h16c] %d58.58 (((h16n *h16cn) [%d58 IPv4address]) / [IPv4address])
+h16           = 1*4HEXDIG
+h16c          = %d58 1*4HEXDIG
+h16n          = 1*4HEXDIG !%d46
+h16cn         = %d58 1*4HEXDIG !%d46
+IPv4address   = dec-octet "." dec-octet "." dec-octet "." dec-octet
+; Here we will will use callback functions to evaluate and validate the (possibly zero-padded) dec-octet.
+dec-octet     =  *3dec-digit
+dec-digit     = %d48-57
+reg-name      = *reg-name-char
+reg-name-char = %d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 / %d59 / %d61 /%d95 / %d126
 port          = *DIGIT
 query         = *(pchar / %d47 / %d63)
 fragment      = *(pchar / %d47 / %d63)
@@ -104,25 +123,6 @@ authority-d   = [ userinfo-d %d64 ] host-d [ ":" port-d ]
 userinfo-d    = *(%d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 / %d58-59 / %d61 / %d95 / %d126)
 host-d        = IP-literal / (IPv4address !reg-name-char) / reg-name
 port-d        = *DIGIT
-IP-literal    = "[" ( IPv6address / IPvFuture  ) "]"
-IPvFuture     = "v" 1*HEXDIG "." 1*( %d97-122 / %d65-90 / %d48-57 / %d33 / %d36 /%d38-46 / %d58-59 /%d61 /%d95 / %d126 )
-IPv6address   = nodcolon / dcolon
-nodcolon      = (h16n *h16cn) [%d58 IPv4address]
-dcolon        = [h16 *h16c] %d58.58 (((h16n *h16cn) [%d58 IPv4address]) / [IPv4address])
-h16           = 1*4HEXDIG
-h16c          = %d58 1*4HEXDIG
-h16n          = 1*4HEXDIG !%d46
-h16cn         = %d58 1*4HEXDIG !%d46
-IPv4address   = dec-octet "." dec-octet "." dec-octet "." dec-octet
-; Here we will will use callback functions to evaluate and validate the (possibly zero-padded) dec-octet.
-dec-octet     =  *3dec-digit
-dec-digit     = %d48-57
-reg-name      = *reg-name-char
-reg-name-char = %d97-122 / %d65-90 / %d48-57 / pct-encoded / %d33 / %d36 / %d38-46 / %d59 / %d61 /%d95 / %d126
-path-abempty  = *( "/" segment )
-path-absolute = "/" [ segment-nz *( "/" segment ) ]
-path-rootless = segment-nz *( "/" segment )
-path-empty    = ""
 
 ; for use with URI-r
 path-abempty-r  = *( "/" segment )

@@ -35,6 +35,16 @@ describe("reproduce uri-js tests", () => {
     expect(result.uriElements.query).toBeUndefined();
     expect(result.uriElements.fragment).toBeUndefined();
   });
+  test("empty host", () => {
+    const result = doUri("uri://@:");
+    expect(result.uriElements.scheme).toBe("uri");
+    expect(result.uriElements.userinfo).toBe("");
+    expect(result.uriElements.host).toBe("");
+    expect(result.uriElements.port).toBe("");
+    expect(result.uriElements.path).toBe("");
+    expect(result.uriElements.query).toBeUndefined();
+    expect(result.uriElements.fragment).toBeUndefined();
+  });
   test("host", () => {
     const result = doUri("uri://");
     expect(result.uriElements.scheme).toBe("uri");

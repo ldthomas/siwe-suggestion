@@ -23,7 +23,7 @@ Sign in with Etherium, [siwe](https://github.com/spruceid/siwe), has a package f
 2. Unit testing will show that the original siwe-parser will fail on many valid URIs.
    Especially those with IPv6 addresses.
 
-3. In a couple of cases [look-ahead operators](https://en.wikipedia.org/wiki/Syntactic_predicate) were required to prevent on rule overrunning into another. Therefore, technically, the grammar is [SABNF](https://sabnf.com/docs/python/md_docs_SABNF.html) rather than the original [ABNF](https://www.rfc-editor.org/rfc/rfc5234).
+3. In a couple of cases [look-ahead operators](https://en.wikipedia.org/wiki/Syntactic_predicate) were required to prevent one rule overrunning into another. Therefore, technically, the grammar is [SABNF](https://sabnf.com/docs/python/md_docs_SABNF.html) rather than the original [ABNF](https://www.rfc-editor.org/rfc/rfc5234).
 
 4. Time tests show that this siwe parser runs about twice as fast as the original. Not as big a gain as I expected, but not a bad improvement.
 
