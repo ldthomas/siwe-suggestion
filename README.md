@@ -1,43 +1,33 @@
-### A Suggested apg-js Parser
+## A Suggested siwe Parser
 
-Sign in with Etherium, [siwe](https://github.com/spruceid/siwe), has a package for parsing the siwe messages with [apg-js](https://www.npmjs.com/package/apg-js). This is primarily done in the file [abnf.ts](https://github.com/spruceid/siwe/blob/main/packages/siwe-parser/lib/abnf.ts). There are several ways in which this parser can be improved.
+I've taken the liberty of rewriting the [siwe-parser](https://github.com/spruceid/siwe/tree/main/packages/siwe-parser) I know nothing of Etherium but I've had a lot of experience writing [apg-js](https://www.npmjs.com/package/apg-js) parsers. I'd be happy to reconfigure this as a pull request
+if there is sufficient interest from the siwe developers.
 
-- The first is to use a pre-generated ABNF grammar object rather than re-generating the object each time a message is parsed.
-- The ABNF grammar is relatively simple with only 58 rules and no recursion. Theoretically, it could be parsed with a regular expression similar to that given for the URI in [RFC 3986](https://www.rfc-editor.org/rfc/rfc3986), Appendix B. But I'll stick with apg-js with its named rules and callback functions which can be used to provide better error checking and reporting, among other things.
-- The simplicity of the ABNF grammar also indicates that there will be no backtracking over any of the rules (named phrases) of interest. Therefore, we can forego the construction and translation of an AST. All of the rule phrases can be collected and error checked right from the parse tree as the message is being parsed.
-- Also, in the current version the URI in the message is parsed twice - once during the apg-js parsing of the full siwe message and then a second time with the depencency [valid-url](https://www.npmjs.com/package/valid-url). This version of the parser will eliminate the need for valid-url by reproducing its parsing and validating during the first and only parsing of the URI with apg-js.
-- And finally, the ABNF grammar itself is optimized for the apg-js parser.
+### Its Main Features Are:
 
-### Some Comments on the Final Parser
+1. It runs about twice as fast as the original parser.
+2. It eliminates the [valid-ur](https://www.npmjs.com/package/valid-url) and [uri-js](https://www.npmjs.com/package/uri-js) dependencenies.
+3. It fixes some deficiencies. The current parser fails on some URIs, particularly those with `IPv6address`.
+4. It also addresses some silent errors with the `IPv4address` that can happen but go unnoticed because of peculiarities
+   in the way the `host` is defined.
 
-1. Parsing directly from the parse tree required a considerable amount of rewriting of the ABNF grammar, especially the URI, RFC 3986.
-   In the process several problems with RFC 3986 were found. The authors no doubt assumed fully Context-Free Parsing whereas APG
-   uses "first-success disambiguation" (sometimes referred to as "prioritized choice") and greedy repetitions.
-   In particular, the IPv4address and especially the IPv6address rules are not correctly parsed with APG.
-   In these cases, the attempt to describe them completely with plain ABNF was abandonded and they
-   were matched and validated semantically in the callback functions.
+I've added a large set of unit tests. I've included all of the RFC 3986 unit tests from [uri-js](https://www.npmjs.com/package/uri-js).
+(see `t-uri-js.test.ts`.) This was very informative and is where I picked up most of the problems with `IPv6address`. For eample, the
+current parser will fail with a thrown exception parsing an siwe message with
 
-   - Note that in the case of IPv4 addresses it is difficult to notice when the parse fails because
-     the host rule, on IPv4 failure, will then succeed because reg-name will succeed where IPv4 failed.
+> "URI: uri:[2001:db8::7]\n"
 
-2. Unit testing will show that the original siwe-parser will fail on many valid URIs.
-   Especially those with IPv6 addresses.
+The unit tests in the file `t-ipv4-ipv6.test.ts` give the `IPv6address` a pretty good work out.
 
-3. In a couple of cases [look-ahead operators](https://en.wikipedia.org/wiki/Syntactic_predicate) were required to prevent one rule overrunning into another. Therefore, technically, the grammar is [SABNF](https://sabnf.com/docs/python/md_docs_SABNF.html) rather than the original [ABNF](https://www.rfc-editor.org/rfc/rfc5234).
+As a side note, [valid-url](https://www.npmjs.com/package/valid-url) will accept as valid the `IPv6address`
 
-4. Time tests show that this siwe parser runs about twice as fast as the original. Not as big a gain as I expected, but not a bad improvement.
+> uri://[ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff:255.255.255.255]".
 
-5. [valid-url](https://www.npmjs.com/package/valid-url) and [uri-js](https://www.npmjs.com/package/uri-js) dependencies have been
-   eliminated. However, I have only worked on the siwe-parser package and have not touched the siwe package except to eliminiate
-   the place where it validates the URI returned from siwe-parser. This is no longer necessary since the URI is either valid
-   or the siwe-parser will fail.
+### Some Notes
 
-6. I've been winging it with typescript. I probably could have done a better job of taking advantage of it.
-
-### Suggestion only
-
-I should note that this is being done as a suggestion only. I am not familiar with Etherium or the Sign in with Etherium project. Therefore, I am not working with a fork with the intention of submitting a pull request. Perhaps, if the siwe developers have sufficient interest in the version I am suggesting here we can create a pull request or some other means of incorporating the suggestions here.
-
-#### uri-js and valid-url dependencies
-
-This suggestion should eliminate the need for the valid-url dependency. As far as the [uri-js](https://www.npmjs.com/package/uri-js) dependency I'm currently unable to find any place in the siwe project, either the siwe package or the siwe-parser package where it is used. I'm apparently missing something recarding the uri-js dependency.
+- The parser does not construct and translate an AST. The translations are all done from callback functions on the parse tree.
+- In some cases, `IPv4address` and `IPv6address` in particuluar, strict ABNF rules were forgone in favor of capturing
+  and validating the phrases semantically in the callback functions.
+- In a couple of cases, [look-ahead operators](https://en.wikipedia.org/wiki/Syntactic_predicate) were required to keep one rule from overrunning into the next rule's phrase. Therefore, technically, the grammar is [SABNF](https://sabnf.com/docs/python/md_docs_SABNF.html) rather than the original [ABNF](https://www.rfc-editor.org/rfc/rfc5234).
+- `apg-js` is not strictly a Context-Free Grammar parser. It uses "first-success disambiguation" (sometimes referred to as "prioritized choice")
+  and greedy repetitions. Because of this and the use of the callback functions directly from the parse tree, the grammar was considerably re-written, especially RFC 3986.
